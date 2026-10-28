@@ -37,6 +37,6 @@ node scripts/fetch-thumbs.mjs
 ## Going live
 
 1. Push this repo to GitHub and enable Pages (Settings → Pages → Deploy from branch → `main`, `/`).
-2. Add a `CNAME` file containing `christartaro.com` (or set the custom domain in Settings → Pages). Set the custom domain to `christartaro.com` and tick **Enforce HTTPS**.
+2. Add a `CNAME` file containing `christartaro.com` (or set the custom domain in Settings → Pages), then tick **Enforce HTTPS**.
 3. In your GitHub account settings → Pages, verify the domain (protects against takeover).
 4. At the domain registrar, point DNS at GitHub Pages: four `A` records for `@` (185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153) and a `CNAME` for `www` to `<username>.github.io`.
