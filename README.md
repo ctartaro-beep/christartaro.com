@@ -1,0 +1,43 @@
+# christartaro.com
+
+Static portfolio site for Chris Tartaro, hosted on GitHub Pages. No build step.
+
+## Files
+
+- `data/videos.json` holds every page, section and video. This is the only file you need to touch for content changes.
+- `index.html`, `styles.css`, `app.js` hold the layout, look and behavior.
+- `img/` holds local thumbnails (filled by `scripts/fetch-thumbs.mjs`).
+- `CNAME` points GitHub Pages at christartaro.com.
+
+## Adding a video
+
+Add an entry to the right section in `data/videos.json`:
+
+```json
+{ "title": "Sketch name", "youtube": "VIDEO_ID", "thumb": "img/sketch-name.jpg" }
+```
+
+Use `"vimeo": "123456789"` instead of `youtube` for Vimeo (add `"hash"` for unlisted Vimeo links). `"start": 34` starts a YouTube video at 0:34. `"description"` is optional. If `thumb` is empty or missing, the card shows the title on a dark panel.
+
+## Preview locally
+
+```sh
+python3 -m http.server 8000
+```
+
+Then open http://localhost:8000.
+
+## Before cancelling Squarespace
+
+Thumbnails are still loaded from Squarespace's image CDN. Run this once to copy them into `img/` and update the data file, then commit:
+
+```sh
+node scripts/fetch-thumbs.mjs
+```
+
+## Going live
+
+1. Push this repo to GitHub and enable Pages (Settings → Pages → Deploy from branch → `main`, `/`).
+2. In Settings → Pages, set the custom domain to `christartaro.com` and tick **Enforce HTTPS**.
+3. In your GitHub account settings → Pages, verify the domain (protects against takeover).
+4. At the domain registrar, point DNS at GitHub Pages: four `A` records for `@` (185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153) and a `CNAME` for `www` to `<username>.github.io`.
