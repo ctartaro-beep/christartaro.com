@@ -1,31 +1,21 @@
 /* Layout: left-aligned masthead with an on-air "tally light" marking the active section,
    then a 16:9 reel grid per section. Futura-family display type carries the identity. */
+/* Always dark, regardless of the visitor's system setting. */
 :root {
-  --bg: #f7f7f5;
-  --surface: #ecebe7;
-  --fg: #141413;
-  --muted: #6b6a65;
-  --rule: #d9d8d3;
-  --tally: #d7261e;      /* studio tally light: the one accent */
-  --poster: #1d1d1b;     /* fallback thumbnail ground */
-  --poster-fg: #f7f7f5;
-  --scrim: rgba(12, 12, 11, 0.86);
+  color-scheme: dark;
+  --bg: #111110;
+  --surface: #1c1c1a;
+  --fg: #ededea;
+  --muted: #9a9993;
+  --rule: #2c2c29;
+  --tally: #ff4436;      /* studio tally light: the one accent */
+  --poster: #262623;     /* fallback thumbnail ground */
+  --poster-fg: #ededea;
+  --scrim: rgba(0, 0, 0, 0.9);
 
   --display: "Jost", "Futura", "Futura PT", "Century Gothic", "Avenir Next", sans-serif;
   --body: "Jost", "Futura", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #111110; --surface: #1c1c1a; --fg: #ededea; --muted: #9a9993; --rule: #2c2c29;
-    --tally: #ff4436; --poster: #262623; --poster-fg: #ededea; --scrim: rgba(0, 0, 0, 0.9);
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #111110; --surface: #1c1c1a; --fg: #ededea; --muted: #9a9993; --rule: #2c2c29;
-  --tally: #ff4436; --poster: #262623; --poster-fg: #ededea; --scrim: rgba(0, 0, 0, 0.9);
-  color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
