@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Who Billionaire? Me Billionaire.</title>
+<meta name="description" content="The Tonight Show's vertical microdrama, both seasons. Swipe through all 22 episodes.">
+<meta name="theme-color" content="#140a0e">
+<link rel="preload" href="../fonts/blue-highway-d.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://player.vimeo.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: a full-screen vertical feed that snaps one episode at a time, like a phone.
+   On desktop the 9:16 "phone" sits centered on a blurred, satin-dark backdrop of its own frame. */
+:root{
+  --velvet:#140a0e;      /* page ground, deep wine-black */
+  --satin:#24131a;       /* raised surfaces */
+  --blush:#f2c6d2;       /* soap-pink, the one loud color */
+  --gilt:#d8b878;        /* credit-roll gold, used sparingly */
+  --ivory:#f6efe9;       /* text */
+  --smoke:rgba(246,239,233,.62); /* secondary text */
+  --display:"Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --body:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"DM Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--velvet);color:var(--ivory);font-family:var(--body);-webkit-font-smoothing:antialiased;overflow:hidden}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--blush);outline-offset:3px}
+
+/* ---------- feed ---------- */
+.feed{position:fixed;inset:0;overflow-y:scroll;scroll-snap-type:y mandatory;overscroll-behavior:contain;scrollbar-width:none}
+.feed::-webkit-scrollbar{display:none}
+.slide{position:relative;height:100vh;height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;display:grid;place-items:center;overflow:hidden;isolation:isolate}
+
+/* blurred backdrop of the episode's own frame */
+.slide .bd{position:absolute;inset:-60px;z-index:-2;background-size:cover;background-position:center;filter:blur(40px) saturate(1.3) brightness(.45);transform:scale(1.1)}
+.slide::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at center,transparent 30%,var(--velvet) 85%)}
+
+/* the 9:16 phone */
+.stage{position:relative;height:calc(100dvh - 48px);aspect-ratio:9/16;max-width:calc(100vw - 32px);max-height:calc((100vw - 32px) * 16 / 9);border-radius:22px;overflow:hidden;background:#000 center/cover no-repeat;box-shadow:0 40px 120px -20px rgba(0,0,0,.8),0 0 0 1px rgba(246,239,233,.08)}
+.stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.stage .shade{position:absolute;inset:0 0 auto;height:30%;background:linear-gradient(rgba(0,0,0,.6),transparent);pointer-events:none;z-index:2;transition:opacity .6s var(--ease)}
+.slide.playing .shade{opacity:.0}
+.slide.playing:hover .shade,.slide.fresh .shade{opacity:1}
+.tag{position:absolute;top:16px;left:18px;right:18px;z-index:3;pointer-events:none;display:flex;flex-direction:column;gap:4px;transition:opacity .6s var(--ease)}
+.slide.playing:not(.fresh):not(:hover) .tag{opacity:0}
+.tag .series{font-family:var(--display);font-style:italic;font-size:20px;line-height:1;color:var(--blush)}
+.tag .ep{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--smoke);display:flex;gap:10px;align-items:center}
+.badge{border:1px solid var(--gilt);color:var(--gilt);padding:1px 6px 0;border-radius:3px;font-size:10px}
+
+@media (max-width:600px){
+  .stage{height:100dvh;max-height:none;max-width:100vw;width:100vw;border-radius:0;box-shadow:none;aspect-ratio:auto}
+  .tag{top:calc(14px + env(safe-area-inset-top,0px));left:max(16px,env(safe-area-inset-left,0px))}
+}
+
+/* ---------- title cards ---------- */
+.card{text-align:center;padding-inline:max(24px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;align-items:center;gap:18px;max-width:720px}
+.card .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--gilt)}
+.card h1,.card h2{font-family:var(--display);font-style:italic;font-weight:500;margin:0;line-height:.88;letter-spacing:-.02em;text-wrap:balance}
+.card h1{font-size:clamp(50px,11.5vw,138px);color:var(--ivory)}
+.card h1 em{display:block}
+.card h2{font-size:clamp(56px,12vw,140px);color:var(--blush)}
+.card h1 em,.card h2 em{color:var(--blush);font-style:italic}
+.card p{margin:0;font-size:17px;line-height:1.5;color:var(--smoke);max-width:36ch;text-wrap:balance}
+.card .meta{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--smoke);font-variant-numeric:tabular-nums}
+.cast{display:grid;grid-template-columns:auto auto;gap:6px 18px;margin:4px 0 0;font-size:14px;text-align:left}
+.cast dt{font-weight:600;color:var(--ivory);text-align:right}
+.cast dd{margin:0;font-family:var(--display);font-style:italic;font-size:16px;color:var(--blush)}
+.prev{font-family:var(--display);font-style:italic;font-size:19px!important;color:var(--ivory)!important;max-width:34ch!important}
+.prev b{font-family:var(--mono);font-style:normal;font-weight:400;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gilt);display:block;margin-bottom:8px}
+.credit{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--smoke)}
+.rule{width:64px;height:1px;background:var(--gilt);opacity:.7}
+.card .go{margin-top:12px;display:inline-flex;align-items:center;gap:10px;background:var(--blush);color:var(--velvet);border:0;border-radius:999px;padding:14px 26px;font-weight:600;font-size:15px;cursor:pointer;transition:transform .2s var(--ease)}
+.card .go:hover{transform:translateY(-2px)}
+.card .hint{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--smoke);display:flex;flex-direction:column;align-items:center;gap:8px}
+.card .hint i{display:block;width:1px;height:36px;background:linear-gradient(var(--gilt),transparent);animation:drip 2.2s var(--ease) infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.card.opener{gap:22px}
+.slide.title{background:radial-gradient(ellipse at 50% 120%,var(--satin),var(--velvet) 70%)}
+.slide.title .bd{filter:blur(60px) saturate(1.2) brightness(.32)}
+.card .eplist{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:8px;width:min(520px,100%);margin-top:6px}
+.card .eplist button{aspect-ratio:9/16;border:0;border-radius:6px;background:#000 center/cover;cursor:pointer;opacity:.75;transition:opacity .2s,transform .2s var(--ease);position:relative}
+.card .eplist button:hover{opacity:1;transform:translateY(-3px)}
+.card .eplist button span{position:absolute;inset:auto 0 3px;font-family:var(--mono);font-size:9px;color:var(--ivory);text-shadow:0 1px 3px #000}
+
+/* ---------- chrome: sound + rail ---------- */
+.sound{position:fixed;z-index:20;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:8px;background:rgba(20,10,14,.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(246,239,233,.16);border-radius:999px;padding:10px 16px;font-size:13px;font-weight:500;cursor:pointer}
+.sound svg{width:16px;height:16px}
+.sound.on{background:var(--blush);color:var(--velvet);border-color:transparent}
+@media (max-width:600px){.sound{bottom:auto;top:calc(12px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px));padding:8px 12px}}
+
+.rail{position:fixed;z-index:20;right:calc(22px + env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:5px;align-items:flex-end}
+.rail .grp{display:flex;flex-direction:column;gap:5px;align-items:flex-end;padding-block:6px}
+.rail .grp+.grp{border-top:1px solid rgba(216,184,120,.3)}
+.rail button{all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;height:10px}
+.rail button i{display:block;width:14px;height:2px;background:var(--smoke);opacity:.45;border-radius:2px;transition:width .3s var(--ease),opacity .3s,background .3s}
+.rail button span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--smoke);opacity:0;transform:translateX(6px);transition:.25s var(--ease);white-space:nowrap}
+.rail button:hover span,.rail button:focus-visible span{opacity:1;transform:none}
+.rail button:hover i{opacity:1}
+.rail button.on i{width:28px;opacity:1;background:var(--blush)}
+.rail button.on span{opacity:1;transform:none;color:var(--blush)}
+@media (max-width:900px){.rail{display:none}}
+
+.next-flash{position:fixed;z-index:30;left:50%;bottom:calc(32px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;pointer-events:none;font-family:var(--display);font-style:italic;font-size:22px;color:var(--blush);background:rgba(20,10,14,.8);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:10px 22px;border-radius:999px;transition:.5s var(--ease);white-space:nowrap}
+.next-flash.show{opacity:1;transform:translate(-50%,0)}
+
+.keys{position:fixed;z-index:20;left:calc(22px + env(safe-area-inset-left,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--smoke);opacity:.6;display:flex;gap:16px}
+.keys kbd{font-family:inherit;border:1px solid rgba(246,239,233,.25);border-radius:3px;padding:1px 5px;margin-right:4px}
+@media (max-width:900px){.keys{display:none}}
+
+@media (max-width:600px){
+  .card.opener{gap:14px}
+  .card.opener .hint{display:none}
+  .card h1{font-size:clamp(40px,10.5vw,60px)}
+  .card p{font-size:15px}
+  .cast{font-size:13px;gap:4px 14px}
+  .cast dd{font-size:15px}
+}
+@media (max-height:720px){.card.opener .hint,.card.opener .rule{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.feed{scroll-behavior:auto}}
+
+/* ---------- link back to christartaro.com ---------- */
+@font-face{font-family:"Blue Highway D";src:url("../fonts/blue-highway-d.woff2") format("woff2");font-weight:400;font-display:swap}
+.home{position:fixed;z-index:20;left:calc(18px + env(safe-area-inset-left,0px));top:calc(18px + env(safe-area-inset-top,0px));display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:9px 16px 8px;background:rgba(20,10,14,.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(246,239,233,.16);border-radius:999px;color:var(--ivory);text-decoration:none;font:400 15px/1 "Blue Highway D","Arial Narrow",sans-serif;letter-spacing:.08em;text-transform:uppercase;transition:border-color .2s,color .2s}
+.home:hover{border-color:var(--blush);color:var(--blush)}
+@media (max-width:600px){.home{top:auto;bottom:calc(14px + env(safe-area-inset-bottom,0px));left:max(12px,env(safe-area-inset-left,0px));padding:8px 12px 7px;font-size:13px}}
+</style>
+</head>
+<body>
+
+<a class="home" href="../#comedy" aria-label="Back to christartaro.com"><span aria-hidden="true">←</span> Chris Tartaro</a>
+
+<main class="feed" id="feed" aria-label="Who Billionaire? Me Billionaire. episodes"></main>
+
+<nav class="rail" id="rail" aria-label="Episodes"></nav>
+
+<button class="sound" id="sound" type="button" aria-pressed="false">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path class="w" d="M23 9l-6 6M17 9l6 6"/></svg>
+  <span>Sound off</span>
+</button>
+
+<div class="keys" aria-hidden="true"><span><kbd>↑</kbd><kbd>↓</kbd>episodes</span><span><kbd>M</kbd>sound</span></div>
+<div class="next-flash" id="flash" role="status" aria-live="polite"></div>
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+/* ============================================================
+   EDIT HERE — series names, taglines and episode order.
+   Each episode: Vimeo ID, length in seconds, thumbnail hash.
+   Add `title` to any episode to give it its own name.
+   ============================================================ */
+const SERIES = [
+  {
+    key: "s1",
+    name: "Season One",
+    short: "S1",
+    aired: "July 2026",
+    tagline: "An engagement party for the very rich, until a stranger walks in...",
+    episodes: [
+      { id: "1234182941", secs: 126, thumb: "2210073062-d06ea5bf0907a14a3de964a8319c20f7e60e8ab2593ad3cde37fc897d52bf9ac-d" },
+      { id: "1234182940", secs: 126, thumb: "2210073063-71def683db2715f0ab6cf913771dd2bc8812f20becd1ec4b1187923ecfb2ef1c-d" },
+      { id: "1234182939", secs: 139, thumb: "2210073072-fe7ad20b207c1eb16960db0a446b13fb23748bcd09d8a41bd50e40c1b6dcfb5f-d" },
+      { id: "1234182942", secs: 117, thumb: "2210073095-db24215f46fdfcc2106296a5f2934ee680e5364fcaf370d0b8bfc5fb1c222a92-d" },
+      { id: "1234182969", secs: 128, thumb: "2210073140-08e36828ec5a9f98e68038f911e6901d91daa1783466b904165b42ec5f2c7fb9-d" },
+      { id: "1234182975", secs: 132, thumb: "2210073144-b7438f09d37e0981c17be9a0e5b7ca915bb23eab1a893ae5261943c2ce7cb395-d", explicit: true },
+      { id: "1234182977", secs: 127, thumb: "2210073117-27073bf7e73c0868748bb8b121ab67250f0907566c39fa65c7ce52df1fd79e93-d" },
+      { id: "1234182998", secs: 143, thumb: "2210073159-8f9d8ffcd2a1372a2ca56165a444b268b048cca597fc66b75f5aa3ad98468279-d" },
+      { id: "1234183014", secs: 134, thumb: "2210073167-8db592014de4c1da2006072629f6389388892a13b8ffa928970b666eb8c4937c-d" },
+      { id: "1234183028", secs: 123, thumb: "2210073180-af9610ce396c58ba73a6124b85ecfc6d86c161c6ab65e4936eba59c62eef9787-d" }
+    ]
+  },
+  {
+    key: "s2",
+    name: "Season Two",
+    short: "S2",
+    aired: "September 2026",
+    previously: "Chaiston comes apart. Brax suspects Prestina. Somebody ends up in a coma.",
+    tagline: "",
+    guests: "Guest starring Alix Earle, Jake Musser, and Dakota Johnson",
+    episodes: [
+      { id: "1234183562", secs: 113, thumb: "2210073952-c88b5a3b8f38d45c898dcfb363e9c54e742e80b96fc957f3155c4dd14ac2a2a5-d" },
+      { id: "1234183561", secs: 167, thumb: "2210074004-f8c453c528ba43719583a12ec0e42b5483aa124ce24f4a4788c4610aafeef612-d" },
+      { id: "1234183563", secs: 74,  thumb: "2210073957-5215d937580e7739a3484e42134748b8a1728b7654f5d7c7ec44cd7e7d270c06-d" },
+      { id: "1234183564", secs: 77,  thumb: "2210073950-c4c254411cb864848e9b457f7822d0dfa502c822807b74b5fc3348e9b0d5db42-d" },
+      { id: "1234183582", secs: 102, thumb: "2210073982-c38c1949a23838a0ff46588ad69b7bcd86806114a7bdf43e9ce4dbd3c02ccd62-d" },
+      { id: "1234183583", secs: 82,  thumb: "2210073993-77fbe6c14e0b5344142b1b2fd62f9f1ad75dd6459974f4b2a24684afcb332504-d" },
+      { id: "1234183584", secs: 86,  thumb: "2210074058-70208355519d1908c3c84f956bedffbcdd5771ffd37149704668e8262d29006b-d" },
+      { id: "1234183588", secs: 127, thumb: "2210074003-8663f2d59f198223d58840e07721813ad9130a78c5fbb25731db6b2111d2dd38-d" },
+      { id: "1234183604", secs: 153, thumb: "2210074115-ac262d8fbb51a8b16f0c6f946f084edd20dc8b0ed983ac8f25f42da608219754-d" },
+      { id: "1234183606", secs: 142, thumb: "2210074053-4e810dc67df5ea2732589152376be1261344ccb85e0105c85b9124ca9e7274bd-d" },
+      { id: "1234183612", secs: 114, thumb: "2210074070-6cd70c14bee01247ff29a215d0757bdcf61de7be3983421e0716115ce187c780-d" },
+      { id: "1234183615", secs: 146, thumb: "2210074097-1974a7eda2408437618000c8f2c5b5ce6d281d8c0757a8fef7619132be8b67fa-d" },
+      { id: "1234183626", secs: 30,  thumb: "2210074061-b671918275de2637e2f60c951a70a5c4d13a13568e0c28209dfb1e29c4d8271a-d", title: "Remix Promo", promo: true }
+    ]
+  }
+];
+const SHOW = { a: "Who Billionaire?", b: "Me Billionaire." };
+const PRESENTER = "The Tonight Show Starring Jimmy Fallon";
+const CAST = [["Jimmy Fallon","Chaiston"],["John Stamos","Doug"],["Kasey Esser","Brax"],["Rose Kelso","Kinsleigh"],["Delaney Rowe","Prestina"]];
+const CREDITS = "Written by A.D. Miles · Directed by Chris Tartaro";
+const CREATOR = "Chris Tartaro";
+const VIMEO_PROFILE = "https://vimeo.com/user2453942";
+/* ============================================================ */
+
+const thumb = (h, w = 640) => `https://i.vimeocdn.com/video/${h}_${w}`;
+const mins = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+const totalMin = eps => Math.round(eps.reduce((a, e) => a + e.secs, 0) / 60);
+const pad = n => String(n).padStart(2, "0");
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+const feed = document.getElementById("feed");
+const rail = document.getElementById("rail");
+const flash = document.getElementById("flash");
+const soundBtn = document.getElementById("sound");
+
+const slides = [];   // {el, type, ep?, series?, player?, iframe?}
+let soundOn = false;
+let current = -1;
+
+/* ---------- build ---------- */
+function addSlide(el, meta) { el.dataset.i = slides.length; feed.appendChild(el); slides.push({ el, ...meta }); return slides.length - 1; }
+
+const allEps = SERIES.flatMap(s => s.episodes.filter(e => !e.promo));
+{
+  const el = document.createElement("section");
+  el.className = "slide title";
+  const first = SERIES[0].episodes[0];
+  el.innerHTML = `<div class="bd" style="background-image:url('${thumb(first.thumb)}')"></div>
+    <div class="card opener">
+      <div class="eyebrow">${esc(PRESENTER)} presents</div>
+      <h1>${esc(SHOW.a)}<em>${esc(SHOW.b)}</em></h1>
+      <div class="rule"></div>
+      <p>A vertical microdrama about very rich people behaving very badly. ${allEps.length} episodes across ${SERIES.length} seasons.</p>
+      <dl class="cast">${CAST.map(([a,c]) => `<dt>${esc(a)}</dt><dd>${esc(c)}</dd>`).join("")}</dl>
+      <div class="credit">${esc(CREDITS)}</div>
+      <button class="go" type="button" data-jump="1">Start watching</button>
+      <div class="hint"><span>or swipe</span><i></i></div>
+    </div>`;
+  addSlide(el, { type: "title" });
+}
+
+SERIES.forEach((s, si) => {
+  const real = s.episodes.filter(e => !e.promo);
+  const card = document.createElement("section");
+  card.className = "slide title";
+  card.innerHTML = `<div class="bd" style="background-image:url('${thumb(s.episodes[0].thumb)}')"></div>
+    <div class="card">
+      <div class="eyebrow">${esc(SHOW.a)} ${esc(SHOW.b)}</div>
+      <h2>${esc(s.name)}</h2>
+      ${s.previously ? `<p class="prev"><b>Previously</b>${esc(s.previously)}</p>` : ""}
+      <p>${esc(s.tagline || "")}</p>
+      <div class="meta">${real.length} episodes · ${totalMin(real)} minutes · ${esc(s.aired)}</div>
+      ${s.guests ? `<div class="credit">${esc(s.guests)}</div>` : ""}
+      <div class="eplist" role="list"></div>
+    </div>`;
+  const cardIdx = addSlide(card, { type: "title", series: s });
+  const list = card.querySelector(".eplist");
+  const grp = document.createElement("div"); grp.className = "grp"; rail.appendChild(grp);
+
+  let n = 0;
+  s.episodes.forEach(ep => {
+    if (!ep.promo) n++;
+    const label = ep.title || `Episode ${pad(n)}`;
+    const short = ep.promo ? `${s.short} Promo` : `${s.short} · Ep ${pad(n)}`;
+    const el = document.createElement("section");
+    el.className = "slide video";
+    el.setAttribute("aria-label", `${s.name}, ${label}`);
+    el.innerHTML = `<div class="bd" style="background-image:url('${thumb(ep.thumb)}')"></div>
+      <div class="stage" style="background-image:url('${thumb(ep.thumb)}')">
+        <div class="shade"></div>
+        <div class="tag">
+          <div class="series">${esc(SHOW.a)} ${esc(SHOW.b)}</div>
+          <div class="ep"><span>${esc(s.name)} · ${esc(label)}${ep.promo ? "" : ` of ${real.length}`}</span><span>${mins(ep.secs)}</span>${ep.explicit ? '<span class="badge">Explicit</span>' : ""}</div>
+        </div>
+      </div>`;
+    const idx = addSlide(el, { type: "video", ep, series: s, label, short });
+
+    const b = document.createElement("button");
+    b.type = "button"; b.setAttribute("role", "listitem");
+    b.style.backgroundImage = `url('${thumb(ep.thumb, 200)}')`;
+    b.innerHTML = `<span>${ep.promo ? "PROMO" : pad(n)}</span>`;
+    b.setAttribute("aria-label", `Play ${label}`);
+    b.dataset.jump = idx; list.appendChild(b);
+
+    const r = document.createElement("button");
+    r.type = "button"; r.dataset.jump = idx;
+    r.innerHTML = `<span>${short}</span><i></i>`;
+    r.setAttribute("aria-label", `${s.name} ${label}`);
+    grp.appendChild(r);
+    slides[idx].railBtn = r;
+  });
+});
+
+{
+  const el = document.createElement("section");
+  el.className = "slide title";
+  el.innerHTML = `<div class="card">
+      <div class="eyebrow">The end · for now</div>
+      <h2>Fin.</h2>
+      <div class="rule"></div>
+      <p>${esc(SHOW.a)} ${esc(SHOW.b)} From ${esc(PRESENTER)}.</p>
+      <div class="credit">${esc(CREDITS)}</div>
+      <button class="go" type="button" data-jump="0">Watch again</button>
+      <a class="meta" href="${VIMEO_PROFILE}" target="_blank" rel="noopener" style="color:var(--gilt)">More on Vimeo ↗</a>
+    </div>`;
+  addSlide(el, { type: "title" });
+}
+
+/* ---------- players ---------- */
+function mount(i) {
+  const s = slides[i];
+  if (!s || s.type !== "video" || s.iframe) return;
+  const f = document.createElement("iframe");
+  f.src = `https://player.vimeo.com/video/${s.ep.id}?autoplay=0&muted=1&playsinline=1&title=0&byline=0&portrait=0&dnt=1&autopause=0&color=f2c6d2`;
+  f.allow = "autoplay; fullscreen; picture-in-picture; encrypted-media";
+  f.title = `${s.series.name} — ${s.label}`;
+  f.loading = "eager";
+  s.el.querySelector(".stage").prepend(f);
+  s.iframe = f;
+  if (window.Vimeo) {
+    s.player = new Vimeo.Player(f);
+    s.player.on("ended", () => { if (i === current) advance(i); });
+    s.player.on("play", () => s.el.classList.add("playing"));
+    s.player.on("pause", () => s.el.classList.remove("playing"));
+  }
+}
+function unmount(i) {
+  const s = slides[i];
+  if (!s || !s.iframe) return;
+  try { s.player && s.player.destroy(); } catch (e) {}
+  s.iframe.remove(); s.iframe = null; s.player = null;
+  s.el.classList.remove("playing");
+}
+
+function activate(i) {
+  if (i === current) return;
+  current = i;
+  slides.forEach((s, j) => {
+    if (Math.abs(j - i) <= 1) mount(j);
+    else if (Math.abs(j - i) > 2) unmount(j);
+    if (j !== i && s.player) s.player.pause().catch(() => {});
+    if (s.railBtn) s.railBtn.classList.toggle("on", j === i);
+  });
+  const s = slides[i];
+  if (s.type === "video") {
+    s.el.classList.add("fresh");
+    setTimeout(() => s.el.classList.remove("fresh"), 2600);
+    if (s.player) {
+      s.player.setCurrentTime(0).catch(() => {});
+      s.player.setMuted(!soundOn).then(() => s.player.play()).catch(() => {
+        // browser refused unmuted autoplay: fall back to muted
+        soundOn && setSound(false);
+        s.player.setMuted(true).then(() => s.player.play()).catch(() => {});
+      });
+    }
+  }
+}
+
+function go(i, smooth = true) {
+  i = Math.max(0, Math.min(slides.length - 1, i));
+  slides[i].el.scrollIntoView({ behavior: smooth && !matchMedia("(prefers-reduced-motion: reduce)").matches ? "smooth" : "auto" });
+}
+
+function advance(i) {
+  const next = slides[i + 1];
+  if (!next) return;
+  flash.textContent = next.type === "video" ? `Next: ${next.series.name}, ${next.label}` : "To be continued…";
+  flash.classList.add("show");
+  setTimeout(() => { flash.classList.remove("show"); go(i + 1); }, 1400);
+}
+
+/* which slide is on screen */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting && e.intersectionRatio > .6) activate(+e.target.dataset.i); });
+}, { root: feed, threshold: [.6] });
+slides.forEach(s => io.observe(s.el));
+
+/* ---------- sound ---------- */
+function setSound(on) {
+  soundOn = on;
+  soundBtn.classList.toggle("on", on);
+  soundBtn.setAttribute("aria-pressed", on);
+  soundBtn.querySelector("span").textContent = on ? "Sound on" : "Sound off";
+  soundBtn.querySelector(".w").setAttribute("d", on ? "M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14" : "M23 9l-6 6M17 9l6 6");
+  const s = slides[current];
+  if (s && s.player) { s.player.setMuted(!on).catch(() => {}); if (on) s.player.setVolume(1).catch(() => {}); }
+}
+soundBtn.addEventListener("click", () => setSound(!soundOn));
+
+/* ---------- navigation ---------- */
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-jump]");
+  if (!t) return;
+  const i = +t.dataset.jump;
+  if (t.classList.contains("go") && i === 1 && !soundOn) setSound(true); // "Start watching" is a real gesture: turn sound on
+  go(i);
+});
+document.addEventListener("keydown", e => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const k = e.key;
+  if (k === "ArrowDown" || k === "j" || k === "PageDown") { e.preventDefault(); go(current + 1); }
+  else if (k === "ArrowUp" || k === "k" || k === "PageUp") { e.preventDefault(); go(current - 1); }
+  else if (k === "m" || k === "M") setSound(!soundOn);
+  else if (k === " " && slides[current]?.player) {
+    e.preventDefault();
+    const p = slides[current].player;
+    p.getPaused().then(paused => paused ? p.play() : p.pause()).catch(() => {});
+  }
+});
+
+/* deep link: #s1-3, #s2-12, #s2-promo */
+function fromHash() {
+  const m = location.hash.slice(1).match(/^([a-z]+)-(\d+|promo)$/);
+  if (!m) return;
+  let n = 0;
+  const idx = slides.findIndex(s => {
+    if (s.type !== "video" || s.series.key !== m[1]) return false;
+    if (m[2] === "promo") return !!s.ep.promo;
+    if (!s.ep.promo) n++;
+    return !s.ep.promo && n === +m[2];
+  });
+  if (idx > -1) go(idx, false);
+}
+fromHash();
+window.addEventListener("hashchange", fromHash);
+</script>
+</body>
+</html>

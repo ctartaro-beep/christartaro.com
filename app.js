@@ -18,7 +18,7 @@
   $("year").textContent = new Date().getFullYear();
   $("role").textContent = data.site.role;
 
-  // Nav: site pages, with external links slotted after the first page
+  // Nav: site pages, plus extra links (e.g. MicroDramas) slotted after the first page
   const nav = $("nav");
   const navLinks = {};
   pages.forEach((p, i) => {
@@ -26,7 +26,9 @@
     navLinks[p.id] = a;
     nav.append(a);
     if (i === 0) for (const x of data.site.external || [])
-      nav.append(el("a", { href: x.url, class: "ext", target: "_blank", rel: "noopener", text: x.label }));
+      nav.append(/^https?:/.test(x.url)
+        ? el("a", { href: x.url, class: "ext", target: "_blank", rel: "noopener", text: x.label })
+        : el("a", { href: x.url, text: x.label }));
   });
 
   // Video helpers
