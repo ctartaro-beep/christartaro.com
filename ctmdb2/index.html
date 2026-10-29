@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml" lang="en-US"  lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
@@ -2706,7 +2706,7 @@
             // Update filter bar
             const filterBar = document.getElementById('filter-bar');
             const filterBadge = document.getElementById('filter-badge');
-            filterBadge.textContent = `$ • $ album${count !== 1 ? 's' : ''}`;
+            filterBadge.textContent = `${association} • ${count} album${count !== 1 ? 's' : ''}`;
             filterBar.classList.add('active');
             
             // Filter cards
@@ -2750,7 +2750,7 @@
             // Update filter bar
             const filterBar = document.getElementById('filter-bar');
             const filterBadge = document.getElementById('filter-badge');
-            filterBadge.textContent = `Format: $ • $ album${count !== 1 ? 's' : ''}`;
+            filterBadge.textContent = `Format: ${format} • ${count} album${count !== 1 ? 's' : ''}`;
             filterBar.classList.add('active');
             
             // Filter cards
@@ -2816,7 +2816,7 @@
                 
                 if (mbData.releases && mbData.releases.length > 0) {
                     const releaseId = mbData.releases[0].id;
-                    const coverArtUrl = `https://coverartarchive.org/release/$/front-500`;
+                    const coverArtUrl = `https://coverartarchive.org/release/${releaseId}/front-500`;
                     
                     // Check if cover art exists
                     const coverResponse = await fetch(coverArtUrl, { method: 'HEAD' });
@@ -2866,21 +2866,21 @@
                 const stage = journeyData[key];
                 const config = chapterConfig[key];
                 const chapterDiv = document.createElement('div');
-                chapterDiv.className = `chapter $`;
+                chapterDiv.className = `chapter ${config.class}`;
                 
                 let html = `
                     <div class="chapter-header">
-                        <div class="chapter-number">$</div>
-                        <h2 class="chapter-title">$</h2>
-                        <div class="chapter-subtitle">$</div>
-                        <p class="chapter-narrative">$</p>
+                        <div class="chapter-number">${config.number}</div>
+                        <h2 class="chapter-title">${stage.title}</h2>
+                        <div class="chapter-subtitle">${stage.subtitle}</div>
+                        <p class="chapter-narrative">${stage.narrative}</p>
                     </div>
                     <div class="albums-grid">
                 `;
                 
                 stage.albums.forEach(album => {
                     const hasLink = album.wikiLink && album.wikiLink.trim() !== '';
-                    const linkStart = hasLink ? `<a href="$" target="_blank" rel="noopener noreferrer" class="album-link">` : '';
+                    const linkStart = hasLink ? `<a href="${album.wikiLink}" target="_blank" rel="noopener noreferrer" class="album-link">` : '';
                     const linkEnd = hasLink ? '</a>' : '';
                     
                     html += `
@@ -2888,23 +2888,23 @@
                             <div class="album-card" data-association="${album.source || ''}" data-format="${album.format || ''}">
                                 <div class="album-top">
                                     <div class="album-badges-left">
-                                        <span class="year-badge">$</span>
-                                        <span class="age-badge">Age $</span>
+                                        <span class="year-badge">${album.year}</span>
+                                        <span class="age-badge">Age ${album.age}</span>
                                     </div>
-                                    $
+                                    ${linkStart}
                                         <div class="album-art-wrapper">
                                             <div class="album-image">
-                                                ${album.image ? `<img src="$" alt="$" loading="lazy" onerror="handleImageError(this)" data-artist="$" data-album="$">` : `<div class="album-placeholder">${(album.artist || album.album || '♪')[0].toUpperCase()}</div>`}
+                                                ${album.image ? `<img src="${album.image}" alt="${album.album}" loading="lazy" onerror="handleImageError(this)" data-artist="${album.artist}" data-album="${album.album}">` : `<div class="album-placeholder">${(album.artist || album.album || '♪')[0].toUpperCase()}</div>`}
                                             </div>
                                         </div>
-                                    $
+                                    ${linkEnd}
                                 </div>
                                 <div class="album-info">
-                                    <div class="album-title">$</div>
-                                    <div class="album-artist">$</div>
+                                    <div class="album-title">${album.album}</div>
+                                    <div class="album-artist">${album.artist}</div>
                                     <div class="album-badges">
-                                        <div>${album.format ? `<span class="format-badge" onclick="filterByFormat(this.textContent.split(',')[0].trim())">$</span>` : ''}</div>
-                                        <div>${album.source ? `<span class="association-badge" onclick="filterByAssociation(this.textContent)">$</span>` : ''}</div>
+                                        <div>${album.format ? `<span class="format-badge" onclick="filterByFormat(this.textContent.split(',')[0].trim())">${album.format}</span>` : ''}</div>
+                                        <div>${album.source ? `<span class="association-badge" onclick="filterByAssociation(this.textContent)">${album.source}</span>` : ''}</div>
                                     </div>
                                 </div>
                             </div>

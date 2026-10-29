@@ -583,11 +583,11 @@
                 '';
             
             return `
-                <div class="cmt-timeline-event genre-$">
+                <div class="cmt-timeline-event genre-${event.genre}">
                     <div class="cmt-timeline-dot"></div>
                     <div class="cmt-event-card">
                         <div class="cmt-event-image-container">
-                            $
+                            ${imageHtml}
                             ${event.format ? `<div class="cmt-format-badge">${escapeHtml(event.format)}</div>` : ''}
                         </div>
                         <div class="cmt-event-content">
@@ -604,7 +604,7 @@
                                     </div>
                                 ` : ''}
                             </div>
-                            $
+                            ${wikiLink}
                         </div>
                     </div>
                 </div>
@@ -621,9 +621,9 @@
                 '';
             
             return `
-                <div class="cmt-grid-item genre-$">
+                <div class="cmt-grid-item genre-${event.genre}">
                     <div class="cmt-grid-image-container">
-                        $
+                        ${imageHtml}
                     </div>
                     <div class="cmt-grid-content">
                         <div class="cmt-grid-artist">${escapeHtml(event.artist)}</div>
