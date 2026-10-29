@@ -40,17 +40,38 @@
 
   function poster(title) { return el("div", { class: "poster", text: title }); }
 
-  function card(v) {
+  function card(v, kicker) {
     const thumb = el("div", { class: "thumb" });
     if (v.thumb) {
-      const img = el("img", { src: thumbSrc(v.thumb), alt: "", loading: "lazy", decoding: "async" });
+      const img = el("img", { src: thumbSrc(v.thumb), alt: "", loading: kicker ? "eager" : "lazy", decoding: "async" });
       img.addEventListener("error", () => img.replaceWith(poster(v.title)), { once: true });
       thumb.append(img);
     } else thumb.append(poster(v.title));
     const b = el("button", { class: "card", type: "button", "aria-label": "Play " + v.title },
-      thumb, el("span", { class: "title", text: v.title }));
+      thumb, kicker ? el("span", { class: "kicker", text: kicker }) : null, el("span", { class: "title", text: v.title }));
     b.addEventListener("click", () => openViewer(v));
     return el("li", {}, b);
+  }
+
+  // Tabbed layout (Other Videos): one tab per section, first video featured large
+  const tabState = {};
+  function renderTabs(page, main) {
+    const i = Math.min(tabState[page.id] || 0, page.sections.length - 1);
+    const s = page.sections[i];
+    const tabs = el("div", { class: "tabs", role: "tablist", "aria-label": page.label },
+      ...page.sections.map((sec, j) => {
+        const n = sec.items.length;
+        const b = el("button", { class: "tab", type: "button", role: "tab", "aria-selected": String(j === i) },
+          sec.title, el("span", { class: "count", text: String(n).padStart(2, "0") }));
+        b.addEventListener("click", () => { tabState[page.id] = j; render(page.id); });
+        return b;
+      }));
+    const [first, ...others] = s.items;
+    const side = others.slice(0, 2), rest = others.slice(2);
+    main.append(tabs, el("div", { class: "feature-row", role: "tabpanel" },
+      el("ul", { class: "feature" }, card(first, "Featured · " + s.title)),
+      el("ul", { class: "feature-side" }, ...side.map((v) => card(v)))));
+    if (rest.length) main.append(el("section", { class: "rest" }, el("ul", { class: "grid" }, ...rest.map((v) => card(v)))));
   }
 
   function render(id) {
@@ -61,6 +82,7 @@
     const main = $("main");
     main.replaceChildren();
 
+    if (page.layout === "tabs") { renderTabs(page, main); return; }
     if (page.about) {
       const links = el("p", { class: "about-links" },
         ...page.about.links.map((l) => el("a", { href: l.url, target: "_blank", rel: "noopener", text: l.label })));
