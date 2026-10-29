@@ -88,7 +88,6 @@ a { color: inherit; }
   background: var(--tally);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--tally) 22%, transparent);
 }
-.nav a.ext::after { content: "↗"; font-size: 0.8em; margin-left: -3px; }
 .nav a.ext::before { display: none; }
 
 /* Sections */
