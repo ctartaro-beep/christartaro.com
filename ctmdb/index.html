@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Music DB · Chris Tartaro</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  .knightlab { display: block; width: 100%; height: 650px; border: 0; margin-top: 32px; }
+  .label { margin: 12px 0 40px; font: 400 .75rem/1 var(--mono); letter-spacing: .1em; color: var(--muted); }
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap">
+    <a class="name" href="../">Chris Tartaro</a>
+    <p class="role">Music DB</p>
+  </div>
+</header>
+<main class="wrap">
+  <iframe class="knightlab" title="CTMDB timeline" src="https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=1Hit0vY8808fg3aTR6aGbx0zUay4gnWXT5I1eRboq6IU&amp;font=Default&amp;lang=en&amp;initial_zoom=2&amp;height=650"></iframe>
+  <p class="label">CTMDB</p>
+<!-- Chris' Music Timeline - Embed Code for Squarespace -->
+<!-- Paste this entire code into a Squarespace Code Block -->
+
+<div id="chris-music-timeline-root"></div>
+
+<style>
+/* Scoped styles to avoid conflicts */
+#chris-music-timeline-root {
+    --bg-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    --bg-card: rgba(255,255,255,0.05);
+    --text-primary: #e8e8e8;
+    --text-secondary: rgba(255,255,255,0.6);
+    --border-color: rgba(255,255,255,0.1);
+    --shadow: rgba(0,0,0,0.3);
+    
+    /* Genre Colors */
+    --genre-rock: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    --genre-hiphop: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+    --genre-indie: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+    --genre-jazz: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    --genre-classical: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    --genre-classic: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+    --genre-nineties: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    --genre-twothousands: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    --genre-modern: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+#chris-music-timeline-root.light-mode {
+    --bg-primary: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #bae6fd 100%);
+    --bg-card: rgba(255,255,255,0.9);
+    --text-primary: #1e293b;
+    --text-secondary: rgba(0,0,0,0.6);
+    --border-color: rgba(0,0,0,0.1);
+    --shadow: rgba(0,0,0,0.1);
+}
+
+#chris-music-timeline-root * {
+    box-sizing: border-box;
+}
+
+#chris-music-timeline-root {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    margin: 2rem 0;
+}
+
+.cmt-background-texture {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(255,255,255,0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255,255,255,0.02) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.cmt-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    z-index: 100;
+}
+
+.cmt-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.cmt-header-text h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.3rem;
+}
+
+.cmt-subtitle {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.cmt-genre-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    font-size: 0.65rem;
+}
+
+.cmt-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.cmt-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.cmt-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.cmt-toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cmt-toggle-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.cmt-toggle-switch {
+    position: relative;
+    width: 50px;
+    height: 26px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.cmt-toggle-switch.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.cmt-toggle-slider {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.cmt-toggle-switch.active .cmt-toggle-slider {
+    transform: translateX(24px);
+}
+
+.cmt-scroll-container {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.cmt-timeline-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+    position: relative;
+    min-height: 100%;
+}
+
+.cmt-timeline-line {
+    position: absolute;
+    left: 1.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, 
+        rgba(102, 126, 234, 0.3) 0%, 
+        rgba(118, 75, 162, 0.5) 50%, 
+        rgba(102, 126, 234, 0.3) 100%);
+}
+
+.cmt-timeline-events {
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.cmt-timeline-event {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.cmt-timeline-dot {
+    position: absolute;
+    left: -2.2rem;
+    top: 0.8rem;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: 3px solid rgba(26, 26, 46, 0.9);
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+#chris-music-timeline-root.light-mode .cmt-timeline-dot {
+    border-color: #fff;
+}
+
+.cmt-timeline-event:hover .cmt-timeline-dot {
+    transform: scale(1.2);
+}
+
+.cmt-event-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 16px var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 0.8rem;
+}
+
+.cmt-timeline-event:hover .cmt-event-card {
+    transform: translateX(5px);
+    box-shadow: 0 6px 20px var(--shadow);
+}
+
+.cmt-grid-container {
+    display: none;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.cmt-grid-container.active {
+    display: grid;
+}
+
+.cmt-grid-item {
+    background: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.cmt-grid-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px var(--shadow);
+}
+
+.cmt-grid-image-container {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+}
+
+.cmt-grid-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cmt-grid-content {
+    padding: 1rem;
+}
+
+.cmt-grid-artist {
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+}
+
+.cmt-grid-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.cmt-grid-year {
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+}
+
+.cmt-event-image-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+    flex-shrink: 0;
+}
+
+.cmt-event-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.cmt-timeline-event:hover .cmt-event-image {
+    transform: scale(1.05);
+}
+
+.cmt-format-badge {
+    position: absolute;
+    bottom: 0.3rem;
+    right: 0.3rem;
+    padding: 0.15rem 0.4rem;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    border: 1px solid rgba(255,255,255,0.2);
+    z-index: 1;
+}
+
+.cmt-event-content {
+    padding: 0.8rem 0.8rem 0.8rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+}
+
+.cmt-event-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.3rem;
+    flex-wrap: wrap;
+}
+
+.cmt-year-badge {
+    padding: 0.15rem 0.6rem;
+    border-radius: 10px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+    color: white;
+}
+
+.genre-rock .cmt-year-badge { background: var(--genre-rock); }
+.genre-hiphop .cmt-year-badge { background: var(--genre-hiphop); }
+.genre-indie .cmt-year-badge { background: var(--genre-indie); }
+.genre-jazz .cmt-year-badge { background: var(--genre-jazz); }
+.genre-classical .cmt-year-badge { background: var(--genre-classical); }
+.genre-classic .cmt-year-badge { background: var(--genre-classic); }
+.genre-nineties .cmt-year-badge { background: var(--genre-nineties); }
+.genre-twothousands .cmt-year-badge { background: var(--genre-twothousands); }
+.genre-modern .cmt-year-badge { background: var(--genre-modern); }
+
+.cmt-artist-name {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cmt-event-title {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text-primary);
+    margin-bottom: 0.3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.cmt-event-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+}
+
+.cmt-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.cmt-wiki-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    margin-top: 0.4rem;
+    padding: 0.25rem 0.6rem;
+    background: rgba(102, 126, 234, 0.2);
+    border: 1px solid rgba(102, 126, 234, 0.3);
+    border-radius: 6px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.7rem;
+    transition: all 0.2s ease;
+    width: fit-content;
+}
+
+.cmt-wiki-link:hover {
+    background: rgba(102, 126, 234, 0.3);
+    transform: translateY(-1px);
+}
+
+.cmt-scroll-top {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid var(--border-color);
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 50;
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.cmt-scroll-top.visible {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.cmt-scroll-top:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px var(--shadow);
+}
+
+@media (min-width: 768px) {
+    .cmt-timeline-line {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 3px;
+    }
+
+    .cmt-timeline-events {
+        padding-left: 0;
+    }
+
+    .cmt-timeline-event {
+        width: calc(50% - 2rem);
+        margin-bottom: 2rem;
+    }
+
+    .cmt-timeline-event:nth-child(odd) {
+        margin-left: 0;
+        padding-right: 1.5rem;
+    }
+
+    .cmt-timeline-event:nth-child(even) {
+        margin-left: calc(50% + 2rem);
+        padding-left: 1.5rem;
+    }
+
+    .cmt-timeline-dot {
+        width: 16px;
+        height: 16px;
+    }
+
+    .cmt-timeline-event:nth-child(odd) .cmt-timeline-dot {
+        right: -2.5rem;
+        left: auto;
+    }
+
+    .cmt-timeline-event:nth-child(even) .cmt-timeline-dot {
+        left: -2.5rem;
+        right: auto;
+    }
+
+    .cmt-timeline-event:nth-child(odd):hover .cmt-event-card {
+        transform: translateX(-5px);
+    }
+
+    .cmt-timeline-event:nth-child(even):hover .cmt-event-card {
+        transform: translateX(5px);
+    }
+
+    .cmt-event-card {
+        grid-template-columns: 110px 1fr;
+        gap: 1rem;
+    }
+
+    .cmt-event-image-container {
+        width: 110px;
+        height: 110px;
+    }
+
+    .cmt-grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+</style>
+
+<script>
+(function() {
+    const timelineData = [{"year": "1986", "date": "January 1986", "artist": "Bon Jovi", "album": "Slippery When Wet", "wikiLink": "https://en.wikipedia.org/wiki/Slippery_When_Wet", "source": "", "format": "Record", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/ab/Bon_jovi_slippery_when_wet.jpg/220px-Bon_jovi_slippery_when_wet.jpg"}, {"year": "1987", "date": "January 1987", "artist": "Billy Joel", "album": "Greatest Hits Vol 1 & 2", "wikiLink": "https://en.wikipedia.org/wiki/Greatest_Hits_(Billy_Joel_albums)", "source": "Susie Cunningham", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/8/82/Billyjoelgreatesthits.jpg/220px-Billyjoelgreatesthits.jpg"}, {"year": "1987", "date": "January 1987", "artist": "The Beatles", "album": "Sgt. Peppers Lonely Hearts Club Band", "wikiLink": "https://en.wikipedia.org/wiki/Sgt._Pepper%27s_Lonely_Hearts_Club_Band", "source": "Dad", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/5/50/Sgt._Pepper%27s_Lonely_Hearts_Club_Band.jpg"}, {"year": "1987", "date": "Summer 1987", "artist": "Foreigner", "album": "Records", "wikiLink": "https://upload.wikimedia.org/wikipedia/en/thumb/6/6f/Foreigner_-_Records.jpg/220px-Foreigner_-_Records.jpg", "source": "Dad", "format": "Tape", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/6/6f/Foreigner_-_Records.jpg/220px-Foreigner_-_Records.jpg"}, {"year": "1988", "date": "January 1988", "artist": "Beethoven", "album": "Beethoven's 5th", "wikiLink": "https://en.wikipedia.org/wiki/Symphony_No._5_(Beethoven)", "source": "Dad", "format": "Tape", "image": "http://static.musicroom.com/img/c/f/GS25400.jpg"}, {"year": "1989", "date": "Fall 1989", "artist": "Guns & Roses", "album": "Appetite for Destruction", "wikiLink": "https://en.wikipedia.org/wiki/Appetite_for_Destruction", "source": "Matt", "format": "Tape", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/6/60/GunsnRosesAppetiteforDestructionalbumcover.jpg/220px-GunsnRosesAppetiteforDestructionalbumcover.jpg"}, {"year": "1991", "date": "Fall 1991", "artist": "Nirvana", "album": "Nevermind", "wikiLink": "https://en.wikipedia.org/wiki/Nevermind", "source": "Matt Tocco", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/NirvanaNevermindalbumcover.jpg/220px-NirvanaNevermindalbumcover.jpg"}, {"year": "1991", "date": "Fall 1991", "artist": "Pearl Jam", "album": "Ten", "wikiLink": "https://en.wikipedia.org/wiki/Ten_(Pearl_Jam_album)", "source": "Mike  Bowman", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/2/2d/PearlJam-Ten2.jpg/220px-PearlJam-Ten2.jpg"}, {"year": "1991", "date": "Winter 1991", "artist": "Harry Connick Jr.", "album": "Blue Light, Red light", "wikiLink": "https://en.wikipedia.org/wiki/Blue_Light,_Red_Light", "source": "Matt", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c4/HCjr_Blue_Light%2C_Red_Light.jpg/220px-HCjr_Blue_Light%2C_Red_Light.jpg"}, {"year": "1992", "date": "Spring 1992", "artist": "Pearl Jam", "album": "Vs. ", "wikiLink": "https://en.wikipedia.org/wiki/Vs._(Pearl_Jam_album)", "source": "", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f9/PearlJam-Vs.jpg/220px-PearlJam-Vs.jpg"}, {"year": "1993", "date": "Fall 1993", "artist": "Frank Sinatra", "album": "Duets", "wikiLink": "https://en.wikipedia.org/wiki/Duets_(Frank_Sinatra_album)", "source": "Dad", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/7/72/Sinatraduets.jpg"}, {"year": "1993", "date": "Summer 1993", "artist": "Carly Simon", "album": "Greatest Hits", "wikiLink": "https://en.wikipedia.org/wiki/The_Best_of_Carly_Simon", "source": "Mom", "format": "Tape", "image": "https://lh3.googleusercontent.com/vcssDC0jBxLJZ_Gc8JsBIzz3N6kDfcD4HlIKJc-bP4L1Wee9KV-u-LouXbQoUhMc9cDc=s85"}, {"year": "1994", "date": "Spring 1994", "artist": "Weezer", "album": "Weezer (Blue Album)", "wikiLink": "https://en.wikipedia.org/wiki/Weezer_(1994_album)", "source": "Adam Paré", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/7/70/Weezer_-_Blue_Album.png/220px-Weezer_-_Blue_Album.png"}, {"year": "1994", "date": "Summer 1994", "artist": "Green Day", "album": "Dookie", "wikiLink": "https://en.wikipedia.org/wiki/Dookie", "source": "Scott Do Santos", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4b/Green_Day_-_Dookie_cover.jpg/220px-Green_Day_-_Dookie_cover.jpg"}, {"year": "1995", "date": "Fall 1995", "artist": "Nirvana", "album": "Unplugged in New York", "wikiLink": "https://en.wikipedia.org/wiki/MTV_Unplugged_in_New_York", "source": "", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/54/Nirvana_mtv_unplugged_in_new_york.png/220px-Nirvana_mtv_unplugged_in_new_york.png"}, {"year": "1995", "date": "January 1995", "artist": "The Beatles", "album": "Revolver", "wikiLink": "https://en.wikipedia.org/wiki/Revolver_(Beatles_album)", "source": "", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/1/16/Revolver.jpg/220px-Revolver.jpg"}, {"year": "1995", "date": "Summer 1995", "artist": "Pearl Jam", "album": "Vitalogy", "wikiLink": "https://en.wikipedia.org/wiki/Vitalogy", "source": "Matt and Katie", "format": "Media Type", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/30/PearlJamVitalogy.jpg/220px-PearlJamVitalogy.jpg"}, {"year": "1995", "date": "Winter 1995", "artist": "Foo Fighters", "album": "Foo Fighters", "wikiLink": "https://en.wikipedia.org/wiki/Foo_Fighters_(album)", "source": "Tommy Callan", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/0/0d/FooFighters-FooFighters.jpg/220px-FooFighters-FooFighters.jpg"}, {"year": "1995", "date": "Spring 1995", "artist": "Aerosmith", "album": "Get A Grip", "wikiLink": "https://en.wikipedia.org/wiki/Get_a_Grip", "source": "Matt Tocco", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/9f/GetAGrip_Aerosmithalbum.jpg/220px-GetAGrip_Aerosmithalbum.jpg"}, {"year": "1996", "date": "Fall 1996", "artist": "Weezer", "album": "Pinkerton", "wikiLink": "https://en.wikipedia.org/wiki/Pinkerton_(album)", "source": "", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/ca/Pinkerton_cover.jpg/220px-Pinkerton_cover.jpg"}, {"year": "1996", "date": "Summer 1996", "artist": "The Beatles", "album": "Abbey Road", "wikiLink": "https://en.wikipedia.org/wiki/Abbey_Road", "source": "", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/42/Beatles_-_Abbey_Road.jpg/220px-Beatles_-_Abbey_Road.jpg"}, {"year": "1996", "date": "Summer 1996", "artist": "The Presidents Of The Unites States Of America", "album": "The Presidents Of The Unites States Of America", "wikiLink": "https://en.wikipedia.org/wiki/The_Presidents_of_the_United_States_of_America_(album)", "source": "Tommy Callan", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/The_Presidents_of_the_United_States_of_America-The_Presidents_of_the_United_States_of_America.jpg/220px-The_Presidents_of_the_United_States_of_America-The_Presidents_of_the_United_States_of_America.jpg"}, {"year": "1997", "date": "Fall 1997", "artist": "Eric Clapton", "album": "Unplugged", "wikiLink": "https://en.wikipedia.org/wiki/Unplugged_(Eric_Clapton_album)", "source": "Dad", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/99/Eric_Clapton_Unplugged.jpg/220px-Eric_Clapton_Unplugged.jpg"}, {"year": "1997", "date": "Summer 1997", "artist": "Ben Folds Five", "album": "Ben Folds Five", "wikiLink": "https://en.wikipedia.org/wiki/Ben_Folds_Five_(album)", "source": "Mom", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/e/e5/Ben_Folds_Five_-_Ben_Folds_Five.jpg"}, {"year": "1997", "date": "Summer 1997", "artist": "Ben Folds Five", "album": "Whatever and Ever Amen", "wikiLink": "https://en.wikipedia.org/wiki/Whatever_and_Ever_Amen", "source": "Mom", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/41/WhateverAndEverAmenRemastereed.jpg/220px-WhateverAndEverAmenRemastereed.jpg"}, {"year": "1997", "date": "Summer 1997", "artist": "Everclear", "album": "So Much for the Afterglow", "wikiLink": "https://en.wikipedia.org/wiki/So_Much_for_the_Afterglow", "source": "", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/c/c9/Everclear_So_Much_for_the_Afterglow.jpg"}, {"year": "1997", "date": "Summer 1997", "artist": "Eric Clapton", "album": "Time Pieces", "wikiLink": "https://en.wikipedia.org/wiki/Timepieces:_The_Best_of_Eric_Clapton", "source": "Michelle De Luca", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/5d/Eric_Clapton-Time_Pieces.jpg/220px-Eric_Clapton-Time_Pieces.jpg"}, {"year": "1997", "date": "Summer 1997", "artist": "Cake", "album": "Fashion Nugget", "wikiLink": "https://en.wikipedia.org/wiki/Fashion_Nugget", "source": "John Mendez", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/d/da/Cake_Fashion_Nugget.jpg/220px-Cake_Fashion_Nugget.jpg"}, {"year": "1997", "date": "Winter 1997", "artist": "Stone Temple Pilots", "album": "Tiny Music...Songs from the Vatican Gift Shop", "wikiLink": "https://en.wikipedia.org/wiki/Tiny_Music..._Songs_from_the_Vatican_Gift_Shop", "source": "Sonic 2 ", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/7/77/Stonetemplepilotstinymusic.jpeg/220px-Stonetemplepilotstinymusic.jpeg"}, {"year": "1997", "date": "Winter 1997", "artist": "Radiohead", "album": "OK Computer", "wikiLink": "https://en.wikipedia.org/wiki/OK_Computer", "source": "Matt", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/Radiohead.okcomputer.albumart.jpg/220px-Radiohead.okcomputer.albumart.jpg"}, {"year": "1998", "date": "Spring 1998", "artist": "Ben Folds Five", "album": "The Unauthorized Biography of Rheinhold Messner", "wikiLink": "https://en.wikipedia.org/wiki/The_Unauthorized_Biography_of_Reinhold_Messner", "source": "Phil Lavanco", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Theunauthorizedbiographyofreinholdmessner.jpg/220px-Theunauthorizedbiographyofreinholdmessner.jpg"}, {"year": "1998", "date": "Summer 1998", "artist": "Wyclef Jean", "album": "The Carnival", "wikiLink": "https://en.wikipedia.org/wiki/Wyclef_Jean_Presents_The_Carnival", "source": "FALSE", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/c/c0/The_Carnival_%28Wyclef_Jean_album%29.jpg"}, {"year": "1998", "date": "Winter 1998", "artist": "Beck", "album": "Mutations", "wikiLink": "https://en.wikipedia.org/wiki/Mutations_(Beck_album)", "source": "Phil Lavanco", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/31/Mutations.jpg/220px-Mutations.jpg"}, {"year": "1998", "date": "Winter 1998", "artist": "Dave Matthews Band", "album": "Before These Crowded Streets", "wikiLink": "https://en.wikipedia.org/wiki/Before_These_Crowded_Streets", "source": "Pete Kenny", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/DMB_-_Before_These_Crowded_Streets.jpg/220px-DMB_-_Before_These_Crowded_Streets.jpg"}, {"year": "1998", "date": "Winter 1998", "artist": "The Rentals", "album": "Return of the Rentals", "wikiLink": "https://en.wikipedia.org/wiki/Return_of_the_Rentals", "source": "Nick ", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/bc/Return_of_the_Rentals.jpg/220px-Return_of_the_Rentals.jpg"}, {"year": "1998", "date": "Summer 1998", "artist": "that dog. ", "album": "Retreat From The Sun", "wikiLink": "https://en.wikipedia.org/wiki/Retreat_from_the_Sun", "source": "", "format": "Mp3", "image": "https://d1itmove024qgx.cloudfront.net/6208697cf2001c16b2b51f84b3cb9b2851a51d6d.jpg"}, {"year": "1999", "date": "Spring 1999", "artist": "The Rentals", "album": "Seven More Minutes", "wikiLink": "https://en.wikipedia.org/wiki/Seven_More_Minutes", "source": "Nick ", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/The_Rentals-Seven_More_Minutes.jpg/220px-The_Rentals-Seven_More_Minutes.jpg"}, {"year": "1999", "date": "Summer 1999", "artist": "Blink 182", "album": "Enema of the State", "wikiLink": "https://en.wikipedia.org/wiki/Enema_of_the_State", "source": "Evil Chris", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a6/Blink-182_-_Enema_of_the_State_cover.jpg/220px-Blink-182_-_Enema_of_the_State_cover.jpg"}, {"year": "1999", "date": "Summer 1999", "artist": "Fountains of Wayne", "album": "Utopia Parkway", "wikiLink": "https://en.wikipedia.org/wiki/Utopia_Parkway", "source": "Flossy", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/ad/Utopia_parkway_cover.jpg/220px-Utopia_parkway_cover.jpg"}, {"year": "1999", "date": "Winter 1999", "artist": "Dave Matthews and Tim Reynolds", "album": "Live at Luther College", "wikiLink": "https://en.wikipedia.org/wiki/Live_at_Luther_College", "source": "Jodi", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b6/Live_at_Luther_College.png/220px-Live_at_Luther_College.png"}, {"year": "2000", "date": "Fall 2000", "artist": "Chet Baker", "album": "Chet", "wikiLink": "https://en.wikipedia.org/wiki/Chet_Baker_Sings", "source": "Matt", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/6/60/Chet_Baker_Sings.jpg"}, {"year": "2000", "date": "Spring 2000", "artist": "Pearl Jam", "album": "Live on Two Legs", "wikiLink": "https://en.wikipedia.org/wiki/Live_on_Two_Legs", "source": "", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/2/27/PearlJam-LiveOnTwoLegs.jpg/220px-PearlJam-LiveOnTwoLegs.jpg"}, {"year": "2000", "date": "Summer 2000", "artist": "Sublime", "album": "40 oz. to freedom", "wikiLink": "https://en.wikipedia.org/wiki/40oz._to_Freedom", "source": "TEP", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/57/Sublime40OztoFreedomalbumcover.jpg/220px-Sublime40OztoFreedomalbumcover.jpg"}, {"year": "2000", "date": "Summer 2000", "artist": "Sublime", "album": "Sublime", "wikiLink": "https://en.wikipedia.org/wiki/Sublime_(album)", "source": "TEP", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/94/Sublime_Self-Titled.jpg/220px-Sublime_Self-Titled.jpg"}, {"year": "2000", "date": "Winter 2000", "artist": "Dave Matthews Band", "album": "Everyday", "wikiLink": "https://en.wikipedia.org/wiki/Everyday_(Dave_Matthews_Band_album)", "source": "Tony Hawk 2", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/40/DaveMatthewsBandEveryday.jpg/220px-DaveMatthewsBandEveryday.jpg"}, {"year": "2001", "date": "Fall 2001", "artist": "Jay-Z", "album": "Blueprint ", "wikiLink": "https://en.wikipedia.org/wiki/The_Blueprint", "source": "Matt Becker", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c9/Jay-z-the-blueprint.jpg/220px-Jay-z-the-blueprint.jpg"}, {"year": "2001", "date": "Fall 2001", "artist": "John Mayer", "album": "Room for squares ", "wikiLink": "https://en.wikipedia.org/wiki/Room_for_Squares", "source": "Ben Gottheim", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/5a/JohnMayer_RoomForSquares.jpg/220px-JohnMayer_RoomForSquares.jpg"}, {"year": "2001", "date": "Spring 2001", "artist": "Jay-Z", "album": "Reasonable Doubt", "wikiLink": "https://en.wikipedia.org/wiki/Reasonable_Doubt_(album)", "source": "Matt O’ Brien", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f5/Reasonable_Doubt_New.jpg/220px-Reasonable_Doubt_New.jpg"}, {"year": "2001", "date": "Spring 2001", "artist": "Bobby Darin", "album": "Greatest Hits", "wikiLink": "", "source": "Diane Belvin", "format": "CD", "image": ""}, {"year": "2001", "date": "Spring 2001", "artist": "Aimee Mann", "album": "Magnolia Soundtrack", "wikiLink": "https://en.wikipedia.org/wiki/Magnolia_(soundtrack)", "source": "Nick", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/d/db/Magnolia_album.jpg/220px-Magnolia_album.jpg"}, {"year": "2001", "date": "Spring 2001", "artist": "Ben Folds Five", "album": "Rockin' the Suburbs", "wikiLink": "https://en.wikipedia.org/wiki/Rockin%27_the_Suburbs", "source": "Nick, Phil Lavanco", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/3c/BenFoldsRockingtheSuburbs.jpg/220px-BenFoldsRockingtheSuburbs.jpg"}, {"year": "2001", "date": "Spring 2001", "artist": "Jay - Z", "album": "Dynasty...Roc la Familia", "wikiLink": "https://en.wikipedia.org/wiki/The_Dynasty:_Roc_La_Familia", "source": "Matt O’ Brien", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/40/Jay-z-dynasty-roc-la-familia-2000.jpg/220px-Jay-z-dynasty-roc-la-familia-2000.jpg"}, {"year": "2001", "date": "Summer 2001", "artist": "Nas", "album": "Stillmatic", "wikiLink": "https://en.wikipedia.org/wiki/Stillmatic", "source": "Lieser's", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Nas-stillmatic-music-album.jpg/220px-Nas-stillmatic-music-album.jpg"}, {"year": "2001", "date": "Winter 2001", "artist": "Ghostface Killah", "album": "Bulletproof Wallets", "wikiLink": "https://en.wikipedia.org/wiki/Bulletproof_Wallets", "source": "Nick", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/f/fa/Bulletproof_wallets.jpg/220px-Bulletproof_wallets.jpg"}, {"year": "2001", "date": "Winter 2001", "artist": "Radiohead", "album": "Kid A", "wikiLink": "https://en.wikipedia.org/wiki/Kid_A", "source": "Colin TEP", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b5/Radiohead.kida.albumart.jpg/220px-Radiohead.kida.albumart.jpg"}, {"year": "2001", "date": "Winter 2001", "artist": "Pink Floyd", "album": "Dark Side of the Moon", "wikiLink": "https://en.wikipedia.org/wiki/The_Dark_Side_of_the_Moon", "source": "Adam Wactlar", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/Dark_Side_of_the_Moon.png/220px-Dark_Side_of_the_Moon.png"}, {"year": "2002", "date": "Fall 2002", "artist": "Blink 182", "album": "Take off your pants and Jacket", "wikiLink": "https://en.wikipedia.org/wiki/Take_Off_Your_Pants_and_Jacket", "source": "Phil Lavanco", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/d/de/Blink-182_-_Take_Off_Your_Pants_and_Jacket_cover.jpg/220px-Blink-182_-_Take_Off_Your_Pants_and_Jacket_cover.jpg"}, {"year": "2002", "date": "Fall 2002", "artist": "Cake", "album": "Comfort Eagle", "wikiLink": "https://en.wikipedia.org/wiki/Comfort_Eagle", "source": "Phil Lavanco", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a8/Cake_Comfort_Eagle.jpg/220px-Cake_Comfort_Eagle.jpg"}, {"year": "2002", "date": "Spring 2002", "artist": "Dashboard Confessional", "album": "Swiss Army Romance", "wikiLink": "https://en.wikipedia.org/wiki/The_Swiss_Army_Romance", "source": "Diane Belvin", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b5/DC-SAR.jpg/220px-DC-SAR.jpg"}, {"year": "2002", "date": "Spring 2002", "artist": "Jimmy Eat World", "album": "Bleed American", "wikiLink": "https://en.wikipedia.org/wiki/Bleed_American", "source": "Diane Belvin", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/37/Bleedamerican.jpg/220px-Bleedamerican.jpg"}, {"year": "2002", "date": "Summer 2002", "artist": "The Strokes", "album": "Is This It?", "wikiLink": "https://en.wikipedia.org/wiki/Is_This_It", "source": "Jimmy Fallon", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/0/09/The_Strokes_-_Is_This_It_cover.png/220px-The_Strokes_-_Is_This_It_cover.png"}, {"year": "2002", "date": "Summer 2002", "artist": "Norah Jones", "album": "Feels like Home", "wikiLink": "https://en.wikipedia.org/wiki/Feels_Like_Home_(Norah_Jones_album)", "source": "Diane Belvin", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/Norah_Jones_-_Feels_Like_Home.jpg/220px-Norah_Jones_-_Feels_Like_Home.jpg"}, {"year": "2003", "date": "Summer 2003", "artist": "Dexter Gordon", "album": "Dexter Calling", "wikiLink": "https://en.wikipedia.org/wiki/Dexter_Calling...", "source": "Matt", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/3f/Dexter_Calling.jpg/220px-Dexter_Calling.jpg"}, {"year": "2003", "date": "Summer 2003", "artist": "Ben Folds", "album": "Speed Graphic", "wikiLink": "https://en.wikipedia.org/wiki/Speed_Graphic_(EP)", "source": "", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/d/d4/Ben_Folds_Speed_Graphic.png"}, {"year": "2004", "date": "Fall 2004", "artist": "Arcade Fire", "album": "Funeral", "wikiLink": "https://en.wikipedia.org/wiki/Funeral_(album)", "source": "NIck, Erin", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/2/25/ArcadeFireFuneralCover.jpg/220px-ArcadeFireFuneralCover.jpg"}, {"year": "2004", "date": "Fall 2004", "artist": "Mates of State", "album": "Team Boo", "wikiLink": "https://en.wikipedia.org/wiki/Team_Boo", "source": "Nick", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/94/TeamBoo.jpg/220px-TeamBoo.jpg"}, {"year": "2004", "date": "Spring 2004", "artist": "The Decemberists", "album": "Castaways and Cutouts", "wikiLink": "https://en.wikipedia.org/wiki/Castaways_and_Cutouts", "source": "NIck, Erin", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Castaways.jpg/220px-Castaways.jpg"}, {"year": "2004", "date": "Spring 2004", "artist": "The Decemberists", "album": "Her Majesty The Decemberists", "wikiLink": "https://en.wikipedia.org/wiki/Her_Majesty_the_Decemberists", "source": "NIck, Erin", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/bd/Her-majesty.jpg/220px-Her-majesty.jpg"}, {"year": "2004", "date": "Summer 2004", "artist": "The Shins", "album": "Kissing the Lipless", "wikiLink": "https://en.wikipedia.org/wiki/Chutes_Too_Narrow", "source": "Erin", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/3e/Chutes_Too_Narrow.PNG/220px-Chutes_Too_Narrow.PNG"}, {"year": "2004", "date": "Summer 2004", "artist": "The Flaming Lips", "album": "Yoshimi Battles the Pink Robots", "wikiLink": "https://en.wikipedia.org/wiki/Yoshimi_Battles_the_Pink_Robots", "source": "Molly ", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/TheFlamingLips-YoshimiBattlesThePinkRobots.jpg/220px-TheFlamingLips-YoshimiBattlesThePinkRobots.jpg"}, {"year": "2004", "date": "Summer 2004", "artist": "Franz Ferdinand", "album": "Franz Ferdinand", "wikiLink": "https://en.wikipedia.org/wiki/Franz_Ferdinand_(album)", "source": "Kelly Delace", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Franz-Ferdinand.PNG/220px-Franz-Ferdinand.PNG"}, {"year": "2004", "date": "Summer 2004", "artist": "Immortal Technique", "album": "Revolutionary Vol. 2", "wikiLink": "https://en.wikipedia.org/wiki/Revolutionary_Vol._2", "source": "Washington Social Club", "format": "CD", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a8/Revolutionary_Vol_2.jpg/220px-Revolutionary_Vol_2.jpg"}, {"year": "2004", "date": "Summer 2004", "artist": "Interpol", "album": "Turn on the Bright Lights", "wikiLink": "https://en.wikipedia.org/wiki/Turn_on_the_Bright_Lights", "source": "Wonder Showzen S1", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/6/68/Interpol_-_Turn_On_The_Bright_Lights.jpg/220px-Interpol_-_Turn_On_The_Bright_Lights.jpg"}, {"year": "2004", "date": "Summer 2004", "artist": "Modest Mouse", "album": "Good News for People who love Bad News", "wikiLink": "https://en.wikipedia.org/wiki/Good_News_for_People_Who_Love_Bad_News", "source": "Los Angelels", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/aa/MMGoodNews5075.jpg/220px-MMGoodNews5075.jpg"}, {"year": "2004", "date": "Winter 2004", "artist": "Jon Brion", "album": "Eternal Sunshine of the Spotless Mind", "wikiLink": "https://en.wikipedia.org/wiki/Eternal_Sunshine_of_the_Spotless_Mind_(soundtrack)", "source": "Julie Smith, Erin", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Eternal_sunshine_CD_cover.jpg/220px-Eternal_sunshine_CD_cover.jpg"}, {"year": "2004", "date": "Winter 2004", "artist": "Final Fantasy", "album": "Has a Good Home", "wikiLink": "https://en.wikipedia.org/wiki/Has_a_Good_Home", "source": "Erin", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/8/86/FinalFantasyHasAGoodHome.jpg/220px-FinalFantasyHasAGoodHome.jpg"}, {"year": "2005", "date": "Fall 2005", "artist": "Jon Brion", "album": "Meaningless", "wikiLink": "https://en.wikipedia.org/wiki/Meaningless_(album)", "source": "Erin", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/5/51/Meaningless_album_cover.jpg"}, {"year": "2005", "date": "Spring 2005", "artist": "Ben Folds", "album": "Songs for Silverman", "wikiLink": "https://en.wikipedia.org/wiki/Songs_for_Silverman", "source": "Erin", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/92/SongsForSilverman.jpg/220px-SongsForSilverman.jpg"}, {"year": "2005", "date": "Spring 2005", "artist": "Philip Glass", "album": "Einstein on the Beach", "wikiLink": "https://en.wikipedia.org/wiki/Einstein_on_the_Beach", "source": "Erin", "format": "Mp3", "image": "http://www.1000recordings.com/images/artist-g/glass-philip-350-l.jpg"}, {"year": "2005", "date": "Spring 2005", "artist": "Apparat Organ Quartet", "album": "Apparat Organ Quartet", "wikiLink": "https://en.wikipedia.org/wiki/Apparat_Organ_Quartet_(album)", "source": "Vernon", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/bd/Apparat_Organ_Quartet_%28album%29.gif/220px-Apparat_Organ_Quartet_%28album%29.gif"}, {"year": "2005", "date": "Summer 2005", "artist": "Deseparacedios", "album": "Read Music/Speak Spanish", "wikiLink": "https://en.wikipedia.org/wiki/Read_Music/Speak_Spanish", "source": "Vernon", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/5e/Readmusicspeakspanish.jpg/220px-Readmusicspeakspanish.jpg"}, {"year": "2005", "date": "Summer 2005", "artist": "Kanye West", "album": "Late Registration", "wikiLink": "https://en.wikipedia.org/wiki/Late_Registration", "source": "Dad", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f4/Late_registration_cd_cover.jpg/220px-Late_registration_cd_cover.jpg"}, {"year": "2005", "date": "Summer 2005", "artist": "Clap Your Hands Say Yeah!", "album": "Clap Your Hands Say Yeah!", "wikiLink": "https://en.wikipedia.org/wiki/Clap_Your_Hands_Say_Yeah_(album)", "source": "Erin", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Clap_Your_Hands_Say_Yeah_%28Front_Cover%29.png/220px-Clap_Your_Hands_Say_Yeah_%28Front_Cover%29.png"}, {"year": "2005", "date": "Winter 2005", "artist": "Bright Eyes", "album": "I'm wide awake, It's Morning", "wikiLink": "https://en.wikipedia.org/wiki/I%27m_Wide_Awake,_It%27s_Morning", "source": "Erin", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/36/Imwideawake.jpg/220px-Imwideawake.jpg"}, {"year": "2005", "date": "Winter 2005", "artist": "Broken Social Scene", "album": "You Forget it in People", "wikiLink": "https://en.wikipedia.org/wiki/You_Forgot_It_in_People", "source": "Erin", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/8/83/YouForgotItInPeople2.jpg/220px-YouForgotItInPeople2.jpg"}, {"year": "2005", "date": "Winter 2005", "artist": "Danger Doom", "album": "The Mouse & The Mask", "wikiLink": "https://en.wikipedia.org/wiki/The_Mouse_and_the_Mask", "source": "NIck", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/1/1e/Dangerdoom.jpg/220px-Dangerdoom.jpg"}, {"year": "2005", "date": "Winter 2005", "artist": "Bob Dylan", "album": "Bringing it All Back Home", "wikiLink": "https://en.wikipedia.org/wiki/Bringing_It_All_Back_Home", "source": "Vernon", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b1/Bob_Dylan_-_Bringing_It_All_Back_Home.jpg/220px-Bob_Dylan_-_Bringing_It_All_Back_Home.jpg"}, {"year": "2005", "date": "Winter 2005", "artist": "The Decemberists", "album": "Picaresque", "wikiLink": "https://en.wikipedia.org/wiki/Picaresque_(album)", "source": "NIck, Erin", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/33/Picaresque.jpg/220px-Picaresque.jpg"}, {"year": "2005", "date": "Spring 2005", "artist": "Animal Collective", "album": "Feels", "wikiLink": "https://en.wikipedia.org/wiki/Feels", "source": "Vernon ", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Feels_%28Front_Cover%29.png/220px-Feels_%28Front_Cover%29.png"}, {"year": "2006", "date": "Fall 2006", "artist": "The Flaming Lips", "album": "At War with the Mystics", "wikiLink": "https://en.wikipedia.org/wiki/At_War_with_the_Mystics", "source": "Forest Hills", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/bd/The_Flaming_Lips_-_At_War_with_the_Mystics.jpg/220px-The_Flaming_Lips_-_At_War_with_the_Mystics.jpg"}, {"year": "2006", "date": "Fall 2006", "artist": "Gang Gang Dance", "album": "God's Money", "wikiLink": "https://en.wikipedia.org/wiki/God%27s_Money_(album)", "source": "John Lee, Vernon", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/1/1b/God%27s_Money.jpg/220px-God%27s_Money.jpg"}, {"year": "2006", "date": "Spring 2006", "artist": "Joanna Newsom", "album": "The Milk-Eyed Mender", "wikiLink": "https://en.wikipedia.org/wiki/The_Milk-Eyed_Mender", "source": "Vernon", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c5/The_Milk-Eyed_Mender_%28Front_Cover%29.png/220px-The_Milk-Eyed_Mender_%28Front_Cover%29.png"}, {"year": "2006", "date": "Summer 2006", "artist": "Dr. Dog", "album": "Easy Beat", "wikiLink": "https://en.wikipedia.org/wiki/Easy_Beat", "source": "Bobby Sanchez", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/6/61/Drdog_easybeat.jpg/220px-Drdog_easybeat.jpg"}, {"year": "2006", "date": "Summer 2006", "artist": "Dr. Dog", "album": "Takers and Leavers", "wikiLink": "https://en.wikipedia.org/wiki/Takers_and_Leavers", "source": "Bobby Sanchez", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/96/Takerz.jpg/220px-Takerz.jpg"}, {"year": "2006", "date": "Summer 2006", "artist": "Fiery Furnaces", "album": "Bitter Tea", "wikiLink": "https://en.wikipedia.org/wiki/Bitter_Tea", "source": "Forest Hills", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/1/13/Bitter_Tea_%28Front_Cover%29.png/220px-Bitter_Tea_%28Front_Cover%29.png"}, {"year": "2006", "date": "Winter 2006", "artist": "Islands", "album": "Return to the Sea", "wikiLink": "https://en.wikipedia.org/wiki/Return_to_the_Sea", "source": "Nick", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/6/61/IslandsReturnToTheSea.jpg/220px-IslandsReturnToTheSea.jpg"}, {"year": "2006", "date": "Winter 2006", "artist": "TV on the Radio", "album": "Return to Cookie Mountain", "wikiLink": "https://en.wikipedia.org/wiki/Return_to_Cookie_Mountain", "source": "", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/b/ba/Cookiemtn.jpg"}, {"year": "2007", "date": "Fall 2007", "artist": "Fountains of Wayne", "album": "Traffic and Weather", "wikiLink": "https://en.wikipedia.org/wiki/Traffic_and_Weather", "source": "Bobby Sanchez", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/5f/Fountains_Of_Wayne_Traffic_And_Weather.jpg/220px-Fountains_Of_Wayne_Traffic_And_Weather.jpg"}, {"year": "2007", "date": "Fall 2007", "artist": "Band of Horses", "album": "Everything All The Time", "wikiLink": "https://en.wikipedia.org/wiki/Everything_All_the_Time", "source": "Bobby Sanchez", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/51/BandofHorsesEverythingalltheTime.jpg/220px-BandofHorsesEverythingalltheTime.jpg"}, {"year": "2007", "date": "Fall 2007", "artist": "Brian Eno", "album": "Here Come the Warm Jets", "wikiLink": "https://en.wikipedia.org/wiki/Here_Come_the_Warm_Jets", "source": "", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/1/13/Warmjetsvinyl.jpg/220px-Warmjetsvinyl.jpg"}, {"year": "2007", "date": "Fall 2007", "artist": "Radiohead", "album": "In Rainbows", "wikiLink": "https://en.wikipedia.org/wiki/In_Rainbows", "source": "Matt", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/2/2e/In_Rainbows_Official_Cover.jpg/220px-In_Rainbows_Official_Cover.jpg"}, {"year": "2007", "date": "Spring 2007", "artist": "Menomena", "album": "I am the Fun Blame Monster!", "wikiLink": "https://en.wikipedia.org/wiki/I_Am_the_Fun_Blame_Monster!", "source": "Astoria ", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b5/I_Am_the_Fun_Blame_Monster%21_%28Front_Cover%29.png/220px-I_Am_the_Fun_Blame_Monster%21_%28Front_Cover%29.png"}, {"year": "2007", "date": "Winter 2007", "artist": "Arcade Fire", "album": "Neon Bible", "wikiLink": "https://en.wikipedia.org/wiki/Neon_Bible", "source": "Erin", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/7/75/Neon_Bible_%28Front_Cover%29.png/220px-Neon_Bible_%28Front_Cover%29.png"}, {"year": "2008", "date": "Summer 2008", "artist": "The Dodos", "album": "Visiter", "wikiLink": "https://en.wikipedia.org/wiki/Visiter", "source": "Erin", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Visiter.jpg/220px-Visiter.jpg"}, {"year": "2008", "date": "Summer 2008", "artist": "Fleet Foxes", "album": "Fleet Foxes", "wikiLink": "https://en.wikipedia.org/wiki/Fleet_Foxes_(album)", "source": "Erin", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Fleet_foxes.jpg/220px-Fleet_foxes.jpg"}, {"year": "2008", "date": "Summer 2008", "artist": "Bon Iver", "album": "For Emma, Forever Ago", "wikiLink": "https://en.wikipedia.org/wiki/For_Emma,_Forever_Ago", "source": "Erin", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/Bon_iver_album_cover.jpg/220px-Bon_iver_album_cover.jpg"}, {"year": "2008", "date": "Summer 2008", "artist": "Final Fantasy", "album": "Spectrum 14th century", "wikiLink": "https://en.wikipedia.org/wiki/Spectrum,_14th_Century", "source": "Erin, Honeymoon", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/Final_Fantasy-Spectrum%2C_14th_Century.jpg/220px-Final_Fantasy-Spectrum%2C_14th_Century.jpg"}, {"year": "2008", "date": "Winter 2008", "artist": "The Tallest Man on Earth", "album": "Shallow Graves", "wikiLink": "https://en.wikipedia.org/wiki/Shallow_Grave_(album)", "source": "Erin", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b5/Shallow_Grave_%28Front_Cover%29.png/220px-Shallow_Grave_%28Front_Cover%29.png"}, {"year": "2008", "date": "Winter 2008", "artist": "Philip Glass", "album": "Glassworks", "wikiLink": "https://en.wikipedia.org/wiki/Glassworks", "source": "Aunt Flo", "format": "Mp3", "image": "http://quietus_production.s3.amazonaws.com/images/articles/8659/glass_1335639714_crop_550x550.jpg"}, {"year": "2009", "date": "Fall 2009", "artist": "Julian Casablancas", "album": "Phrazes for the Young", "wikiLink": "https://en.wikipedia.org/wiki/Phrazes_for_the_Young", "source": "Diallo Riddle", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Phrazes_cover_small.jpg/220px-Phrazes_cover_small.jpg"}, {"year": "2009", "date": "Spring 2009", "artist": "Japandroids", "album": "Post Nothing", "wikiLink": "https://en.wikipedia.org/wiki/Post-Nothing", "source": "Elayna Bischof", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d4/Jpndrds.jpg/220px-Jpndrds.jpg"}, {"year": "2009", "date": "Summer 2009", "artist": "Chad VanGaalen", "album": "Soft Airplane", "wikiLink": "https://en.wikipedia.org/wiki/Soft_Airplane", "source": "Edmond Hawkins", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/9d/Vangaalen-airplane.jpg/220px-Vangaalen-airplane.jpg"}, {"year": "2009", "date": "Summer 2009", "artist": "Passion Pit", "album": "Manners", "wikiLink": "https://en.wikipedia.org/wiki/Manners_(album)", "source": "Mazda, Jersey Shore ‘09", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/1/17/Mannersalbum.jpg/220px-Mannersalbum.jpg"}, {"year": "2010", "date": "Spring 2010", "artist": "Beach House", "album": "Teen Dream", "wikiLink": "https://en.wikipedia.org/wiki/Teen_Dream", "source": "Joel Knutson", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b2/Beach_House_-_Teen_Dream.png/220px-Beach_House_-_Teen_Dream.png"}, {"year": "2010", "date": "Spring 2010", "artist": "Arcade Fire", "album": "The Suburbs", "wikiLink": "https://en.wikipedia.org/wiki/The_Suburbs_(album)", "source": "Erin, Maeve", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/8/81/Arcade_Fire_-_The_Suburbs.jpg/220px-Arcade_Fire_-_The_Suburbs.jpg"}, {"year": "2010", "date": "Summer 2010", "artist": "Dirty Projectors", "album": "Bitte Orca", "wikiLink": "https://en.wikipedia.org/wiki/Bitte_Orca", "source": "Erin", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/6/69/DirtyProjectors-BitteOrca.jpg/220px-DirtyProjectors-BitteOrca.jpg"}, {"year": "2010", "date": "Summer 2010", "artist": "Bruce Springsteen", "album": "Born To Run", "wikiLink": "https://en.wikipedia.org/wiki/Born_to_Run", "source": "Erin", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/Born_to_Run_%28Front_Cover%29.jpg/220px-Born_to_Run_%28Front_Cover%29.jpg"}, {"year": "2010", "date": "Summer 2010", "artist": "They Might be Giants", "album": "Lincoln", "wikiLink": "https://en.wikipedia.org/wiki/Lincoln_(album)", "source": "John Lee", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f3/TheyMightBeGiants-Lincoln.jpg/220px-TheyMightBeGiants-Lincoln.jpg"}, {"year": "2011", "date": "Fall 2011", "artist": "Fountains of Wayne", "album": "Sky Full of Holes", "wikiLink": "https://en.wikipedia.org/wiki/Sky_Full_of_Holes", "source": "", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/cb/Sky_Full_of_Holes.jpg/220px-Sky_Full_of_Holes.jpg"}, {"year": "2011", "date": "Fall 2011", "artist": "St. Vincent", "album": "Strange Mercy", "wikiLink": "https://en.wikipedia.org/wiki/Strange_Mercy", "source": "", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/St._Vincent_-_Strange_Mercy.jpg/220px-St._Vincent_-_Strange_Mercy.jpg"}, {"year": "2011", "date": "Summer 2011", "artist": "Tune Yards", "album": "WHOKILL", "wikiLink": "https://en.wikipedia.org/wiki/Whokill", "source": "Evil Chris", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Whokill.jpg/220px-Whokill.jpg"}, {"year": "2011", "date": "Winter 2011", "artist": "Jay - Z & Kanye West", "album": "Watch The Throne", "wikiLink": "https://en.wikipedia.org/wiki/Watch_the_Throne", "source": "Gym", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/e/ee/Watch_The_Throne.jpg/220px-Watch_The_Throne.jpg"}, {"year": "2012", "date": "Fall 2012", "artist": "Ben Folds Five", "album": "The Sound of the Life of the Mind", "wikiLink": "https://en.wikipedia.org/wiki/The_Sound_of_the_Life_of_the_Mind", "source": "Matt Lavanco", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/6/6d/Thesoundofthelifeofthemind.jpg/220px-Thesoundofthelifeofthemind.jpg"}, {"year": "2012", "date": "Fall 2012", "artist": "Carole King", "album": "Tapestry", "wikiLink": "https://en.wikipedia.org/wiki/Tapestry_(album)", "source": "", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Carole_King_-_Tapestry.jpg/220px-Carole_King_-_Tapestry.jpg"}, {"year": "2012", "date": "Spring 2012", "artist": "MGMT", "album": "Congratualtions", "wikiLink": "https://en.wikipedia.org/wiki/Congratulations_(album)", "source": "Vernon, Jimmy Fallon", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f3/MGMT_Congratulations.jpg/220px-MGMT_Congratulations.jpg"}, {"year": "2012", "date": "Summer 2012", "artist": "DIrty Projectors", "album": "Swing Lo Magellan", "wikiLink": "https://en.wikipedia.org/wiki/Swing_Lo_Magellan", "source": "Erin", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/91/Swing_Lo_Magellan.jpg/220px-Swing_Lo_Magellan.jpg"}, {"year": "2012", "date": "Summer 2012", "artist": "Japandroids", "album": "Celebration Rock", "wikiLink": "https://en.wikipedia.org/wiki/Celebration_Rock", "source": "Mazda", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e5/Celebration_Rock.jpg/220px-Celebration_Rock.jpg"}, {"year": "2012", "date": "Summer 2012", "artist": "Washed Out", "album": "Within and Without", "wikiLink": "https://en.wikipedia.org/wiki/Within_and_Without_(album)", "source": "Bobby Sanchez", "format": "Spotify", "image": ""}, {"year": "2012", "date": "Winter 2012", "artist": "Frank Sinatra", "album": "Watertown", "wikiLink": "https://en.wikipedia.org/wiki/Watertown_(album)", "source": "Arthur Meyer", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Watertown%281970album%29.jpg/220px-Watertown%281970album%29.jpg"}, {"year": "2013", "date": "Summer 2013", "artist": "Paul McCartney", "album": "RAM", "wikiLink": "https://en.wikipedia.org/wiki/Ram_(album)", "source": "Jimmy Fallon", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/bd/RamMcCartneyalbumcover.jpg/220px-RamMcCartneyalbumcover.jpg"}, {"year": "2013", "date": "Summer 2013", "artist": "Kanye West", "album": "Yeezus", "wikiLink": "https://en.wikipedia.org/wiki/Yeezus", "source": "", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Yeezus_album_cover.png/220px-Yeezus_album_cover.png"}, {"year": "2013", "date": "Summer 2013", "artist": "Vampire Weekend", "album": "Modern Vampires in the City", "wikiLink": "https://en.wikipedia.org/wiki/Modern_Vampires_of_the_City", "source": "", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4d/Vampire_Weekend_-_Modern_Vampires_of_the_City.png/220px-Vampire_Weekend_-_Modern_Vampires_of_the_City.png"}, {"year": "2013", "date": "Summer 2013", "artist": "Jay - Z", "album": "Magna Carter.... Holy grail", "wikiLink": "https://en.wikipedia.org/wiki/Magna_Carta_Holy_Grail", "source": "Nick ", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/8/87/Magna_Carta_Holy_Grail_cover.png/220px-Magna_Carta_Holy_Grail_cover.png"}, {"year": "2013", "date": "Winter 2013", "artist": "Kendrick Lamar", "album": "Good Kid m. A. A. D. City", "wikiLink": "https://en.wikipedia.org/wiki/Good_Kid,_M.A.A.D_City", "source": "Gavin Purcell", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/6/65/KendrickGKMCDeluxe.jpg/220px-KendrickGKMCDeluxe.jpg"}, {"year": "2013", "date": "Winter 2013", "artist": "Frank Ocean", "album": "Channel Orange", "wikiLink": "https://en.wikipedia.org/wiki/Channel_Orange", "source": "", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/2/28/Channel_ORANGE.jpg/220px-Channel_ORANGE.jpg"}, {"year": "2014", "date": "Spring 2014", "artist": "Biff Rose", "album": "Fill your heart with Biff", "wikiLink": "https://en.wikipedia.org/wiki/Biff_Rose", "source": "Josh Lieb, Jimmy Fallon", "format": "Spotify", "image": ""}, {"year": "2014", "date": "Winter 2014", "artist": "Arcade Fire", "album": "Reflektor", "wikiLink": "https://en.wikipedia.org/wiki/Reflektor", "source": "Erin", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/57/ArcadeFireReflektor.jpg/220px-ArcadeFireReflektor.jpg"}, {"year": "2014", "date": "Winter 2014", "artist": "Paul McCartney", "album": "Band on the Run", "wikiLink": "https://en.wikipedia.org/wiki/Band_on_the_Run", "source": "", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f4/Paul_McCartney_%26_Wings-Band_on_the_Run_album_cover.jpg/220px-Paul_McCartney_%26_Wings-Band_on_the_Run_album_cover.jpg"}, {"year": "2015", "date": "Spring 2015", "artist": "Father John Misty", "album": "I love you, Honeybear", "wikiLink": "https://en.wikipedia.org/wiki/I_Love_You,_Honeybear", "source": "", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Fjm-iloveyouhoneybear.jpg/220px-Fjm-iloveyouhoneybear.jpg"}, {"year": "2015", "date": "Summer 2015", "artist": "Tame Impala", "album": "Currents", "wikiLink": "https://en.wikipedia.org/wiki/Currents_(Tame_Impala_album)", "source": "Arthur Meyer", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Currents_artwork_%28Tame_Impala_album%29.jpg/220px-Currents_artwork_%28Tame_Impala_album%29.jpg"}, {"year": "2015", "date": "Summer 2015", "artist": "Lil' Dicky", "album": "Professional Rapper", "wikiLink": "https://en.wikipedia.org/wiki/Professional_Rapper_(Lil_Dicky_album)", "source": "Jim Juvonen", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/7/7f/Professional_Rapper_by_Lil_Dicky_Album_Cover.jpg/220px-Professional_Rapper_by_Lil_Dicky_Album_Cover.jpg"}, {"year": "2016", "date": "Winter 2016", "artist": "Kanye West", "album": "The Life of Pablo", "wikiLink": "https://en.wikipedia.org/wiki/The_Life_of_Pablo", "source": "Arthur Meyer, Beef", "format": "Mp3", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4d/The_life_of_pablo_alternate.jpg/220px-The_life_of_pablo_alternate.jpg"}, {"year": "2016", "date": "Spring 2016", "artist": "Jean Sibelius", "album": "Symphony No. 2", "wikiLink": "https://en.wikipedia.org/wiki/Symphony_No._2_(Sibelius)", "source": "Erin", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Jean_Sibelius_%28AE%2C_1904%29.png/150px-Jean_Sibelius_%28AE%2C_1904%29.png"}, {"year": "2016", "date": "Spring 2016", "artist": "Weezer", "album": "Weezer (white album)", "wikiLink": "https://en.wikipedia.org/wiki/Weezer_(2016_album)", "source": "John Haskell", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Cover_of_Weezer%27s_White_Album%2C2016.jpg/220px-Cover_of_Weezer%27s_White_Album%2C2016.jpg"}, {"year": "2016", "date": "Winter 2016", "artist": "La La Land", "album": "Original Sountrack", "wikiLink": "https://en.wikipedia.org/wiki/La_La_Land_(soundtrack)", "source": "Dan Opsal", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/8/83/La_La_Land_soundtrack.jpg"}, {"year": "2017", "date": "Spring 2017", "artist": "Run The Jewels", "album": "Run The Jewels Vol. 2", "wikiLink": "https://en.wikipedia.org/wiki/Run_the_Jewels_2", "source": "", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/9/93/RunTheJewelsRTJ2.jpg"}, {"year": "2017", "date": "Spring 2017", "artist": "Run The Jewels", "album": "Run The Jewels Vol. 3", "wikiLink": "https://en.wikipedia.org/wiki/Run_the_Jewels_3", "source": "", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/9/96/RunTheJewels3.jpg"}, {"year": "2016", "date": "Summer 2016", "artist": "Frank Ocean", "album": "Blonde", "wikiLink": "https://en.wikipedia.org/wiki/Blonde_(Frank_Ocean_album)", "source": "Beef", "format": "Spotify", "image": "https://upload.wikimedia.org/wikipedia/en/a/a0/Blonde_-_Frank_Ocean.jpeg"}, {"year": "2022", "date": "Summer 2022", "artist": "Blazrdog", "album": "why not?", "wikiLink": "", "source": "Haskell", "format": "Spotify", "image": ""}, {"year": "2022", "date": "Summer 2022", "artist": "Musical Miracle", "album": "Hawaii Pt. 2", "wikiLink": "https://en.wikipedia.org/wiki/Tally_Hall", "source": "Nedaa Sweiss", "format": "Spotify", "image": "https://static.wikia.nocookie.net/tallyhall/images/6/6f/Hawaii_Part_II.jpeg/revision/latest/scale-to-width-down/200?cb=20150728020848"}];
+    
+    let isGridView = false;
+    
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
+    function renderTimeline() {
+        const container = document.querySelector('#chris-music-timeline-root .cmt-timeline-events');
+        
+        container.innerHTML = timelineData.map(event => {
+            const imageHtml = event.image ? 
+                `<img src="${escapeHtml(event.image)}" alt="${escapeHtml(event.album)}" class="cmt-event-image" onerror="this.style.display='none'">` : 
+                '';
+            
+            const wikiLink = event.wikiLink ? 
+                `<a href="${escapeHtml(event.wikiLink)}" target="_blank" rel="noopener" class="cmt-wiki-link">📖 Wiki</a>` : 
+                '';
+            
+            return `
+                <div class="cmt-timeline-event genre-$">
+                    <div class="cmt-timeline-dot"></div>
+                    <div class="cmt-event-card">
+                        <div class="cmt-event-image-container">
+                            $
+                            ${event.format ? `<div class="cmt-format-badge">${escapeHtml(event.format)}</div>` : ''}
+                        </div>
+                        <div class="cmt-event-content">
+                            <div class="cmt-event-header">
+                                <div class="cmt-year-badge">${escapeHtml(event.date)}</div>
+                                <div class="cmt-artist-name">${escapeHtml(event.artist)}</div>
+                            </div>
+                            <h2 class="cmt-event-title">${escapeHtml(event.album)}</h2>
+                            <div class="cmt-event-meta">
+                                ${event.source ? `
+                                    <div class="cmt-meta-item">
+                                        <span>👤</span>
+                                        <span>${escapeHtml(event.source)}</span>
+                                    </div>
+                                ` : ''}
+                            </div>
+                            $
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+    
+    function renderGrid() {
+        const container = document.querySelector('#chris-music-timeline-root .cmt-grid-container');
+        
+        container.innerHTML = timelineData.map(event => {
+            const imageHtml = event.image ? 
+                `<img src="${escapeHtml(event.image)}" alt="${escapeHtml(event.album)}" class="cmt-grid-image" onerror="this.style.display='none'">` : 
+                '';
+            
+            return `
+                <div class="cmt-grid-item genre-$">
+                    <div class="cmt-grid-image-container">
+                        $
+                    </div>
+                    <div class="cmt-grid-content">
+                        <div class="cmt-grid-artist">${escapeHtml(event.artist)}</div>
+                        <div class="cmt-grid-title">${escapeHtml(event.album)}</div>
+                        <div class="cmt-grid-year">${escapeHtml(event.date)}</div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+    
+    function init() {
+        const root = document.getElementById('chris-music-timeline-root');
+        
+        root.innerHTML = `
+            <div class="cmt-background-texture"></div>
+            <div class="cmt-header">
+                <div class="cmt-header-content">
+                    <div class="cmt-header-text">
+                        <h1>Chris' Music Timeline</h1>
+                        <p class="cmt-subtitle">150 albums spanning 1986 - 2022</p>
+                        <div class="cmt-genre-legend">
+                            <div class="cmt-legend-item">
+                                <div class="cmt-legend-dot" style="background: var(--genre-rock);"></div>
+                                <span>Rock</span>
+                            </div>
+                            <div class="cmt-legend-item">
+                                <div class="cmt-legend-dot" style="background: var(--genre-hiphop);"></div>
+                                <span>Hip-Hop</span>
+                            </div>
+                            <div class="cmt-legend-item">
+                                <div class="cmt-legend-dot" style="background: var(--genre-indie);"></div>
+                                <span>Indie</span>
+                            </div>
+                            <div class="cmt-legend-item">
+                                <div class="cmt-legend-dot" style="background: var(--genre-jazz);"></div>
+                                <span>Jazz</span>
+                            </div>
+                            <div class="cmt-legend-item">
+                                <div class="cmt-legend-dot" style="background: var(--genre-classical);"></div>
+                                <span>Classical</span>
+                            </div>
+                            <div class="cmt-legend-item">
+                                <div class="cmt-legend-dot" style="background: var(--genre-classic);"></div>
+                                <span>80s</span>
+                            </div>
+                            <div class="cmt-legend-item">
+                                <div class="cmt-legend-dot" style="background: var(--genre-nineties);"></div>
+                                <span>90s</span>
+                            </div>
+                            <div class="cmt-legend-item">
+                                <div class="cmt-legend-dot" style="background: var(--genre-twothousands);"></div>
+                                <span>2000s</span>
+                            </div>
+                            <div class="cmt-legend-item">
+                                <div class="cmt-legend-dot" style="background: var(--genre-modern);"></div>
+                                <span>2010s+</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cmt-controls">
+                        <div class="cmt-toggle-container">
+                            <span class="cmt-toggle-label">🌙</span>
+                            <div class="cmt-toggle-switch" id="cmt-theme-toggle">
+                                <div class="cmt-toggle-slider"></div>
+                            </div>
+                            <span class="cmt-toggle-label">☀️</span>
+                        </div>
+                        <div class="cmt-toggle-container">
+                            <span class="cmt-toggle-label">Timeline</span>
+                            <div class="cmt-toggle-switch active" id="cmt-view-toggle">
+                                <div class="cmt-toggle-slider"></div>
+                            </div>
+                            <span class="cmt-toggle-label">Album</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cmt-scroll-container" id="cmt-scroll-container">
+                <div class="cmt-timeline-container" id="cmt-timeline-container">
+                    <div class="cmt-timeline-line"></div>
+                    <div class="cmt-timeline-events"></div>
+                </div>
+                <div class="cmt-grid-container"></div>
+                <button class="cmt-scroll-top" id="cmt-scroll-top" aria-label="Scroll to top">↑</button>
+            </div>
+        `;
+        
+        renderTimeline();
+        renderGrid();
+        
+        // Theme toggle
+        document.getElementById('cmt-theme-toggle').addEventListener('click', function() {
+            this.classList.toggle('active');
+            root.classList.toggle('light-mode');
+            localStorage.setItem('cmt-theme', root.classList.contains('light-mode') ? 'light' : 'dark');
+        });
+        
+        // View toggle
+        document.getElementById('cmt-view-toggle').addEventListener('click', function() {
+            this.classList.toggle('active');
+            isGridView = !isGridView;
+            
+            const timelineContainer = document.getElementById('cmt-timeline-container');
+            const gridContainer = document.querySelector('.cmt-grid-container');
+            
+            if (isGridView) {
+                timelineContainer.style.display = 'none';
+                gridContainer.classList.add('active');
+            } else {
+                timelineContainer.style.display = 'block';
+                gridContainer.classList.remove('active');
+            }
+        });
+        
+        // Scroll to top
+        const scrollContainer = document.getElementById('cmt-scroll-container');
+        const scrollTopBtn = document.getElementById('cmt-scroll-top');
+        
+        scrollContainer.addEventListener('scroll', () => {
+            if (scrollContainer.scrollTop > 500) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+        
+        scrollTopBtn.addEventListener('click', () => {
+            scrollContainer.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Load saved theme
+        const savedTheme = localStorage.getItem('cmt-theme');
+        if (savedTheme === 'light') {
+            root.classList.add('light-mode');
+            document.getElementById('cmt-theme-toggle').classList.add('active');
+        }
+    }
+    
+    init();
+})();
+</script>
+</main>
+</body>
+</html>

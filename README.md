@@ -6,7 +6,8 @@ Static portfolio site for Chris Tartaro, hosted on GitHub Pages. No build step.
 
 - `data/videos.json` holds every page, section and video. This is the only file you need to touch for content changes.
 - `index.html`, `styles.css`, `app.js` hold the layout, look and behavior.
-- `img/` holds local thumbnails (filled by `scripts/fetch-thumbs.mjs`).
+- `img/` holds the video thumbnails, copied off Squarespace.
+- `ctmdb/` (Music DB) and `ctmdb2/` (Musical Memoir) are standalone pages, unlisted in the menu. Their code was moved over from Squarespace as-is.
 
 ## Adding a video
 
@@ -25,14 +26,6 @@ python3 -m http.server 8000
 ```
 
 Then open http://localhost:8000.
-
-## Before cancelling Squarespace
-
-Thumbnails are still loaded from Squarespace's image CDN. Run this once to copy them into `img/` and update the data file, then commit:
-
-```sh
-node scripts/fetch-thumbs.mjs
-```
 
 ## Going live
 

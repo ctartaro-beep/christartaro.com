@@ -1,0 +1,2931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Musical Memoir - My Journey Through Sound</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-tap-highlight-color: transparent;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem 2rem 1.25rem 2rem;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0a 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(100, 200, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            width: 100%;
+            padding: 0 1rem;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.25rem, 5vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            background: linear-gradient(135deg, #64c8ff, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(0.7rem, 2.5vw, 0.9rem);
+            color: #a0a0a0;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+            max-width: 420px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat-box {
+            padding: 0.6rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-number {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #64c8ff;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.65rem;
+            color: #a0a0a0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Chapter Sections */
+        .chapter {
+            padding: 2rem 2rem;
+            position: relative;
+        }
+
+        .chapter.childhood {
+            --chapter-primary: #ff9f40;
+            --chapter-secondary: #ffd93d;
+            --chapter-glow: rgba(255, 159, 64, 0.2);
+            --chapter-primary-rgb: 255, 159, 64;
+            --chapter-secondary-rgb: 255, 217, 61;
+        }
+
+        .chapter.teen {
+            --chapter-primary: #6bcfff;
+            --chapter-secondary: #4ecdc4;
+            --chapter-glow: rgba(107, 207, 255, 0.2);
+            --chapter-primary-rgb: 107, 207, 255;
+            --chapter-secondary-rgb: 78, 205, 196;
+        }
+
+        .chapter.twenties {
+            --chapter-primary: #64c8ff;
+            --chapter-secondary: #a78bfa;
+            --chapter-glow: rgba(100, 200, 255, 0.2);
+            --chapter-primary-rgb: 100, 200, 255;
+            --chapter-secondary-rgb: 167, 139, 250;
+        }
+
+        .chapter.thirties {
+            --chapter-primary: #a78bfa;
+            --chapter-secondary: #c084fc;
+            --chapter-glow: rgba(167, 139, 250, 0.2);
+            --chapter-primary-rgb: 167, 139, 250;
+            --chapter-secondary-rgb: 192, 132, 252;
+        }
+
+        .chapter.forties {
+            --chapter-primary: #748ffc;
+            --chapter-secondary: #64c8ff;
+            --chapter-glow: rgba(116, 143, 252, 0.2);
+            --chapter-primary-rgb: 116, 143, 252;
+            --chapter-secondary-rgb: 100, 200, 255;
+        }
+
+        .chapter-header {
+            text-align: center;
+            margin-bottom: 1.75rem;
+        }
+
+        .chapter-number {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--chapter-primary), var(--chapter-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+            box-shadow: 0 0 30px var(--chapter-glow);
+        }
+
+        .chapter-title {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            margin-bottom: 0.35rem;
+            font-weight: 700;
+            color: var(--chapter-primary);
+        }
+
+        .chapter-subtitle {
+            font-size: 1rem;
+            color: #a0a0a0;
+            margin-bottom: 0.75rem;
+        }
+
+        .chapter-narrative {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #b0b0b0;
+            padding: 0 1rem;
+        }
+
+        /* Timeline Layout */
+        .albums-grid {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 1rem 1rem 2rem 1rem;
+        }
+
+        /* Central vertical line */
+        .albums-grid::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, 
+                rgba(100, 200, 255, 0.3) 0%,
+                rgba(167, 139, 250, 0.3) 50%,
+                rgba(236, 72, 153, 0.3) 100%
+            );
+            transform: translateX(-50%);
+        }
+
+        /* Timeline item wrapper */
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            width: 100%;
+        }
+
+        /* Alternate left/right */
+        .timeline-item:nth-child(odd) .album-card {
+            margin-left: auto;
+            margin-right: calc(50% + 0.75rem);
+        }
+
+        .timeline-item:nth-child(even) .album-card {
+            margin-left: calc(50% + 0.75rem);
+            margin-right: auto;
+        }
+
+        /* Connector dots on timeline */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, #64c8ff, #a78bfa);
+            border: 3px solid #0a0a0a;
+            border-radius: 50%;
+            left: 50%;
+            top: 2rem;
+            transform: translateX(-50%);
+            z-index: 10;
+            box-shadow: 0 0 20px rgba(100, 200, 255, 0.5);
+        }
+
+        /* Connector lines from timeline to cards */
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            height: 2px;
+            background: rgba(100, 200, 255, 0.3);
+            top: 2rem;
+            transform: translateY(50%);
+        }
+
+        .timeline-item:nth-child(odd)::after {
+            left: 50%;
+            right: calc(50% + 0.75rem);
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: calc(50% + 0.75rem);
+            right: 50%;
+        }
+
+        /* Album Cards */
+        .album-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            width: 280px;
+            min-height: 360px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .album-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--chapter-primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px var(--chapter-glow);
+        }
+
+        .album-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .album-top {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .album-badges-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .year-badge {
+            background: linear-gradient(135deg, #64c8ff, #a78bfa);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 0.4rem 0.6rem;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(100, 200, 255, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .age-badge {
+            background: linear-gradient(135deg, #ec4899, #f97316);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 0.4rem 0.6rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .album-art-wrapper {
+            flex: 1;
+        }
+
+        .album-image {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .album-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .album-card:hover .album-image img {
+            transform: scale(1.05);
+        }
+
+        .album-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--chapter-primary);
+            background: linear-gradient(135deg, rgba(var(--chapter-primary-rgb), 0.1), rgba(var(--chapter-secondary-rgb), 0.1));
+            text-transform: uppercase;
+        }
+
+        .album-info {
+            padding: 0.5rem 0;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .album-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: #e0e0e0;
+            line-height: 1.3;
+            min-height: 2.6rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .album-artist {
+            font-size: 0.95rem;
+            color: #a0a0a0;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+            min-height: 1.3rem;
+        }
+
+        .album-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: #808080;
+            margin-bottom: 0.75rem;
+        }
+
+        .album-year {
+            color: #a0a0a0;
+        }
+
+        .album-badges {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-top: auto;
+            padding-top: 0.5rem;
+        }
+
+        .format-badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            color: #c0c0c0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .format-badge:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        .association-badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            background: linear-gradient(135deg, var(--chapter-primary), var(--chapter-secondary));
+            border-radius: 12px;
+            color: #000;
+            font-weight: 600;
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .association-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px var(--chapter-glow);
+        }
+
+        .association-badge:active {
+            transform: scale(0.95);
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            z-index: 1000;
+            border-bottom: 2px solid var(--filter-color, #64c8ff);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .filter-bar.active {
+            display: flex;
+        }
+
+        .filter-bar-text {
+            color: #e0e0e0;
+            font-size: 1rem;
+        }
+
+        .filter-bar-badge {
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, var(--filter-color, #64c8ff), var(--filter-secondary, #a78bfa));
+            border-radius: 20px;
+            color: #000;
+            font-weight: 700;
+        }
+
+        .filter-bar-close {
+            padding: 0.5rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            color: #e0e0e0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 600;
+        }
+
+        .filter-bar-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .timeline-item:has(.album-card.filtered-out) {
+            display: none;
+        }
+
+        .album-card.filtered-out {
+            display: none;
+        }
+
+        /* When filtering is active, hide chapter headers and create unified grid */
+        body.filtering-active .hero {
+            display: none;
+        }
+
+        body.filtering-active .chapter-header {
+            display: none;
+        }
+
+        body.filtering-active .albums-grid {
+            padding: 0 2rem;
+        }
+
+        body.filtering-active .chapter {
+            padding: 2rem;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .albums-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 0 1rem;
+            }
+
+            .albums-grid .album-card:nth-child(odd),
+            .albums-grid .album-card:nth-child(even) {
+                transform: none;
+                margin-top: 0;
+                justify-self: stretch;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .chapter {
+                padding: 3rem 1rem;
+            }
+
+            .chapter-title {
+                font-size: 2rem;
+            }
+
+            .chapter-subtitle {
+                font-size: 1rem;
+            }
+
+            .chapter-narrative {
+                font-size: 1rem;
+                padding: 0 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 1.5rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.85rem;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+                max-width: 280px;
+            }
+        }
+    
+        .filter-count {
+            background: rgba(167, 139, 250, 0.15);
+            color: #a78bfa;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .album-art-wrapper {
+                width: 100%;
+            }
+            
+            .album-image {
+                width: 100%;
+                aspect-ratio: 1 / 1;
+                height: auto;
+            }
+            
+            .album-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+            
+            .album-placeholder {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Filter Bar -->
+    <div id="filter-bar" class="filter-bar">
+        <span class="filter-bar-text">Filtering:</span>
+        <span id="filter-badge" class="filter-bar-badge"></span>
+        <button class="filter-bar-close" onclick="clearFilter()">Clear Filter</button>
+    </div>
+
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Musical Memoir</h1>
+            <p class="hero-subtitle">A Journey Through 40 Years of Sound</p>
+            <div class="hero-stats">
+                <div class="stat-box">
+                    <span class="stat-number">179</span>
+                    <span class="stat-label">Albums</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">40</span>
+                    <span class="stat-label">Years</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">5</span>
+                    <span class="stat-label">Chapters</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Journey Container -->
+    <div id="journey-container"></div>
+
+    <script>
+        const journeyData = {
+        "childhood": {
+                "title": "Childhood Adventures",
+                "subtitle": "Ages 5-12 • The Foundation",
+                "narrative": "Where it all began. Family favorites, classic rock on tape, and the first CDs that would change everything.",
+                "albums": [
+                        {
+                                "year": "1986",
+                                "date": "1",
+                                "artist": "Bon Jovi",
+                                "album": "Slippery When Wet",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Slippery_When_Wet",
+                                "source": "45 Ave",
+                                "format": "Vinyl",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/ab/Bon_jovi_slippery_when_wet.jpg/500px-Bon_jovi_slippery_when_wet.jpg",
+                                "age": 5
+                        },
+                        {
+                                "year": "1987",
+                                "date": "1",
+                                "artist": "Billy Joel",
+                                "album": "Greatest Hits Vol 1 & 2",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Greatest_Hits_(Billy_Joel_albums)",
+                                "source": "Susie",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/3d/Billy_Joel_-_Greatest_Hits_–_Volume_I_%26_Volume_II.jpg/500px-Billy_Joel_-_Greatest_Hits_–_Volume_I_%26_Volume_II.jpg",
+                                "age": 6
+                        },
+                        {
+                                "year": "1987",
+                                "date": "1",
+                                "artist": "The Beatles",
+                                "album": "Sgt. Peppers Lonely Hearts Club Band",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Sgt._Pepper%27s_Lonely_Hearts_Club_Band",
+                                "source": "Dad",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Sgt._Pepper%27s_Lonely_Hearts_Club_Band.jpg/500px-Sgt._Pepper%27s_Lonely_Hearts_Club_Band.jpg",
+                                "age": 6
+                        },
+                        {
+                                "year": "1987",
+                                "date": "Summer 1987",
+                                "artist": "Foreigner",
+                                "album": "Records",
+                                "wikiLink": "https://upload.wikimedia.org/wikipedia/en/thumb/6/6f/Foreigner_-_Records.jpg/220px-Foreigner_-_Records.jpg",
+                                "source": "Dad",
+                                "format": "Tape",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/6/6f/Foreigner_-_Records.jpg/500px-Foreigner_-_Records.jpg",
+                                "age": 6
+                        },
+                        {
+                                "year": "1988",
+                                "date": "Winter 1988",
+                                "artist": "Beethoven",
+                                "album": "Beethoven's 5th",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Symphony_No._5_(Beethoven)",
+                                "source": "Dad",
+                                "format": "Tape",
+                                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Joseph_Karl_Stieler%27s_Beethoven_mit_dem_Manuskript_der_Missa_solemnis.jpg/500px-Joseph_Karl_Stieler%27s_Beethoven_mit_dem_Manuskript_der_Missa_solemnis.jpg",
+                                "age": 7
+                        },
+                        {
+                                "year": "1989",
+                                "date": "Fall 1989",
+                                "artist": "Guns & Roses",
+                                "album": "Appetite for Destruction",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Appetite_for_Destruction",
+                                "source": "Matt",
+                                "format": "Tape",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/6/60/GunsnRosesAppetiteforDestructionalbumcover.jpg/500px-GunsnRosesAppetiteforDestructionalbumcover.jpg",
+                                "age": 8
+                        },
+                        {
+                                "year": "1991",
+                                "date": "Fall 1991",
+                                "artist": "Nirvana",
+                                "album": "Nevermind",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Nevermind",
+                                "source": "Matt Tocco",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/NirvanaNevermindalbumcover.jpg/500px-NirvanaNevermindalbumcover.jpg",
+                                "age": 10
+                        },
+                        {
+                                "year": "1991",
+                                "date": "Fall 1991",
+                                "artist": "Pearl Jam",
+                                "album": "Ten",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Ten_(Pearl_Jam_album)",
+                                "source": "Mike Bowman",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/2/2d/PearlJam-Ten2.jpg/500px-PearlJam-Ten2.jpg",
+                                "age": 10
+                        },
+                        {
+                                "year": "1991",
+                                "date": "Winter 1991",
+                                "artist": "Harry Connick Jr.",
+                                "album": "Blue Light, Red light",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Blue_Light,_Red_Light",
+                                "source": "Matt",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c4/HCjr_Blue_Light%2C_Red_Light.jpg/500px-HCjr_Blue_Light%2C_Red_Light.jpg",
+                                "age": 10
+                        },
+                        {
+                                "year": "1992",
+                                "date": "Spring 1992",
+                                "artist": "Pearl Jam",
+                                "album": "Vs. ",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Vs._(Pearl_Jam_album)",
+                                "source": "IS 25",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f9/PearlJam-Vs.jpg/500px-PearlJam-Vs.jpg",
+                                "age": 11
+                        },
+                        {
+                                "year": "1993",
+                                "date": "Fall 1993",
+                                "artist": "Frank Sinatra",
+                                "album": "Duets",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Duets_(Frank_Sinatra_album)",
+                                "source": "Dad",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/7/72/Sinatraduets.jpg/500px-Sinatraduets.jpg",
+                                "age": 12
+                        },
+                        {
+                                "year": "1993",
+                                "date": "Summer 1993",
+                                "artist": "Carly Simon",
+                                "album": "Greatest Hits",
+                                "wikiLink": "https://en.wikipedia.org/wiki/The_Best_of_Carly_Simon",
+                                "source": "Mom",
+                                "format": "Tape",
+                                "image": "https://lh3.googleusercontent.com/vcssDC0jBxLJZ_Gc8JsBIzz3N6kDfcD4HlIKJc-bP4L1Wee9KV-u-LouXbQoUhMc9cDc=s85",
+                                "age": 12
+                        },
+                        {
+                                "year": "1993",
+                                "date": "Fall 1993",
+                                "artist": "Barbra Streisand",
+                                "album": "The Broadway Album",
+                                "wikiLink": "",
+                                "source": "Mom, Aunt Ro, Uncle Ronald",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/53/TheBroadwayAlbum.jpg/500px-TheBroadwayAlbum.jpg",
+                                "age": 12
+                        }
+                ]
+        },
+        "teen": {
+                "title": "Teen Discovery",
+                "subtitle": "Ages 13-19 • The Awakening",
+                "narrative": "High school hallways, mixtapes from friends, and the grunge revolution. These albums didn't just soundtrack my teenage years—they defined them.",
+                "albums": [
+                        {
+                                "year": "1994",
+                                "date": "Spring 1994",
+                                "artist": "Weezer",
+                                "album": "Weezer (Blue Album)",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Weezer_(1994_album)",
+                                "source": "Adam Paré",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/7/70/Weezer_-_Blue_Album.png/500px-Weezer_-_Blue_Album.png",
+                                "age": 13
+                        },
+                        {
+                                "year": "1994",
+                                "date": "Summer 1994",
+                                "artist": "Green Day",
+                                "album": "Dookie",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Dookie",
+                                "source": "Scott Do Santos",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4b/Green_Day_-_Dookie_cover.jpg/500px-Green_Day_-_Dookie_cover.jpg",
+                                "age": 13
+                        },
+                        {
+                                "year": "1995",
+                                "date": "Fall 1995",
+                                "artist": "Nirvana",
+                                "album": "Unplugged in New York",
+                                "wikiLink": "https://en.wikipedia.org/wiki/MTV_Unplugged_in_New_York",
+                                "source": "Matt Tocco",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/54/Nirvana_mtv_unplugged_in_new_york.png/500px-Nirvana_mtv_unplugged_in_new_york.png",
+                                "age": 14
+                        },
+                        {
+                                "year": "1995",
+                                "date": "Summer 1995",
+                                "artist": "The Beatles",
+                                "album": "Revolver",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Revolver_(Beatles_album)",
+                                "source": "St. Gregory",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/1/16/Revolver.jpg/500px-Revolver.jpg",
+                                "age": 14
+                        },
+                        {
+                                "year": "1995",
+                                "date": "Summer 1995",
+                                "artist": "Pearl Jam",
+                                "album": "Vitalogy",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Vitalogy",
+                                "source": "Matt, Beef",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/30/PearlJamVitalogy.jpg/500px-PearlJamVitalogy.jpg",
+                                "age": 14
+                        },
+                        {
+                                "year": "1995",
+                                "date": "Winter 1995",
+                                "artist": "Foo Fighters",
+                                "album": "Foo Fighters",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Foo_Fighters_(album)",
+                                "source": "Tommy Callan",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/0/0d/FooFighters-FooFighters.jpg/500px-FooFighters-FooFighters.jpg",
+                                "age": 14
+                        },
+                        {
+                                "year": "1995",
+                                "date": "Spring 1995",
+                                "artist": "Aerosmith",
+                                "album": "Get A Grip",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Get_a_Grip",
+                                "source": "Matt Tocco",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/9f/GetAGrip_Aerosmithalbum.jpg/500px-GetAGrip_Aerosmithalbum.jpg",
+                                "age": 14
+                        },
+                        {
+                                "year": "1995",
+                                "date": "Winter 1995",
+                                "artist": "Mellon Collie And The Infinite Sadness",
+                                "album": "The Smashing Pumpkins",
+                                "wikiLink": "",
+                                "source": "Matt",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/7/76/The_Smashing_Pumpkins_-_Mellon_Collie_And_The_infinite_Sadness.jpg/500px-The_Smashing_Pumpkins_-_Mellon_Collie_And_The_infinite_Sadness.jpg",
+                                "age": 14
+                        },
+                        {
+                                "year": "1996",
+                                "date": "Fall 1996",
+                                "artist": "Weezer",
+                                "album": "Pinkerton",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Pinkerton_(album)",
+                                "source": "Adam Paré",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/ca/Pinkerton_cover.jpg/500px-Pinkerton_cover.jpg",
+                                "age": 15
+                        },
+                        {
+                                "year": "1996",
+                                "date": "Summer 1996",
+                                "artist": "The Beatles",
+                                "album": "Abbey Road",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Abbey_Road",
+                                "source": "Dad",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Radioheadokcomputer.png/500px-Radioheadokcomputer.png",
+                                "age": 15
+                        },
+                        {
+                                "year": "1996",
+                                "date": "Summer 1996",
+                                "artist": "The Presidents Of The Unites States Of America",
+                                "album": "The Presidents Of The Unites States Of America",
+                                "wikiLink": "https://en.wikipedia.org/wiki/The_Presidents_of_the_United_States_of_America_(album)",
+                                "source": "Tommy Callan",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/The_Presidents_of_the_United_States_of_America-The_Presidents_of_the_United_States_of_America.jpg/500px-The_Presidents_of_the_United_States_of_America-The_Presidents_of_the_United_States_of_America.jpg",
+                                "age": 15
+                        },
+                        {
+                                "year": "1997",
+                                "date": "Fall 1997",
+                                "artist": "Eric Clapton",
+                                "album": "Unplugged",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Unplugged_(Eric_Clapton_album)",
+                                "source": "Dad",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/99/Eric_Clapton_Unplugged.jpg/500px-Eric_Clapton_Unplugged.jpg",
+                                "age": 16
+                        },
+                        {
+                                "year": "1997",
+                                "date": "Summer 1997",
+                                "artist": "Ben Folds Five",
+                                "album": "Ben Folds Five",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Ben_Folds_Five_(album)",
+                                "source": "Mom",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e5/Ben_Folds_Five_-_Ben_Folds_Five.jpg/500px-Ben_Folds_Five_-_Ben_Folds_Five.jpg",
+                                "age": 16
+                        },
+                        {
+                                "year": "1997",
+                                "date": "Summer 1997",
+                                "artist": "Ben Folds Five",
+                                "album": "Whatever and Ever Amen",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Whatever_and_Ever_Amen",
+                                "source": "Mom",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/41/WhateverAndEverAmenRemastereed.jpg/500px-WhateverAndEverAmenRemastereed.jpg",
+                                "age": 16
+                        },
+                        {
+                                "year": "1997",
+                                "date": "Summer 1997",
+                                "artist": "Everclear",
+                                "album": "So Much for the Afterglow",
+                                "wikiLink": "https://en.wikipedia.org/wiki/So_Much_for_the_Afterglow",
+                                "source": "",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c9/Everclear_So_Much_for_the_Afterglow.jpg/500px-Everclear_So_Much_for_the_Afterglow.jpg",
+                                "age": 16
+                        },
+                        {
+                                "year": "1997",
+                                "date": "Summer 1997",
+                                "artist": "Eric Clapton",
+                                "album": "Time Pieces",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Timepieces:_The_Best_of_Eric_Clapton",
+                                "source": "Michelle De Luca",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/5d/Eric_Clapton-Time_Pieces.jpg/500px-Eric_Clapton-Time_Pieces.jpg",
+                                "age": 16
+                        },
+                        {
+                                "year": "1997",
+                                "date": "Summer 1997",
+                                "artist": "Cake",
+                                "album": "Fashion Nugget",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Fashion_Nugget",
+                                "source": "John Mendez",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/d/da/Cake_Fashion_Nugget.jpg/500px-Cake_Fashion_Nugget.jpg",
+                                "age": 16
+                        },
+                        {
+                                "year": "1997",
+                                "date": "Winter 1997",
+                                "artist": "Stone Temple Pilots",
+                                "album": "Tiny Music...Songs from the Vatican Gift Shop",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Tiny_Music..._Songs_from_the_Vatican_Gift_Shop",
+                                "source": "Sonic 2 ",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/7/77/Stonetemplepilotstinymusic.jpeg/500px-Stonetemplepilotstinymusic.jpeg",
+                                "age": 16
+                        },
+                        {
+                                "year": "1997",
+                                "date": "Winter 1997",
+                                "artist": "Radiohead",
+                                "album": "OK Computer",
+                                "wikiLink": "https://en.wikipedia.org/wiki/OK_Computer",
+                                "source": "Matt",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/Radiohead.okcomputer.albumart.jpg/500px-Radiohead.okcomputer.albumart.jpg",
+                                "age": 16
+                        },
+                        {
+                                "year": "1997",
+                                "date": "Spring 1997",
+                                "artist": "Ben Folds Five",
+                                "album": "The Unauthorized Biography of Rheinhold Messner",
+                                "wikiLink": "https://en.wikipedia.org/wiki/The_Unauthorized_Biography_of_Reinhold_Messner",
+                                "source": "Phil Lavanco",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Theunauthorizedbiographyofreinholdmessner.jpg/500px-Theunauthorizedbiographyofreinholdmessner.jpg",
+                                "age": 16
+                        },
+                        {
+                                "year": "1997",
+                                "date": "Fall 1997",
+                                "artist": "Romeo + Juliet (soundtrack)",
+                                "album": "Baz Luhrman",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Romeo_%2B_Juliet_(soundtrack)",
+                                "source": "Susie ",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/8/81/Romeo_%2B_Juliet_Soundtrack_Vol._1.jpg/500px-Romeo_%2B_Juliet_Soundtrack_Vol._1.jpg",
+                                "age": 16
+                        },
+                        {
+                                "year": "1998",
+                                "date": "Summer 1998",
+                                "artist": "Wyclef Jean",
+                                "album": "The Carnival",
+                                "wikiLink": "Wyclef Jean Presents The Carnival - Wikipedia",
+                                "source": "Johnny Candela",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c0/The_Carnival_%28Wyclef_Jean_album%29.jpg/500px-The_Carnival_%28Wyclef_Jean_album%29.jpg",
+                                "age": 17
+                        },
+                        {
+                                "year": "1998",
+                                "date": "Winter 1998",
+                                "artist": "Air",
+                                "album": "Moon Safari",
+                                "wikiLink": "https://upload.wikimedia.org/wikipedia/en/a/ac/Air_-_Moon_Safari.png",
+                                "source": "Matt",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/ac/Air_-_Moon_Safari.png/500px-Air_-_Moon_Safari.png",
+                                "age": 17
+                        },
+                        {
+                                "year": "1998",
+                                "date": "Winter 1998",
+                                "artist": "Beck",
+                                "album": "Mutations",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Mutations_(Beck_album)",
+                                "source": "Phil Lavanco",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/31/Mutations.jpg/500px-Mutations.jpg",
+                                "age": 17
+                        },
+                        {
+                                "year": "1998",
+                                "date": "Winter 1998",
+                                "artist": "Dave Matthews Band",
+                                "album": "Before These Crowded Streets",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Before_These_Crowded_Streets",
+                                "source": "Pete Kenny",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/DMB_-_Before_These_Crowded_Streets.jpg/500px-DMB_-_Before_These_Crowded_Streets.jpg",
+                                "age": 17
+                        },
+                        {
+                                "year": "1998",
+                                "date": "Winter 1998",
+                                "artist": "The Rentals",
+                                "album": "Return of the Rentals",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Return_of_the_Rentals",
+                                "source": "Nick ",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/bc/Return_of_the_Rentals.jpg/500px-Return_of_the_Rentals.jpg",
+                                "age": 17
+                        },
+                        {
+                                "year": "1998",
+                                "date": "Summer 1998",
+                                "artist": "that dog. ",
+                                "album": "Retreat From The Sun",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Retreat_from_the_Sun",
+                                "source": "Nick",
+                                "format": "Mp3",
+                                "image": "https://d1itmove024qgx.cloudfront.net/6208697cf2001c16b2b51f84b3cb9b2851a51d6d.jpg",
+                                "age": 17
+                        },
+                        {
+                                "year": "1998",
+                                "date": "Spring 1998",
+                                "artist": "The Rentals",
+                                "album": "Seven More Minutes",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Seven_More_Minutes",
+                                "source": "Nick ",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/The_Rentals-Seven_More_Minutes.jpg/500px-The_Rentals-Seven_More_Minutes.jpg",
+                                "age": 17
+                        },
+                        {
+                                "year": "1998",
+                                "date": "Winter 1998",
+                                "artist": "The Ultimate Christmas Album, Vol.II",
+                                "album": "WCBS-FM 101.1",
+                                "wikiLink": "",
+                                "source": "Matt, Susie, Christmas",
+                                "format": "CD",
+                                "image": "https://m.media-amazon.com/images/I/919rBf9-5IL._SL1500_.jpg",
+                                "age": 17
+                        },
+                        {
+                                "year": "1999",
+                                "date": "Summer 1999",
+                                "artist": "Blink 182",
+                                "album": "Enema of the State",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Enema_of_the_State",
+                                "source": "Evil Chris",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a6/Blink-182_-_Enema_of_the_State_cover.jpg/500px-Blink-182_-_Enema_of_the_State_cover.jpg",
+                                "age": 18
+                        },
+                        {
+                                "year": "1999",
+                                "date": "Summer 1999",
+                                "artist": "Fountains of Wayne",
+                                "album": "Utopia Parkway",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Utopia_Parkway",
+                                "source": "Flossy",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/ad/Utopia_parkway_cover.jpg/500px-Utopia_parkway_cover.jpg",
+                                "age": 18
+                        },
+                        {
+                                "year": "1999",
+                                "date": "Winter 1999",
+                                "artist": "Dave Matthews and Tim Reynolds",
+                                "album": "Live at Luther College",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Live_at_Luther_College",
+                                "source": "Jodi",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b6/Live_at_Luther_College.png/500px-Live_at_Luther_College.png",
+                                "age": 18
+                        },
+                        {
+                                "year": "1999",
+                                "date": "Fall 1999",
+                                "artist": "Chet Baker",
+                                "album": "Chet",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Chet_Baker_Sings",
+                                "source": "Matt",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/6/60/Chet_Baker_Sings.jpg/500px-Chet_Baker_Sings.jpg",
+                                "age": 18
+                        },
+                        {
+                                "year": "2000",
+                                "date": "Spring 2000",
+                                "artist": "Pearl Jam",
+                                "album": "Live on Two Legs",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Live_on_Two_Legs",
+                                "source": "TEP",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/2/27/PearlJam-LiveOnTwoLegs.jpg/500px-PearlJam-LiveOnTwoLegs.jpg",
+                                "age": 19
+                        },
+                        {
+                                "year": "2000",
+                                "date": "Summer 2000",
+                                "artist": "Sublime",
+                                "album": "40 oz. to freedom",
+                                "wikiLink": "https://en.wikipedia.org/wiki/40oz._to_Freedom",
+                                "source": "TEP",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/57/Sublime40OztoFreedomalbumcover.jpg/500px-Sublime40OztoFreedomalbumcover.jpg",
+                                "age": 19
+                        },
+                        {
+                                "year": "2000",
+                                "date": "Summer 2000",
+                                "artist": "Sublime",
+                                "album": "Sublime",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Sublime_(album)",
+                                "source": "TEP",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/94/Sublime_Self-Titled.jpg/500px-Sublime_Self-Titled.jpg",
+                                "age": 19
+                        },
+                        {
+                                "year": "2000",
+                                "date": "Winter 2000",
+                                "artist": "Dave Matthews Band",
+                                "album": "Everyday",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Everyday_(Dave_Matthews_Band_album)",
+                                "source": "Tony Hawk 2",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/40/DaveMatthewsBandEveryday.jpg/500px-DaveMatthewsBandEveryday.jpg",
+                                "age": 19
+                        },
+                        {
+                                "year": "2000",
+                                "date": "Fall 2000",
+                                "artist": "Jay-Z",
+                                "album": "Blueprint ",
+                                "wikiLink": "https://en.wikipedia.org/wiki/The_Blueprint",
+                                "source": "Matt Becker",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/2/2c/The_Blueprint.png/500px-The_Blueprint.png",
+                                "age": 19
+                        }
+                ]
+        },
+        "twenties": {
+                "title": "The Twenties",
+                "subtitle": "Ages 20-29 • Peak Exploration",
+                "narrative": "A decade of relentless discovery. College radio, indie blogs, and friends like Erin opened doors to entire universes of sound. This wasn't just listening—it was obsession.",
+                "albums": [
+                        {
+                                "year": "2001",
+                                "date": "Fall 2001",
+                                "artist": "John Mayer",
+                                "album": "Room for squares ",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Room_for_Squares",
+                                "source": "Ben Gottheim",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/5a/JohnMayer_RoomForSquares.jpg/500px-JohnMayer_RoomForSquares.jpg",
+                                "age": 20
+                        },
+                        {
+                                "year": "2001",
+                                "date": "Spring 2001",
+                                "artist": "Jay-Z",
+                                "album": "Reasonable Doubt",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Reasonable_Doubt_(album)",
+                                "source": "Matt O’ Brien",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f5/Reasonable_Doubt_New.jpg/500px-Reasonable_Doubt_New.jpg",
+                                "age": 20
+                        },
+                        {
+                                "year": "2001",
+                                "date": "Spring 2001",
+                                "artist": "Bobby Darin",
+                                "album": "Greatest Hits",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Bobby_Darin",
+                                "source": "Summer 01",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Bobby_Darin_1959.JPG/500px-Bobby_Darin_1959.JPG",
+                                "age": 20
+                        },
+                        {
+                                "year": "2001",
+                                "date": "Spring 2001",
+                                "artist": "Aimee Mann",
+                                "album": "Magnolia Soundtrack",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Magnolia_(soundtrack)",
+                                "source": "Nick",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/d/db/Magnolia_album.jpg/500px-Magnolia_album.jpg",
+                                "age": 20
+                        },
+                        {
+                                "year": "2001",
+                                "date": "Spring 2001",
+                                "artist": "Ben Folds Five",
+                                "album": "Rockin' the Suburbs",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Rockin%27_the_Suburbs",
+                                "source": "Nick, Phil Lavanco",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/3c/BenFoldsRockingtheSuburbs.jpg/500px-BenFoldsRockingtheSuburbs.jpg",
+                                "age": 20
+                        },
+                        {
+                                "year": "2001",
+                                "date": "Spring 2001",
+                                "artist": "Jay - Z",
+                                "album": "Dynasty...Roc la Familia",
+                                "wikiLink": "https://en.wikipedia.org/wiki/The_Dynasty:_Roc_La_Familia",
+                                "source": "Matt O’ Brien",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/40/Jay-z-dynasty-roc-la-familia-2000.jpg/500px-Jay-z-dynasty-roc-la-familia-2000.jpg",
+                                "age": 20
+                        },
+                        {
+                                "year": "2001",
+                                "date": "Summer 2001",
+                                "artist": "Nas",
+                                "album": "Stillmatic",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Stillmatic",
+                                "source": "Lieser's",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Nas-stillmatic-music-album.jpg/500px-Nas-stillmatic-music-album.jpg",
+                                "age": 20
+                        },
+                        {
+                                "year": "2001",
+                                "date": "Winter 2001",
+                                "artist": "Ghostface Killah",
+                                "album": "Bulletproof Wallets",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Bulletproof_Wallets",
+                                "source": "Nick",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/f/fa/Bulletproof_wallets.jpg/500px-Bulletproof_wallets.jpg",
+                                "age": 20
+                        },
+                        {
+                                "year": "2001",
+                                "date": "Winter 2001",
+                                "artist": "Radiohead",
+                                "album": "Kid A",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Kid_A",
+                                "source": "Colin TEP, Adam Wactlar",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/0/02/Radioheadkida.png/500px-Radioheadkida.png",
+                                "age": 20
+                        },
+                        {
+                                "year": "2001",
+                                "date": "Winter 2001",
+                                "artist": "Pink Floyd",
+                                "album": "Dark Side of the Moon",
+                                "wikiLink": "https://en.wikipedia.org/wiki/The_Dark_Side_of_the_Moon",
+                                "source": "Adam Wactlar",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/Dark_Side_of_the_Moon.png/500px-Dark_Side_of_the_Moon.png",
+                                "age": 20
+                        },
+                        {
+                                "year": "2001",
+                                "date": "Fall 2001",
+                                "artist": "Blink 182",
+                                "album": "Take off your pants and Jacket",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Take_Off_Your_Pants_and_Jacket",
+                                "source": "Phil Lavanco",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/d/de/Blink-182_-_Take_Off_Your_Pants_and_Jacket_cover.jpg/500px-Blink-182_-_Take_Off_Your_Pants_and_Jacket_cover.jpg",
+                                "age": 20
+                        },
+                        {
+                                "year": "2002",
+                                "date": "Fall 2002",
+                                "artist": "Cake",
+                                "album": "Comfort Eagle",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Comfort_Eagle",
+                                "source": "Phil Lavanco",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a8/Cake_Comfort_Eagle.jpg/500px-Cake_Comfort_Eagle.jpg",
+                                "age": 21
+                        },
+                        {
+                                "year": "2002",
+                                "date": "Spring 2002",
+                                "artist": "Dashboard Confessional",
+                                "album": "Swiss Army Romance",
+                                "wikiLink": "https://en.wikipedia.org/wiki/The_Swiss_Army_Romance",
+                                "source": "Spring 02",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b0/The_Swiss_Army_Romance_%28Dashboard_Confessional_album_-_cover_art%29.jpg/500px-The_Swiss_Army_Romance_%28Dashboard_Confessional_album_-_cover_art%29.jpg",
+                                "age": 21
+                        },
+                        {
+                                "year": "2002",
+                                "date": "Spring 2002",
+                                "artist": "Jimmy Eat World",
+                                "album": "Bleed American",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Bleed_American",
+                                "source": "Spring 02",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/37/Bleedamerican.jpg/500px-Bleedamerican.jpg",
+                                "age": 21
+                        },
+                        {
+                                "year": "2002",
+                                "date": "Summer 2002",
+                                "artist": "The Strokes",
+                                "album": "Is This It?",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Is_This_It",
+                                "source": "Jimmy Fallon",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/0/09/The_Strokes_-_Is_This_It_cover.png/500px-The_Strokes_-_Is_This_It_cover.png",
+                                "age": 21
+                        },
+                        {
+                                "year": "2002",
+                                "date": "Summer 2002",
+                                "artist": "Norah Jones",
+                                "album": "Feels like Home",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Feels_Like_Home_(Norah_Jones_album)",
+                                "source": "Summer 02",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/Norah_Jones_-_Feels_Like_Home.jpg/500px-Norah_Jones_-_Feels_Like_Home.jpg",
+                                "age": 21
+                        },
+                        {
+                                "year": "2002",
+                                "date": "Summer 2002",
+                                "artist": "Dexter Gordon",
+                                "album": "Dexter Calling",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Dexter_Calling...",
+                                "source": "Matt, Jazz Mike",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/3f/Dexter_Calling.jpg/500px-Dexter_Calling.jpg",
+                                "age": 21
+                        },
+                        {
+                                "year": "2003",
+                                "date": "Summer 2003",
+                                "artist": "Ben Folds",
+                                "album": "Speed Graphic",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Speed_Graphic_(EP)",
+                                "source": "MTV",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d4/Ben_Folds_Speed_Graphic.png/500px-Ben_Folds_Speed_Graphic.png",
+                                "age": 22
+                        },
+                        {
+                                "year": "2003",
+                                "date": "Fall 2003",
+                                "artist": "Arcade Fire",
+                                "album": "Funeral",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Funeral_(album)",
+                                "source": "Nick, Erin",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/2/25/ArcadeFireFuneralCover.jpg/500px-ArcadeFireFuneralCover.jpg",
+                                "age": 22
+                        },
+                        {
+                                "year": "2004",
+                                "date": "Fall 2004",
+                                "artist": "Mates of State",
+                                "album": "Team Boo",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Team_Boo",
+                                "source": "Nick",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/94/TeamBoo.jpg/500px-TeamBoo.jpg",
+                                "age": 23
+                        },
+                        {
+                                "year": "2004",
+                                "date": "Spring 2004",
+                                "artist": "The Decemberists",
+                                "album": "Castaways and Cutouts",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Castaways_and_Cutouts",
+                                "source": "Nick, Erin",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Castaways.jpg/500px-Castaways.jpg",
+                                "age": 23
+                        },
+                        {
+                                "year": "2004",
+                                "date": "Spring 2004",
+                                "artist": "The Decemberists",
+                                "album": "Her Majesty The Decemberists",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Her_Majesty_the_Decemberists",
+                                "source": "Nick, Erin",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/bd/Her-majesty.jpg/500px-Her-majesty.jpg",
+                                "age": 23
+                        },
+                        {
+                                "year": "2004",
+                                "date": "Summer 2004",
+                                "artist": "The Shins",
+                                "album": "Kissing the Lipless",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Chutes_Too_Narrow",
+                                "source": "Erin",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/3e/Chutes_Too_Narrow.PNG/500px-Chutes_Too_Narrow.PNG",
+                                "age": 23
+                        },
+                        {
+                                "year": "2004",
+                                "date": "Summer 2004",
+                                "artist": "The Flaming Lips",
+                                "album": "Yoshimi Battles the Pink Robots",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Yoshimi_Battles_the_Pink_Robots",
+                                "source": "Summer 04",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/TheFlamingLips-YoshimiBattlesThePinkRobots.jpg/500px-TheFlamingLips-YoshimiBattlesThePinkRobots.jpg",
+                                "age": 23
+                        },
+                        {
+                                "year": "2004",
+                                "date": "Summer 2004",
+                                "artist": "Franz Ferdinand",
+                                "album": "Franz Ferdinand",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Franz_Ferdinand_(album)",
+                                "source": "Kelly Delace",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Franz-Ferdinand.PNG/500px-Franz-Ferdinand.PNG",
+                                "age": 23
+                        },
+                        {
+                                "year": "2004",
+                                "date": "Summer 2004",
+                                "artist": "Immortal Technique",
+                                "album": "Revolutionary Vol. 2",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Revolutionary_Vol._2",
+                                "source": "Washington Social Club",
+                                "format": "CD",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a8/Revolutionary_Vol_2.jpg/500px-Revolutionary_Vol_2.jpg",
+                                "age": 23
+                        },
+                        {
+                                "year": "2004",
+                                "date": "Summer 2004",
+                                "artist": "Interpol",
+                                "album": "Turn on the Bright Lights",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Turn_on_the_Bright_Lights",
+                                "source": "Wonder Showzen S1",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/6/68/Interpol_-_Turn_On_The_Bright_Lights.jpg/500px-Interpol_-_Turn_On_The_Bright_Lights.jpg",
+                                "age": 23
+                        },
+                        {
+                                "year": "2004",
+                                "date": "Summer 2004",
+                                "artist": "Modest Mouse",
+                                "album": "Good News for People who love Bad News",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Good_News_for_People_Who_Love_Bad_News",
+                                "source": "Los Angeles",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/aa/MMGoodNews5075.jpg/500px-MMGoodNews5075.jpg",
+                                "age": 23
+                        },
+                        {
+                                "year": "2004",
+                                "date": "Winter 2004",
+                                "artist": "Jon Brion",
+                                "album": "Eternal Sunshine of the Spotless Mind",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Eternal_Sunshine_of_the_Spotless_Mind_(soundtrack)",
+                                "source": "Erin",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Eternal_sunshine_CD_cover.jpg/500px-Eternal_sunshine_CD_cover.jpg",
+                                "age": 23
+                        },
+                        {
+                                "year": "2004",
+                                "date": "Winter 2004",
+                                "artist": "Final Fantasy",
+                                "album": "Has a Good Home",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Has_a_Good_Home",
+                                "source": "Erin",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/8/86/FinalFantasyHasAGoodHome.jpg/500px-FinalFantasyHasAGoodHome.jpg",
+                                "age": 23
+                        },
+                        {
+                                "year": "2004",
+                                "date": "Fall 2004",
+                                "artist": "Jon Brion",
+                                "album": "Meaningless",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Meaningless_(album)",
+                                "source": "Erin",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Meaningless_album_cover.jpg/500px-Meaningless_album_cover.jpg",
+                                "age": 23
+                        },
+                        {
+                                "year": "2005",
+                                "date": "Spring 2005",
+                                "artist": "Ben Folds",
+                                "album": "Songs for Silverman",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Songs_for_Silverman",
+                                "source": "Erin",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/92/SongsForSilverman.jpg/500px-SongsForSilverman.jpg",
+                                "age": 24
+                        },
+                        {
+                                "year": "2005",
+                                "date": "Spring 2005",
+                                "artist": "Philip Glass",
+                                "album": "Einstein on the Beach",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Einstein_on_the_Beach",
+                                "source": "Erin",
+                                "format": "Mp3",
+                                "image": "http://www.1000recordings.com/images/artist-g/glass-philip-350-l.jpg",
+                                "age": 24
+                        },
+                        {
+                                "year": "2005",
+                                "date": "Spring 2005",
+                                "artist": "Apparat Organ Quartet",
+                                "album": "Apparat Organ Quartet",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Apparat_Organ_Quartet_(album)",
+                                "source": "Vernon",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/bd/Apparat_Organ_Quartet_%28album%29.gif/500px-Apparat_Organ_Quartet_%28album%29.gif",
+                                "age": 24
+                        },
+                        {
+                                "year": "2005",
+                                "date": "Summer 2005",
+                                "artist": "Deseparacedios",
+                                "album": "Read Music/Speak Spanish",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Read_Music/Speak_Spanish",
+                                "source": "Vernon",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/5e/Readmusicspeakspanish.jpg/500px-Readmusicspeakspanish.jpg",
+                                "age": 24
+                        },
+                        {
+                                "year": "2005",
+                                "date": "Summer 2005",
+                                "artist": "Kanye West",
+                                "album": "Late Registration",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Late_Registration",
+                                "source": "Dad, Beef",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f4/Late_registration_cd_cover.jpg/500px-Late_registration_cd_cover.jpg",
+                                "age": 24
+                        },
+                        {
+                                "year": "2005",
+                                "date": "Summer 2005",
+                                "artist": "Clap Your Hands Say Yeah!",
+                                "album": "Clap Your Hands Say Yeah!",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Clap_Your_Hands_Say_Yeah_(album)",
+                                "source": "Erin",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Clap_Your_Hands_Say_Yeah_%28Front_Cover%29.png/500px-Clap_Your_Hands_Say_Yeah_%28Front_Cover%29.png",
+                                "age": 24
+                        },
+                        {
+                                "year": "2005",
+                                "date": "Winter 2005",
+                                "artist": "Bright Eyes",
+                                "album": "I'm wide awake, It's Morning",
+                                "wikiLink": "https://en.wikipedia.org/wiki/I%27m_Wide_Awake,_It%27s_Morning",
+                                "source": "Erin",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/36/Imwideawake.jpg/500px-Imwideawake.jpg",
+                                "age": 24
+                        },
+                        {
+                                "year": "2005",
+                                "date": "Winter 2005",
+                                "artist": "Broken Social Scene",
+                                "album": "You Forget it in People",
+                                "wikiLink": "https://en.wikipedia.org/wiki/You_Forgot_It_in_People",
+                                "source": "Erin",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/8/83/YouForgotItInPeople2.jpg/500px-YouForgotItInPeople2.jpg",
+                                "age": 24
+                        },
+                        {
+                                "year": "2005",
+                                "date": "Winter 2005",
+                                "artist": "Danger Doom",
+                                "album": "The Mouse & The Mask",
+                                "wikiLink": "https://en.wikipedia.org/wiki/The_Mouse_and_the_Mask",
+                                "source": "NIck",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/1/1e/Dangerdoom.jpg/500px-Dangerdoom.jpg",
+                                "age": 24
+                        },
+                        {
+                                "year": "2005",
+                                "date": "Winter 2005",
+                                "artist": "Bob Dylan",
+                                "album": "Bringing it All Back Home",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Bringing_It_All_Back_Home",
+                                "source": "Vernon",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b1/Bob_Dylan_-_Bringing_It_All_Back_Home.jpg/500px-Bob_Dylan_-_Bringing_It_All_Back_Home.jpg",
+                                "age": 24
+                        },
+                        {
+                                "year": "2005",
+                                "date": "Winter 2005",
+                                "artist": "The Decemberists",
+                                "album": "Picaresque",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Picaresque_(album)",
+                                "source": "Nick, Erin",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/33/Picaresque.jpg/500px-Picaresque.jpg",
+                                "age": 24
+                        },
+                        {
+                                "year": "2005",
+                                "date": "Spring 2005",
+                                "artist": "Animal Collective",
+                                "album": "Feels",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Feels",
+                                "source": "Vernon ",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Feels_%28Front_Cover%29.png/500px-Feels_%28Front_Cover%29.png",
+                                "age": 24
+                        },
+                        {
+                                "year": "2005",
+                                "date": "Fall 2005",
+                                "artist": "The Flaming Lips",
+                                "album": "At War with the Mystics",
+                                "wikiLink": "https://en.wikipedia.org/wiki/At_War_with_the_Mystics",
+                                "source": "Forest Hills",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/bd/The_Flaming_Lips_-_At_War_with_the_Mystics.jpg/500px-The_Flaming_Lips_-_At_War_with_the_Mystics.jpg",
+                                "age": 24
+                        },
+                        {
+                                "year": "2006",
+                                "date": "Fall 2006",
+                                "artist": "Gang Gang Dance",
+                                "album": "God's Money",
+                                "wikiLink": "https://en.wikipedia.org/wiki/God%27s_Money_(album)",
+                                "source": "John Lee, Vernon",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/1/1b/God%27s_Money.jpg/500px-God%27s_Money.jpg",
+                                "age": 25
+                        },
+                        {
+                                "year": "2006",
+                                "date": "Spring 2006",
+                                "artist": "Joanna Newsom",
+                                "album": "The Milk-Eyed Mender",
+                                "wikiLink": "https://en.wikipedia.org/wiki/The_Milk-Eyed_Mender",
+                                "source": "Vernon",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c5/The_Milk-Eyed_Mender_%28Front_Cover%29.png/500px-The_Milk-Eyed_Mender_%28Front_Cover%29.png",
+                                "age": 25
+                        },
+                        {
+                                "year": "2006",
+                                "date": "Summer 2006",
+                                "artist": "Dr. Dog",
+                                "album": "Easy Beat",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Easy_Beat",
+                                "source": "Bobby Sanchez",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/6/61/Drdog_easybeat.jpg/500px-Drdog_easybeat.jpg",
+                                "age": 25
+                        },
+                        {
+                                "year": "2006",
+                                "date": "Summer 2006",
+                                "artist": "Dr. Dog",
+                                "album": "Takers and Leavers",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Takers_and_Leavers",
+                                "source": "Bobby Sanchez",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/96/Takerz.jpg/500px-Takerz.jpg",
+                                "age": 25
+                        },
+                        {
+                                "year": "2006",
+                                "date": "Summer 2006",
+                                "artist": "Fiery Furnaces",
+                                "album": "Bitter Tea",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Bitter_Tea",
+                                "source": "Forest Hills",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/1/13/Bitter_Tea_%28Front_Cover%29.png/500px-Bitter_Tea_%28Front_Cover%29.png",
+                                "age": 25
+                        },
+                        {
+                                "year": "2006",
+                                "date": "Winter 2006",
+                                "artist": "Islands",
+                                "album": "Return to the Sea",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Return_to_the_Sea",
+                                "source": "Nick",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/6/61/IslandsReturnToTheSea.jpg/500px-IslandsReturnToTheSea.jpg",
+                                "age": 25
+                        },
+                        {
+                                "year": "2006",
+                                "date": "Winter 2006",
+                                "artist": "TV on the Radio",
+                                "album": "Return to Cookie Mountain",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Return_to_Cookie_Mountain",
+                                "source": "Wonder Showzen S2",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Cookiemtn.jpg/500px-Cookiemtn.jpg",
+                                "age": 25
+                        },
+                        {
+                                "year": "2006",
+                                "date": "Fall 2006",
+                                "artist": "Fountains of Wayne",
+                                "album": "Traffic and Weather",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Traffic_and_Weather",
+                                "source": "Bobby Sanchez",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/5f/Fountains_Of_Wayne_Traffic_And_Weather.jpg/500px-Fountains_Of_Wayne_Traffic_And_Weather.jpg",
+                                "age": 25
+                        },
+                        {
+                                "year": "2006",
+                                "date": "Fall 2006",
+                                "artist": "Band of Horses",
+                                "album": "Everything All The Time",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Everything_All_the_Time",
+                                "source": "Bobby Sanchez",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/51/BandofHorsesEverythingalltheTime.jpg/500px-BandofHorsesEverythingalltheTime.jpg",
+                                "age": 25
+                        },
+                        {
+                                "year": "2006",
+                                "date": "Fall 2006",
+                                "artist": "Joanna Newsom",
+                                "album": "Ys",
+                                "wikiLink": "",
+                                "source": "Vernon, Primary Support",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4d/Ys_cover.jpg/500px-Ys_cover.jpg",
+                                "age": 25
+                        },
+                        {
+                                "year": "2007",
+                                "date": "Fall 2007",
+                                "artist": "Brian Eno",
+                                "album": "Here Come the Warm Jets",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Here_Come_the_Warm_Jets",
+                                "source": "Xavier",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/1/13/Warmjetsvinyl.jpg/500px-Warmjetsvinyl.jpg",
+                                "age": 26
+                        },
+                        {
+                                "year": "2007",
+                                "date": "Fall 2007",
+                                "artist": "Radiohead",
+                                "album": "In Rainbows",
+                                "wikiLink": "https://en.wikipedia.org/wiki/In_Rainbows",
+                                "source": "Matt",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/2/2e/In_Rainbows_Official_Cover.jpg/500px-In_Rainbows_Official_Cover.jpg",
+                                "age": 26
+                        },
+                        {
+                                "year": "2007",
+                                "date": "Spring 2007",
+                                "artist": "Menomena",
+                                "album": "I am the Fun Blame Monster!",
+                                "wikiLink": "https://en.wikipedia.org/wiki/I_Am_the_Fun_Blame_Monster!",
+                                "source": "Astoria ",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b5/I_Am_the_Fun_Blame_Monster%21_%28Front_Cover%29.png/500px-I_Am_the_Fun_Blame_Monster%21_%28Front_Cover%29.png",
+                                "age": 26
+                        },
+                        {
+                                "year": "2007",
+                                "date": "Winter 2007",
+                                "artist": "Arcade Fire",
+                                "album": "Neon Bible",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Neon_Bible",
+                                "source": "Erin",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/7/75/Neon_Bible_%28Front_Cover%29.png/500px-Neon_Bible_%28Front_Cover%29.png",
+                                "age": 26
+                        },
+                        {
+                                "year": "2007",
+                                "date": "Summer 2007",
+                                "artist": "The Dodos",
+                                "album": "Visiter",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Visiter",
+                                "source": "Erin, Honeymoon",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Visiter.jpg/500px-Visiter.jpg",
+                                "age": 26
+                        },
+                        {
+                                "year": "2007",
+                                "date": "Summer 2007",
+                                "artist": "Fleet Foxes",
+                                "album": "Fleet Foxes",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Fleet_Foxes_(album)",
+                                "source": "Erin",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Fleet_foxes.jpg/500px-Fleet_foxes.jpg",
+                                "age": 26
+                        },
+                        {
+                                "year": "2008",
+                                "date": "Summer 2008",
+                                "artist": "Bon Iver",
+                                "album": "For Emma, Forever Ago",
+                                "wikiLink": "https://en.wikipedia.org/wiki/For_Emma,_Forever_Ago",
+                                "source": "Erin",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/Bon_iver_album_cover.jpg/500px-Bon_iver_album_cover.jpg",
+                                "age": 27
+                        },
+                        {
+                                "year": "2008",
+                                "date": "Summer 2008",
+                                "artist": "Final Fantasy",
+                                "album": "Spectrum 14th century",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Spectrum,_14th_Century",
+                                "source": "Erin, Honeymoon",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/Final_Fantasy-Spectrum%2C_14th_Century.jpg/500px-Final_Fantasy-Spectrum%2C_14th_Century.jpg",
+                                "age": 27
+                        },
+                        {
+                                "year": "2008",
+                                "date": "Winter 2008",
+                                "artist": "The Tallest Man on Earth",
+                                "album": "Shallow Graves",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Shallow_Grave_(album)",
+                                "source": "Erin",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b5/Shallow_Grave_%28Front_Cover%29.png/500px-Shallow_Grave_%28Front_Cover%29.png",
+                                "age": 27
+                        },
+                        {
+                                "year": "2008",
+                                "date": "Winter 2008",
+                                "artist": "Philip Glass",
+                                "album": "Glassworks",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Glassworks",
+                                "source": "Aunt Flo",
+                                "format": "Mp3",
+                                "image": "http://quietus_production.s3.amazonaws.com/images/articles/8659/glass_1335639714_crop_550x550.jpg",
+                                "age": 27
+                        },
+                        {
+                                "year": "2008",
+                                "date": "Fall 2008",
+                                "artist": "Julian Casablancas",
+                                "album": "Phrazes for the Young",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Phrazes_for_the_Young",
+                                "source": "Diallo Riddle",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Phrazes_cover_small.jpg/500px-Phrazes_cover_small.jpg",
+                                "age": 27
+                        },
+                        {
+                                "year": "2008",
+                                "date": "Spring 2008",
+                                "artist": "Japandroids",
+                                "album": "Post Nothing",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Post-Nothing",
+                                "source": "Elayna Bischof",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d4/Jpndrds.jpg/500px-Jpndrds.jpg",
+                                "age": 27
+                        },
+                        {
+                                "year": "2009",
+                                "date": "Summer 2009",
+                                "artist": "Chad VanGaalen",
+                                "album": "Soft Airplane",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Soft_Airplane",
+                                "source": "Edmond Hawkins",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/9d/Vangaalen-airplane.jpg/500px-Vangaalen-airplane.jpg",
+                                "age": 28
+                        },
+                        {
+                                "year": "2009",
+                                "date": "Summer 2009",
+                                "artist": "Passion Pit",
+                                "album": "Manners",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Manners_(album)",
+                                "source": "Mazda, Jersey Shore ‘09",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/1/17/Mannersalbum.jpg/500px-Mannersalbum.jpg",
+                                "age": 28
+                        },
+                        {
+                                "year": "2009",
+                                "date": "Spring 2009",
+                                "artist": "Beach House",
+                                "album": "Teen Dream",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Teen_Dream",
+                                "source": "Joel Knutson",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b2/Beach_House_-_Teen_Dream.png/500px-Beach_House_-_Teen_Dream.png",
+                                "age": 28
+                        },
+                        {
+                                "year": "2009",
+                                "date": "Spring 2009",
+                                "artist": "Arcade Fire",
+                                "album": "The Suburbs",
+                                "wikiLink": "https://en.wikipedia.org/wiki/The_Suburbs_(album)",
+                                "source": "Erin, Maeve",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/8/81/Arcade_Fire_-_The_Suburbs.jpg/500px-Arcade_Fire_-_The_Suburbs.jpg",
+                                "age": 28
+                        },
+                        {
+                                "year": "2010",
+                                "date": "Summer 2010",
+                                "artist": "Dirty Projectors",
+                                "album": "Bitte Orca",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Bitte_Orca",
+                                "source": "Erin",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/6/69/DirtyProjectors-BitteOrca.jpg/500px-DirtyProjectors-BitteOrca.jpg",
+                                "age": 29
+                        },
+                        {
+                                "year": "2010",
+                                "date": "Summer 2010",
+                                "artist": "Bruce Springsteen",
+                                "album": "Born To Run",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Born_to_Run",
+                                "source": "Erin",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/Born_to_Run_%28Front_Cover%29.jpg/500px-Born_to_Run_%28Front_Cover%29.jpg",
+                                "age": 29
+                        },
+                        {
+                                "year": "2010",
+                                "date": "Summer 2010",
+                                "artist": "They Might be Giants",
+                                "album": "Lincoln",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Lincoln_(album)",
+                                "source": "John Lee",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f3/TheyMightBeGiants-Lincoln.jpg/500px-TheyMightBeGiants-Lincoln.jpg",
+                                "age": 29
+                        },
+                        {
+                                "year": "2010",
+                                "date": "Fall 2010",
+                                "artist": "Fountains of Wayne",
+                                "album": "Sky Full of Holes",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Sky_Full_of_Holes",
+                                "source": "",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/cb/Sky_Full_of_Holes.jpg/500px-Sky_Full_of_Holes.jpg",
+                                "age": 29
+                        },
+                        {
+                                "year": "2010",
+                                "date": "Fall 2010",
+                                "artist": "St. Vincent",
+                                "album": "Strange Mercy",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Strange_Mercy",
+                                "source": "",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/St._Vincent_-_Strange_Mercy.jpg/500px-St._Vincent_-_Strange_Mercy.jpg",
+                                "age": 29
+                        }
+                ]
+        },
+        "thirties": {
+                "title": "The Thirties",
+                "subtitle": "Ages 30-39 • Refined Taste",
+                "narrative": "The streaming era brought unlimited access but more selective choices. Each album now chosen with intention, each discovery more meaningful.",
+                "albums": [
+                        {
+                                "year": "2011",
+                                "date": "Summer 2011",
+                                "artist": "Tune Yards",
+                                "album": "WHOKILL",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Whokill",
+                                "source": "Evil Chris",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Whokill.jpg/500px-Whokill.jpg",
+                                "age": 30
+                        },
+                        {
+                                "year": "2011",
+                                "date": "Winter 2011",
+                                "artist": "Jay-Z & Kanye West",
+                                "album": "Watch The Throne",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Watch_the_Throne",
+                                "source": "NYSC",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/e/ee/Watch_The_Throne.jpg/500px-Watch_The_Throne.jpg",
+                                "age": 30
+                        },
+                        {
+                                "year": "2011",
+                                "date": "Fall 2011",
+                                "artist": "Ben Folds Five",
+                                "album": "The Sound of the Life of the Mind",
+                                "wikiLink": "https://en.wikipedia.org/wiki/The_Sound_of_the_Life_of_the_Mind",
+                                "source": "Matt Lavanco",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/6/6d/Thesoundofthelifeofthemind.jpg/500px-Thesoundofthelifeofthemind.jpg",
+                                "age": 30
+                        },
+                        {
+                                "year": "2011",
+                                "date": "Fall 2011",
+                                "artist": "Carole King",
+                                "album": "Tapestry",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Tapestry_(album)",
+                                "source": "Mom",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Carole_King_-_Tapestry.jpg/500px-Carole_King_-_Tapestry.jpg",
+                                "age": 30
+                        },
+                        {
+                                "year": "2012",
+                                "date": "Spring 2012",
+                                "artist": "MGMT",
+                                "album": "Congratulations",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Congratulations_(album)",
+                                "source": "Vernon, Jimmy Fallon",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f3/MGMT_Congratulations.jpg/500px-MGMT_Congratulations.jpg",
+                                "age": 31
+                        },
+                        {
+                                "year": "2012",
+                                "date": "Summer 2012",
+                                "artist": "Dirty Projectors",
+                                "album": "Swing Lo Magellan",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Swing_Lo_Magellan",
+                                "source": "Erin",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/91/Swing_Lo_Magellan.jpg/500px-Swing_Lo_Magellan.jpg",
+                                "age": 31
+                        },
+                        {
+                                "year": "2012",
+                                "date": "Summer 2012",
+                                "artist": "Japandroids",
+                                "album": "Celebration Rock",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Celebration_Rock",
+                                "source": "Mazda",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e5/Celebration_Rock.jpg/500px-Celebration_Rock.jpg",
+                                "age": 31
+                        },
+                        {
+                                "year": "2012",
+                                "date": "Summer 2012",
+                                "artist": "Washed Out",
+                                "album": "Within and Without",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Within_and_Without_(album)",
+                                "source": "Bobby Sanchez",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/6/62/Washed_Out_-_Within_and_Without.png/500px-Washed_Out_-_Within_and_Without.png",
+                                "age": 31
+                        },
+                        {
+                                "year": "2012",
+                                "date": "Winter 2012",
+                                "artist": "Frank Sinatra",
+                                "album": "Watertown",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Watertown_(album)",
+                                "source": "Arthur Meyer",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Watertown%281970album%29.jpg/500px-Watertown%281970album%29.jpg",
+                                "age": 31
+                        },
+                        {
+                                "year": "2012",
+                                "date": "Summer 2012",
+                                "artist": "Paul McCartney",
+                                "album": "RAM",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Ram_(album)",
+                                "source": "Jimmy Fallon",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/bd/RamMcCartneyalbumcover.jpg/500px-RamMcCartneyalbumcover.jpg",
+                                "age": 31
+                        },
+                        {
+                                "year": "2012",
+                                "date": "Summer 2012",
+                                "artist": "Kanye West",
+                                "album": "Yeezus",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Yeezus",
+                                "source": "NYSC",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Yeezus_album_cover.png/500px-Yeezus_album_cover.png",
+                                "age": 31
+                        },
+                        {
+                                "year": "2013",
+                                "date": "Summer 2013",
+                                "artist": "Vampire Weekend",
+                                "album": "Modern Vampires in the City",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Modern_Vampires_of_the_City",
+                                "source": "",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4d/Vampire_Weekend_-_Modern_Vampires_of_the_City.png/500px-Vampire_Weekend_-_Modern_Vampires_of_the_City.png",
+                                "age": 32
+                        },
+                        {
+                                "year": "2013",
+                                "date": "Summer 2013",
+                                "artist": "Jay - Z",
+                                "album": "Magna Carter.... Holy grail",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Magna_Carta_Holy_Grail",
+                                "source": "Nick ",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/8/87/Magna_Carta_Holy_Grail_cover.png/500px-Magna_Carta_Holy_Grail_cover.png",
+                                "age": 32
+                        },
+                        {
+                                "year": "2013",
+                                "date": "Winter 2013",
+                                "artist": "Kendrick Lamar",
+                                "album": "Good Kid m. A. A. D. City",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Good_Kid,_M.A.A.D_City",
+                                "source": "Gavin Purcell",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/6/65/KendrickGKMCDeluxe.jpg/500px-KendrickGKMCDeluxe.jpg",
+                                "age": 32
+                        },
+                        {
+                                "year": "2013",
+                                "date": "Winter 2013",
+                                "artist": "Frank Ocean",
+                                "album": "Channel Orange",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Channel_Orange",
+                                "source": "Beef",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/2/28/Channel_ORANGE.jpg/500px-Channel_ORANGE.jpg",
+                                "age": 32
+                        },
+                        {
+                                "year": "2013",
+                                "date": "Winter 2013",
+                                "artist": "Frozen",
+                                "album": "Soundtrack",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Frozen_(soundtrack)",
+                                "source": "Maeve",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/8/89/Frozen_2013_soundtrack.png/500px-Frozen_2013_soundtrack.png",
+                                "age": 32
+                        },
+                        {
+                                "year": "2013",
+                                "date": "Spring 2013",
+                                "artist": "Biff Rose",
+                                "album": "Fill your heart with Biff",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Biff_Rose",
+                                "source": "Josh Lieb, Jimmy Fallon",
+                                "format": "Spotify",
+                                "image": "https://i.discogs.com/WTrdMg7UDQgqcFCWlBwyeMbig0D7ZTHQY5xbmh13Pc8/rs:fit/g:sm/q:90/h:600/w:593/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTY1MjUz/ODYtMTQyMTI3MDc5/Mi01NDE0LmpwZWc.jpeg",
+                                "age": 32
+                        },
+                        {
+                                "year": "2013",
+                                "date": "Winter 2013",
+                                "artist": "Arcade Fire",
+                                "album": "Reflektor",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Reflektor",
+                                "source": "Erin",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/57/ArcadeFireReflektor.jpg/500px-ArcadeFireReflektor.jpg",
+                                "age": 32
+                        },
+                        {
+                                "year": "2013",
+                                "date": "Winter 2013",
+                                "artist": "A Christmas Gift to you from Phil Spector",
+                                "album": "The Ronettes",
+                                "wikiLink": "",
+                                "source": "Jimmy, Christmas",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/59/Album_A_Christmas_Gift_For_You_From_Philles_Records_cover.jpg/500px-Album_A_Christmas_Gift_For_You_From_Philles_Records_cover.jpg",
+                                "age": 32
+                        },
+                        {
+                                "year": "2014",
+                                "date": "Winter 2014",
+                                "artist": "Paul McCartney",
+                                "album": "Band on the Run",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Band_on_the_Run",
+                                "source": "Mom, Jimmy Fallon",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f4/Paul_McCartney_%26_Wings-Band_on_the_Run_album_cover.jpg/500px-Paul_McCartney_%26_Wings-Band_on_the_Run_album_cover.jpg",
+                                "age": 33
+                        },
+                        {
+                                "year": "2014",
+                                "date": "Spring 2014",
+                                "artist": "Father John Misty",
+                                "album": "I love you, Honeybear",
+                                "wikiLink": "https://en.wikipedia.org/wiki/I_Love_You,_Honeybear",
+                                "source": "Arthur Meyer",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/cb/I_Love_You%2C_Honeybear.jpg/500px-I_Love_You%2C_Honeybear.jpg",
+                                "age": 33
+                        },
+                        {
+                                "year": "2014",
+                                "date": "Summer 2014",
+                                "artist": "Tame Impala",
+                                "album": "Currents",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Currents_(Tame_Impala_album)",
+                                "source": "Arthur Meyer",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Currents_artwork_%28Tame_Impala_album%29.jpg/500px-Currents_artwork_%28Tame_Impala_album%29.jpg",
+                                "age": 33
+                        },
+                        {
+                                "year": "2015",
+                                "date": "Summer 2015",
+                                "artist": "Lil' Dicky",
+                                "album": "Professional Rapper",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Professional_Rapper_(Lil_Dicky_album)",
+                                "source": "Jim Juvonen",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/7/7f/Professional_Rapper_by_Lil_Dicky_Album_Cover.jpg/500px-Professional_Rapper_by_Lil_Dicky_Album_Cover.jpg",
+                                "age": 34
+                        },
+                        {
+                                "year": "2015",
+                                "date": "Fall 2015",
+                                "artist": "Thelonius Monk",
+                                "album": "Thelonious Monk Plays Duke Ellington",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Thelonious_Monk_Plays_Duke_Ellington",
+                                "source": "Dad, Aunt Ro",
+                                "format": "Spotify, Vinyl",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/2/2f/Album_MonkPlaysEllington.jpg/500px-Album_MonkPlaysEllington.jpg",
+                                "age": 34
+                        },
+                        {
+                                "year": "2015",
+                                "date": "Winter 2015",
+                                "artist": "Kanye West",
+                                "album": "The Life of Pablo",
+                                "wikiLink": "https://en.wikipedia.org/wiki/The_Life_of_Pablo",
+                                "source": "Arthur Meyer, Beef",
+                                "format": "Mp3",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4d/The_life_of_pablo_alternate.jpg/500px-The_life_of_pablo_alternate.jpg",
+                                "age": 34
+                        },
+                        {
+                                "year": "2015",
+                                "date": "Spring 2015",
+                                "artist": "Jean Sibelius",
+                                "album": "Symphony No. 2",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Symphony_No._2_(Sibelius)",
+                                "source": "Erin",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Jean_Sibelius_%28AE%2C_1904%29.png/500px-Jean_Sibelius_%28AE%2C_1904%29.png",
+                                "age": 34
+                        },
+                        {
+                                "year": "2015",
+                                "date": "Spring 2015",
+                                "artist": "Weezer",
+                                "album": "Weezer (white album)",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Weezer_(2016_album)",
+                                "source": "John Haskell",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Cover_of_Weezer%27s_White_Album%2C2016.jpg/500px-Cover_of_Weezer%27s_White_Album%2C2016.jpg",
+                                "age": 34
+                        },
+                        {
+                                "year": "2016",
+                                "date": "Winter 2016",
+                                "artist": "La La Land",
+                                "album": "Original Sountrack",
+                                "wikiLink": "https://en.wikipedia.org/wiki/La_La_Land_(soundtrack)",
+                                "source": "Dan Opsal",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/8/83/La_La_Land_soundtrack.jpg/500px-La_La_Land_soundtrack.jpg",
+                                "age": 35
+                        },
+                        {
+                                "year": "2016",
+                                "date": "Summer 2016",
+                                "artist": "Frank Ocean",
+                                "album": "Blonde",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Blonde_(Frank_Ocean_album)",
+                                "source": "Beef",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a0/Blonde_-_Frank_Ocean.jpeg/500px-Blonde_-_Frank_Ocean.jpeg",
+                                "age": 35
+                        },
+                        {
+                                "year": "2016",
+                                "date": "Spring 2016",
+                                "artist": "Run The Jewels",
+                                "album": "Run The Jewels Vol. 2",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Run_the_Jewels_2",
+                                "source": "Nick",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/93/RunTheJewelsRTJ2.jpg/500px-RunTheJewelsRTJ2.jpg",
+                                "age": 35
+                        },
+                        {
+                                "year": "2016",
+                                "date": "Spring 2016",
+                                "artist": "Run The Jewels",
+                                "album": "Run The Jewels Vol. 3",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Run_the_Jewels_3",
+                                "source": "Beef",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/96/RunTheJewels3.jpg/500px-RunTheJewels3.jpg",
+                                "age": 35
+                        },
+                        {
+                                "year": "2016",
+                                "date": "Winter 2016",
+                                "artist": "Run The Jewels",
+                                "album": "Run The Jewels",
+                                "wikiLink": "",
+                                "source": "Beef",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/2/20/Run_the_jewels_ep_album_cover.jpg/500px-Run_the_jewels_ep_album_cover.jpg",
+                                "age": 35
+                        },
+                        {
+                                "year": "2017",
+                                "date": "Summer 2017",
+                                "artist": "Do Hollywood",
+                                "album": "The Lemon Twigs",
+                                "wikiLink": "",
+                                "source": "Albertina",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e5/The_Lemon_Twigs_Do_Hollywood_album.jpg/500px-The_Lemon_Twigs_Do_Hollywood_album.jpg",
+                                "age": 36
+                        },
+                        {
+                                "year": "2017",
+                                "date": "Fall 2017",
+                                "artist": "Pure Comedy",
+                                "album": "Father John Misty",
+                                "wikiLink": "",
+                                "source": "Thanksgiving ",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/Pure_Comedy.jpg/500px-Pure_Comedy.jpg",
+                                "age": 36
+                        },
+                        {
+                                "year": "2017",
+                                "date": "Summer 2017",
+                                "artist": "Skiptracing",
+                                "album": "Mild High Club",
+                                "wikiLink": "",
+                                "source": "",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/cb/Mild_High_Club_-_Skiptracing.jpg/500px-Mild_High_Club_-_Skiptracing.jpg",
+                                "age": 36
+                        },
+                        {
+                                "year": "2017",
+                                "date": "Summer 2017",
+                                "artist": "Timeline",
+                                "album": "Mild High Club",
+                                "wikiLink": "",
+                                "source": "",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/e/eb/Mild_High_Club_-_Timeline.jpg/500px-Mild_High_Club_-_Timeline.jpg",
+                                "age": 36
+                        },
+                        {
+                                "year": "2017",
+                                "date": "Winter 2017",
+                                "artist": "Hazards Of Love",
+                                "album": "The Decemberists",
+                                "wikiLink": "",
+                                "source": "Erin",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/0/06/TheHazardsofLove1.jpg/500px-TheHazardsofLove1.jpg",
+                                "age": 36
+                        },
+                        {
+                                "year": "2018",
+                                "date": "Summer 2018",
+                                "artist": "Uniform Distortion",
+                                "album": "Jim James",
+                                "wikiLink": "",
+                                "source": "Upstate",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/1/1c/Uniform_Distortion.jpg/500px-Uniform_Distortion.jpg",
+                                "age": 37
+                        },
+                        {
+                                "year": "2018",
+                                "date": "Summer 2018",
+                                "artist": "Father of the Bride",
+                                "album": "Vampire Weekend",
+                                "wikiLink": "",
+                                "source": "Vernon",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b4/Vampire_Weekend_–_Father_of_the_Bride.png/500px-Vampire_Weekend_–_Father_of_the_Bride.png",
+                                "age": 37
+                        },
+                        {
+                                "year": "2018",
+                                "date": "Summer 2018",
+                                "artist": "Lin Manuel Miranda",
+                                "album": "Hamilton",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Hamilton_(album)",
+                                "source": "The Kids",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/5b/Hamilton_cast_recording_cover.jpeg/500px-Hamilton_cast_recording_cover.jpeg",
+                                "age": 37
+                        },
+                        {
+                                "year": "2018",
+                                "date": "Fall 2018",
+                                "artist": "The Slow Rush",
+                                "album": "Tame Impala",
+                                "wikiLink": "",
+                                "source": "",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/54/Tame_Impala_-_The_Slow_Rush.png/500px-Tame_Impala_-_The_Slow_Rush.png",
+                                "age": 37
+                        },
+                        {
+                                "year": "2019",
+                                "date": "Summer 2019",
+                                "artist": "Blazrdog",
+                                "album": "why not?",
+                                "wikiLink": "https://www.blazrdog.com",
+                                "source": "Haskell",
+                                "format": "Spotify",
+                                "image": "https://www.blazrdog.com",
+                                "age": 38
+                        },
+                        {
+                                "year": "2019",
+                                "date": "Summer 2019",
+                                "artist": "Odessey and Oracle",
+                                "album": "The Zombies",
+                                "wikiLink": "",
+                                "source": "Jimmy",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/6/6a/Odessey_and_Oracle.jpg/500px-Odessey_and_Oracle.jpg",
+                                "age": 38
+                        },
+                        {
+                                "year": "2020",
+                                "date": "Fall 2020",
+                                "artist": "Olivia Rodrigo",
+                                "album": "Sour",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Sour_(album)",
+                                "source": "Maeve",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b2/Olivia_Rodrigo_-_SOUR.png/500px-Olivia_Rodrigo_-_SOUR.png",
+                                "age": 39
+                        },
+                        {
+                                "year": "2020",
+                                "date": "Fall 2020",
+                                "artist": "Hawaii: Part II",
+                                "album": "Miracle Musical",
+                                "wikiLink": "",
+                                "source": "Nedaa Sweiss",
+                                "format": "Spotify",
+                                "image": "https://i.scdn.co/image/ab67616d0000b273b3d0bf02a5fb2f676c748432",
+                                "age": 39
+                        }
+                ]
+        },
+        "forties": {
+                "title": "The Forties",
+                "subtitle": "Ages 40+ • Curated Journey",
+                "narrative": "Quality over quantity. Every album a deliberate choice, every discovery a treasure worth savoring.",
+                "albums": [
+                        {
+                                "year": "2022",
+                                "date": "Spring 2022",
+                                "artist": "Laufey",
+                                "album": "Bewitched",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Bewitched_(Laufey_album)",
+                                "source": "The Kids",
+                                "format": "Spotify, Vinyl",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/0/06/Laufey_-_Bewitched.png/500px-Laufey_-_Bewitched.png",
+                                "age": 41
+                        },
+                        {
+                                "year": "2022",
+                                "date": "Fall 2022",
+                                "artist": "Blue Rev",
+                                "album": "Alvvays",
+                                "wikiLink": "",
+                                "source": "",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/7/7f/Blue_Rev_Alvvays.jpg/500px-Blue_Rev_Alvvays.jpg",
+                                "age": 41
+                        },
+                        {
+                                "year": "2022",
+                                "date": "Winter 2022",
+                                "artist": "XO",
+                                "album": "Elliott Smith",
+                                "wikiLink": "",
+                                "source": "Nick",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/35/ElliottsmithXOalbumcover.jpg/500px-ElliottsmithXOalbumcover.jpg",
+                                "age": 41
+                        },
+                        {
+                                "year": "2023",
+                                "date": "Spring 2023",
+                                "artist": "PUNK TACTICS",
+                                "album": "Joey Valence & Brae",
+                                "wikiLink": "",
+                                "source": "Sam, Emmett",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/f/fe/Punk_Tactics_cover.jpg/500px-Punk_Tactics_cover.jpg",
+                                "age": 42
+                        },
+                        {
+                                "year": "2023",
+                                "date": "Summer 2023",
+                                "artist": "Only God Was Above Us",
+                                "album": "Vampire Weekend",
+                                "wikiLink": "",
+                                "source": "",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/34/Vampire_Weekend_-_Only_God_Was_Above_Us.png/500px-Vampire_Weekend_-_Only_God_Was_Above_Us.png",
+                                "age": 42
+                        },
+                        {
+                                "year": "2025",
+                                "date": "Fall 2025",
+                                "artist": "Jeff Buckley ",
+                                "album": "Grace",
+                                "wikiLink": "https://en.wikipedia.org/wiki/Grace_(Jeff_Buckley_album)",
+                                "source": "",
+                                "format": "Vinyl",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e4/Jeff_Buckley_grace.jpg/500px-Jeff_Buckley_grace.jpg",
+                                "age": 44
+                        },
+                        {
+                                "year": "2024",
+                                "date": "Summer 2024",
+                                "artist": "Welcome Interstate Managers",
+                                "album": "Fountains Of Wayne",
+                                "wikiLink": "",
+                                "source": "Maeve",
+                                "format": "Spotify, Vinyl",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/44/FOW-Welcome_Interstate_Managers.jpg/500px-FOW-Welcome_Interstate_Managers.jpg",
+                                "age": 43
+                        },
+                        {
+                                "year": "2025",
+                                "date": "Fall 2025",
+                                "artist": "Lonerism",
+                                "album": "Tame Impala",
+                                "wikiLink": "",
+                                "source": "Arthur Meyer",
+                                "format": "Spotify",
+                                "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/31/Tame_Impala_-_Lonerism.png/500px-Tame_Impala_-_Lonerism.png",
+                                "age": 44
+                        }
+                ]
+        }
+};
+
+        const chapterConfig = {
+            childhood: { number: 'I', class: 'childhood' },
+            teen: { number: 'II', class: 'teen' },
+            twenties: { number: 'III', class: 'twenties' },
+            thirties: { number: 'IV', class: 'thirties' },
+            forties: { number: 'V', class: 'forties' }
+        };
+
+        const chapterOrder = ['childhood', 'teen', 'twenties', 'thirties', 'forties'];
+
+        let currentFilter = null;
+
+        function filterByAssociation(association) {
+            currentFilter = { type: 'association', value: association };
+            
+            // Add filtering class to body
+            document.body.classList.add('filtering-active');
+            
+
+            // Count albums with this association
+            let count = 0;
+            chapterOrder.forEach(key => {
+                const stage = journeyData[key];
+                count += stage.albums.filter(a => a.source === association).length;
+            });
+            
+            // Update filter bar
+            const filterBar = document.getElementById('filter-bar');
+            const filterBadge = document.getElementById('filter-badge');
+            filterBadge.textContent = `$ • $ album${count !== 1 ? 's' : ''}`;
+            filterBar.classList.add('active');
+            
+            // Filter cards
+            const cards = document.querySelectorAll('.album-card');
+            cards.forEach(card => {
+                const cardAssociation = card.dataset.association;
+                if (cardAssociation === association) {
+                    card.classList.remove('filtered-out');
+                } else {
+                    card.classList.add('filtered-out');
+                }
+            });
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+
+        function filterByFormat(format) {
+            if (!format) {
+                clearFilter();
+                return;
+            }
+            
+            currentFilter = { type: 'format', value: format };
+            
+            // Add filtering class to body
+            document.body.classList.add('filtering-active');
+            
+
+            // Count albums with this format
+            let count = 0;
+            chapterOrder.forEach(key => {
+                const stage = journeyData[key];
+                count += stage.albums.filter(a => {
+                    const albumFormat = a.format || '';
+                    return albumFormat.includes(format);
+                }).length;
+            });
+            
+            // Update filter bar
+            const filterBar = document.getElementById('filter-bar');
+            const filterBadge = document.getElementById('filter-badge');
+            filterBadge.textContent = `Format: $ • $ album${count !== 1 ? 's' : ''}`;
+            filterBar.classList.add('active');
+            
+            // Filter cards
+            const cards = document.querySelectorAll('.album-card');
+            cards.forEach(card => {
+                const cardFormat = card.dataset.format || '';
+                if (cardFormat.includes(format)) {
+                    card.classList.remove('filtered-out');
+                } else {
+                    card.classList.add('filtered-out');
+                }
+            });
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function clearFilter() {
+            currentFilter = null;
+            
+            // Remove filtering class from body
+            document.body.classList.remove('filtering-active');
+            
+            // Hide filter bar
+            const filterBar = document.getElementById('filter-bar');
+            filterBar.classList.remove('active');
+            
+
+            // Show all cards
+            const cards = document.querySelectorAll('.album-card');
+            cards.forEach(card => {
+                card.classList.remove('filtered-out');
+            });
+        }
+
+
+        // Album art fallback using iTunes API
+        async function fetchAlbumArt(artist, album) {
+            try {
+                // Clean up artist and album names for search
+                const cleanArtist = artist.replace(/[^\w\s]/g, '').trim();
+                const cleanAlbum = album.replace(/[^\w\s]/g, '').trim();
+                
+                // Try iTunes API first
+                const itunesUrl = `https://itunes.apple.com/search?term=${encodeURIComponent(cleanArtist + ' ' + cleanAlbum)}&entity=album&limit=1`;
+                const response = await fetch(itunesUrl);
+                const data = await response.json();
+                
+                if (data.results && data.results.length > 0) {
+                    // Get high-res artwork (600x600)
+                    let artworkUrl = data.results[0].artworkUrl100;
+                    if (artworkUrl) {
+                        artworkUrl = artworkUrl.replace('100x100bb', '600x600bb');
+                        return artworkUrl;
+                    }
+                }
+                
+                // If iTunes fails, try MusicBrainz Cover Art Archive
+                // This requires a release ID, so we'll search MusicBrainz first
+                const mbUrl = `https://musicbrainz.org/ws/2/release/?query=artist:${encodeURIComponent(cleanArtist)}%20AND%20release:${encodeURIComponent(cleanAlbum)}&fmt=json&limit=1`;
+                const mbResponse = await fetch(mbUrl);
+                const mbData = await mbResponse.json();
+                
+                if (mbData.releases && mbData.releases.length > 0) {
+                    const releaseId = mbData.releases[0].id;
+                    const coverArtUrl = `https://coverartarchive.org/release/$/front-500`;
+                    
+                    // Check if cover art exists
+                    const coverResponse = await fetch(coverArtUrl, { method: 'HEAD' });
+                    if (coverResponse.ok) {
+                        return coverArtUrl;
+                    }
+                }
+            } catch (error) {
+                console.log('Could not fetch album art for:', artist, '-', album);
+            }
+            
+            return null;
+        }
+
+        // Handle image loading errors with fallback
+        function handleImageError(img) {
+            // Don't try again if we already tried fetching
+            if (img.dataset.fetchAttempted) {
+                return;
+            }
+            
+            img.dataset.fetchAttempted = 'true';
+            
+            // Get artist and album from data attributes
+            const artist = img.dataset.artist || '';
+            const album = img.dataset.album || '';
+            
+            // Try to fetch album art
+            fetchAlbumArt(artist, album).then(artworkUrl => {
+                if (artworkUrl) {
+                    img.src = artworkUrl;
+                } else {
+                    // Show placeholder with first letter
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'album-placeholder';
+                    placeholder.textContent = (artist || album || '♪')[0].toUpperCase();
+                    img.parentElement.innerHTML = '';
+                    img.parentElement.appendChild(placeholder);
+                }
+            });
+        }
+
+        function renderJourney() {
+            const container = document.getElementById('journey-container');
+            
+            chapterOrder.forEach((key) => {
+                const stage = journeyData[key];
+                const config = chapterConfig[key];
+                const chapterDiv = document.createElement('div');
+                chapterDiv.className = `chapter $`;
+                
+                let html = `
+                    <div class="chapter-header">
+                        <div class="chapter-number">$</div>
+                        <h2 class="chapter-title">$</h2>
+                        <div class="chapter-subtitle">$</div>
+                        <p class="chapter-narrative">$</p>
+                    </div>
+                    <div class="albums-grid">
+                `;
+                
+                stage.albums.forEach(album => {
+                    const hasLink = album.wikiLink && album.wikiLink.trim() !== '';
+                    const linkStart = hasLink ? `<a href="$" target="_blank" rel="noopener noreferrer" class="album-link">` : '';
+                    const linkEnd = hasLink ? '</a>' : '';
+                    
+                    html += `
+                        <div class="timeline-item">
+                            <div class="album-card" data-association="${album.source || ''}" data-format="${album.format || ''}">
+                                <div class="album-top">
+                                    <div class="album-badges-left">
+                                        <span class="year-badge">$</span>
+                                        <span class="age-badge">Age $</span>
+                                    </div>
+                                    $
+                                        <div class="album-art-wrapper">
+                                            <div class="album-image">
+                                                ${album.image ? `<img src="$" alt="$" loading="lazy" onerror="handleImageError(this)" data-artist="$" data-album="$">` : `<div class="album-placeholder">${(album.artist || album.album || '♪')[0].toUpperCase()}</div>`}
+                                            </div>
+                                        </div>
+                                    $
+                                </div>
+                                <div class="album-info">
+                                    <div class="album-title">$</div>
+                                    <div class="album-artist">$</div>
+                                    <div class="album-badges">
+                                        <div>${album.format ? `<span class="format-badge" onclick="filterByFormat(this.textContent.split(',')[0].trim())">$</span>` : ''}</div>
+                                        <div>${album.source ? `<span class="association-badge" onclick="filterByAssociation(this.textContent)">$</span>` : ''}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+                chapterDiv.innerHTML = html;
+                container.appendChild(chapterDiv);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', renderJourney);
+
+        // Keyboard support - Escape to clear filter
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && currentFilter) {
+                clearFilter();
+            }
+        });
+    </script>
+</body>
+</html>
