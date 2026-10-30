@@ -323,12 +323,23 @@
     if (page.about) {
       const links = el("p", { class: "about-links" },
         ...page.about.links.map((l) => el("a", { href: l.url, target: "_blank", rel: "noopener", text: l.label })));
-      // Paragraphs may hold [text](url) links; everything else stays plain text.
+      // Paragraphs may hold [text](url) links and ***show titles*** (bold italic);
+      // everything else stays plain text.
+      const styled = (t) => {
+        const out = [];
+        let last = 0;
+        for (const m of t.matchAll(/\*\*\*(.+?)\*\*\*/g)) {
+          out.push(t.slice(last, m.index), el("strong", {}, el("em", { text: m[1] })));
+          last = m.index + m[0].length;
+        }
+        out.push(t.slice(last));
+        return out.filter((x) => x !== "");
+      };
       const para = (t) => {
         const p = el("p");
         let last = 0;
         for (const m of t.matchAll(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g)) {
-          const a = el("a", { href: m[2], target: "_blank", rel: "noopener", text: m[1] });
+          const a = el("a", { href: m[2], target: "_blank", rel: "noopener" }, ...styled(m[1]));
           // A link to one of the site's own videos plays in the site's viewer.
           const id = (m[2].match(/vimeo\.com\/(\d+)/) || m[2].match(/(?:youtu\.be\/|[?&]v=)([\w-]{11})/) || [])[1];
           const v = id && allVideos().find((x) => x.vimeo === id || x.youtube === id);
@@ -337,10 +348,10 @@
             e.preventDefault();
             openViewer(v);
           });
-          p.append(t.slice(last, m.index), a);
+          p.append(...styled(t.slice(last, m.index)), a);
           last = m.index + m[0].length;
         }
-        p.append(t.slice(last));
+        p.append(...styled(t.slice(last)));
         return p;
       };
       const text = el("div", { class: "about-text" }, ...page.about.paragraphs.map(para), links);

@@ -24,7 +24,7 @@ Use `"vimeo": "123456789"` instead of `youtube` for Vimeo (add `"hash"` for unli
 
 Videos listed in `site.shuffleExtras` in `data/videos.json` are in the Shuffle (and can be linked from the About text) without appearing on any page. `"roles": ["Edited"]` sets the credit the shuffle player shows.
 
-About paragraphs can link with `[text](url)`. A link to one of the site's own Vimeo or YouTube videos plays in the site's viewer.
+About paragraphs can link with `[text](url)` and set show titles in bold italic with `***Title***`. A link to one of the site's own Vimeo or YouTube videos plays in the site's viewer.
 
 ## Preview locally
 

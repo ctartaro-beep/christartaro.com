@@ -502,6 +502,7 @@ main { padding-block: 8px 80px; outline: none; }
 }
 .about-text { display: grid; gap: 18px; justify-items: inherit; }
 .about p { margin: 0; }
+.about strong { font-weight: 600; }
 /* With a photo: text on the left, photo on the right, cropped to the text block's height */
 .about.about-split {
   max-width: 1080px;
