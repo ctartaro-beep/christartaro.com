@@ -29,6 +29,7 @@
   const nav = $("nav");
   const navLinks = {};
   pages.forEach((p, i) => {
+    if (p.nav === false) return; // still reachable by link and through Shuffle, just not in the menu
     const a = el("a", { href: "#" + p.id, text: p.label });
     navLinks[p.id] = a;
     nav.append(a);

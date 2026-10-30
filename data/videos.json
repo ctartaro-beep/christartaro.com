@@ -2,12 +2,7 @@
   "site": {
     "name": "Chris Tartaro",
     "role": "Television Director",
-    "external": [
-      {
-        "label": "MicroDramas",
-        "url": "microdramas/"
-      }
-    ],
+    "external": [],
     "microdramas": {
       "href": "microdramas/",
       "title": "Who Billionaire? Me Billionaire.",
@@ -191,7 +186,7 @@
     },
     {
       "id": "music",
-      "label": "Music Videos",
+      "label": "Music",
       "sections": [
         {
           "title": "Cover Room",
@@ -599,7 +594,8 @@
           ]
         }
       ],
-      "layout": "tabs"
+      "layout": "tabs",
+      "nav": false
     },
     {
       "id": "about",
