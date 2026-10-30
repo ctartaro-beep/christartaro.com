@@ -6,7 +6,7 @@
    ========================================================================== */
 
 :root {
-  --mat: 7.6vmin;          /* white mat border around the photo */
+  --mat: 3.8vmin;          /* white mat border around the photo */
   --bevel: 0.32vmin;       /* white bevelled edge of the mat cut */
   --mat-color: #f5f5f2;
 }
@@ -48,11 +48,21 @@ html, body, #frame { background: var(--mat-color); }
   text-shadow: none;
 }
 #date { color: #6b6b67; }
-#overlay { bottom: calc(var(--mat) * 0.18); right: calc(var(--mat) * 0.4); }
-#caption { bottom: calc(var(--mat) * 0.22); left: calc(var(--mat) * 0.4); font-size: 15px; }
-#clock { font-size: clamp(20px, 3.2vmin, 40px); }
-#date { font-size: clamp(11px, 1.4vmin, 17px); }
-#status-line { bottom: calc(var(--mat) * 0.3); left: calc(var(--mat) * 0.4); }
+/* The mat is thin, so time and date share one line, sized and centered to fit the bottom border. */
+#overlay {
+  bottom: 0; right: calc(var(--mat) * 0.6);
+  height: var(--mat);
+  display: flex; flex-direction: row-reverse; align-items: center; gap: 0.8em;
+  text-align: right;
+}
+#caption {
+  bottom: 0; left: calc(var(--mat) * 0.6);
+  height: var(--mat); display: flex; align-items: center;
+  font-size: clamp(11px, calc(var(--mat) * 0.36), 15px);
+}
+#clock { font-size: clamp(13px, calc(var(--mat) * 0.5), 22px); line-height: 1; }
+#date { font-size: clamp(10px, calc(var(--mat) * 0.32), 14px); line-height: 1; margin: 0; }
+#status-line { bottom: calc(var(--mat) * 0.25); left: calc(var(--mat) * 0.6); }
 
 /* Back to the main site — hidden until the mouse moves (body.awake). */
 @font-face {
@@ -62,8 +72,9 @@ html, body, #frame { background: var(--mat-color); }
 }
 #home-link {
   position: fixed;
-  top: calc(var(--mat) * 0.32);
-  left: calc(var(--mat) * 0.4);
+  top: 0;
+  left: calc(var(--mat) * 0.6);
+  height: calc(var(--mat) - 0.8vmin); display: flex; align-items: center; box-sizing: border-box;
   z-index: 5;
   font: 400 clamp(12px, 1.5vmin, 16px)/1 "Blue Highway D", "Arial Narrow", sans-serif;
   letter-spacing: 0.08em;
