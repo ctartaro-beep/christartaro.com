@@ -160,6 +160,131 @@
               "title": "Football Party Patrol",
               "vimeo": "385531264",
               "thumb": "img/1579463012794.webp"
+            },
+            {
+              "title": "Ugly Sweater",
+              "vimeo": "1234184895",
+              "thumb": "img/v1234184895.webp"
+            },
+            {
+              "title": "Let's Groove Promo",
+              "vimeo": "1056161999",
+              "thumb": "img/v1056161999.webp"
+            },
+            {
+              "title": "Goodfellas Promo",
+              "vimeo": "1056171848",
+              "thumb": "img/v1056171848.webp"
+            },
+            {
+              "title": "Madonna Classroom",
+              "vimeo": "789101560",
+              "thumb": "img/v789101560.webp"
+            },
+            {
+              "title": "Coastal Grandma",
+              "vimeo": "789101545",
+              "thumb": "img/v789101545.webp"
+            },
+            {
+              "title": "Nestlé",
+              "vimeo": "789101529",
+              "thumb": "img/v789101529.webp"
+            },
+            {
+              "title": "Jim Kim",
+              "vimeo": "789095456",
+              "thumb": "img/v789095456.webp"
+            },
+            {
+              "title": "Frunk",
+              "vimeo": "789093427",
+              "thumb": "img/v789093427.webp"
+            },
+            {
+              "title": "Stranger Things Rap",
+              "vimeo": "789092318",
+              "thumb": "img/v789092318.webp"
+            },
+            {
+              "title": "Brad Pitt BMX",
+              "vimeo": "789092274",
+              "thumb": "img/v789092274.webp"
+            },
+            {
+              "title": "Jared Leto",
+              "vimeo": "789090090",
+              "thumb": "img/v789090090.webp"
+            },
+            {
+              "title": "You Spin Me Round (Music Video Recreation)",
+              "vimeo": "385599603",
+              "thumb": "img/v385599603.webp"
+            },
+            {
+              "title": "Oh, You're Thinking Of…",
+              "vimeo": "385599492",
+              "thumb": "img/v385599492.webp"
+            },
+            {
+              "title": "80s Aerobic Dance Challenge with Kate Upton",
+              "vimeo": "385599330",
+              "thumb": "img/v385599330.webp"
+            },
+            {
+              "title": "Jimmy Fallon and Paul Rudd Recreate \"King of Wishful Thinking\"",
+              "vimeo": "385599048",
+              "thumb": "img/v385599048.webp"
+            },
+            {
+              "title": "Jimmy Takes Bob Dylan to the Circus",
+              "vimeo": "385598986",
+              "thumb": "img/v385598986.webp"
+            },
+            {
+              "title": "Songversation with Justin Timberlake",
+              "vimeo": "385598899",
+              "thumb": "img/v385598899.webp"
+            },
+            {
+              "title": "Robert De Niro Has Never Seen a Dog",
+              "vimeo": "385598793",
+              "thumb": "img/v385598793.webp"
+            },
+            {
+              "title": "Cold Open with Matt LeBlanc",
+              "vimeo": "385598774",
+              "thumb": "img/v385598774.webp"
+            },
+            {
+              "title": "Game of Thrones Is Coming",
+              "vimeo": "385598518",
+              "thumb": "img/v385598518.webp"
+            },
+            {
+              "title": "Avengers: Infinity War Cast Sings \"The Marvel Bunch\"",
+              "vimeo": "385598461",
+              "thumb": "img/v385598461.webp"
+            },
+            {
+              "title": "Cold Open with Jerry Seinfeld",
+              "vimeo": "385598460",
+              "thumb": "img/v385598460.webp"
+            },
+            {
+              "title": "Hometown Bar (Music Video)",
+              "vimeo": "385530928",
+              "thumb": "img/v385530928.webp"
+            },
+            {
+              "title": "#MeAlsoMe with Orlando Bloom",
+              "vimeo": "385530204",
+              "thumb": "img/v385530204.webp"
+            },
+            {
+              "title": "Sketch Cram: Shaking Head Woman",
+              "vimeo": "234690399",
+              "thumb": "img/v234690399.webp"
             }
           ]
         }
@@ -179,7 +304,7 @@
         },
         {
           "label": "Cover Room",
-          "note": "13 covers, 2 series",
+          "note": "14 covers, 2 series",
           "href": "#music"
         }
       ]
@@ -239,6 +364,14 @@
                   "artist": "Jimmy Fallon & The Roots",
                   "song": "At This Moment",
                   "coverOf": "Billy Vera"
+                },
+                {
+                  "title": "Ed Sheeran: Trap Queen (Fetty Wap Cover)",
+                  "vimeo": "265234083",
+                  "thumb": "img/v265234083.webp",
+                  "artist": "Ed Sheeran",
+                  "song": "Trap Queen",
+                  "coverOf": "Fetty Wap"
                 }
               ]
             },
@@ -320,6 +453,46 @@
               "title": "Ariana Grande & Nintendo Labo",
               "vimeo": "385599314",
               "thumb": ""
+            },
+            {
+              "title": "Ed Sheeran: Trap Queen",
+              "vimeo": "792403510",
+              "thumb": "img/v792403510.webp"
+            },
+            {
+              "title": "Tegan and Sara: Boyfriend",
+              "vimeo": "792353469",
+              "thumb": "img/v792353469.webp"
+            },
+            {
+              "title": "Blur and Jimmy Fallon: Tender",
+              "vimeo": "792349528",
+              "thumb": "img/v792349528.webp"
+            },
+            {
+              "title": "Hozier: Take Me to Church",
+              "vimeo": "792367279",
+              "thumb": "img/v792367279.webp"
+            },
+            {
+              "title": "Courtney Barnett: Depreston",
+              "vimeo": "792366205",
+              "thumb": "img/v792366205.webp"
+            },
+            {
+              "title": "Troye Sivan: Can't Keep My Hands to Myself / Sorry",
+              "vimeo": "792367092",
+              "thumb": "img/v792367092.webp"
+            },
+            {
+              "title": "Ludacris: What's Your Fantasy",
+              "vimeo": "792366470",
+              "thumb": "img/v792366470.webp"
+            },
+            {
+              "title": "Dr. Dog: Backstage Acoustic",
+              "vimeo": "792402135",
+              "thumb": "img/v792402135.webp"
             }
           ]
         }
@@ -341,8 +514,8 @@
             },
             {
               "title": "Jimmy Takes Bob Dylan to the Circus",
-              "youtube": "f0hxHE_UK6Q",
-              "thumb": "img/1543070937402.webp"
+              "thumb": "img/1543070937402.webp",
+              "vimeo": "385598986"
             },
             {
               "title": "Ariana Grande's Ponytail Has a Mind of Its Own",
@@ -351,8 +524,8 @@
             },
             {
               "title": "Robert De Niro Has Never Seen a Dog",
-              "youtube": "i9Hpit3sTP0",
-              "thumb": "img/1525358793831.webp"
+              "thumb": "img/1525358793831.webp",
+              "vimeo": "385598793"
             },
             {
               "title": "Jimmy Runs Into an Unhappy Ben Stiller and Tina Fey Backstage",
@@ -389,8 +562,8 @@
             },
             {
               "title": "Avengers: Infinity War Cast Sings \"The Marvel Bunch\"",
-              "youtube": "L3ymBk6Vb04",
-              "thumb": "img/1525358712140.webp"
+              "thumb": "img/1525358712140.webp",
+              "vimeo": "385598461"
             },
             {
               "title": "\"This Is Us\" Sound Guy Can't Stop Crying",
@@ -399,15 +572,13 @@
             },
             {
               "title": "Jimmy Fallon and Paul Rudd Recreate \"King of Wishful Thinking\"",
-              "youtube": "af6L1jBZGYA",
               "thumb": "img/1520103286543.webp",
-              "hidden": true,
-              "hiddenReason": "Private on YouTube (checked 2026-10-29)"
+              "vimeo": "385599048"
             },
             {
               "title": "Songversation with Justin Timberlake",
-              "youtube": "_LPfy4MjykY",
-              "thumb": "img/1518402915264.webp"
+              "thumb": "img/1518402915264.webp",
+              "vimeo": "385598899"
             },
             {
               "title": "Miley Cyrus Busks in NYC Subway in Disguise",
@@ -464,6 +635,11 @@
               "title": "\"When I Heard the Learn'd Astronomer\" with Neil deGrasse Tyson",
               "youtube": "3r_HVGFI6fM",
               "thumb": "img/1433607890962.webp"
+            },
+            {
+              "title": "FINLAND: A Student Film",
+              "vimeo": "1072521735",
+              "thumb": "img/v1072521735.webp"
             }
           ]
         },
@@ -561,10 +737,8 @@
             },
             {
               "title": "Tegan and Sara: Boyfriend (Acoustic)",
-              "youtube": "FgOfPkM2BdI",
               "thumb": "img/1463682650515.webp",
-              "hidden": true,
-              "hiddenReason": "Private on YouTube (checked 2026-10-29)"
+              "vimeo": "792353469"
             },
             {
               "title": "Sugarboy: Kung Fu Mom ft. Ilana Glazer",
@@ -573,10 +747,8 @@
             },
             {
               "title": "Ed Sheeran: Trap Queen",
-              "youtube": "06koEdJiwZg",
               "thumb": "img/1433594555744.webp",
-              "hidden": true,
-              "hiddenReason": "Private on YouTube (checked 2026-10-29)"
+              "vimeo": "792403510"
             },
             {
               "title": "Game of Desks",
