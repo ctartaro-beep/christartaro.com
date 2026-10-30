@@ -79,6 +79,8 @@
         for (const ser of s.series || []) for (const v of ser.items) out.push(v);
       }
     }
+    // Videos that are in the shuffle (and linkable) without a spot on any page.
+    for (const v of data.site.shuffleExtras || []) out.push(v);
     const seen = new Set();
     return out.filter((v) => { const k = v.youtube || v.vimeo; if (seen.has(k)) return false; seen.add(k); return true; });
   }
@@ -326,7 +328,16 @@
         const p = el("p");
         let last = 0;
         for (const m of t.matchAll(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g)) {
-          p.append(t.slice(last, m.index), el("a", { href: m[2], target: "_blank", rel: "noopener", text: m[1] }));
+          const a = el("a", { href: m[2], target: "_blank", rel: "noopener", text: m[1] });
+          // A link to one of the site's own videos plays in the site's viewer.
+          const id = (m[2].match(/vimeo\.com\/(\d+)/) || m[2].match(/(?:youtu\.be\/|[?&]v=)([\w-]{11})/) || [])[1];
+          const v = id && allVideos().find((x) => x.vimeo === id || x.youtube === id);
+          if (v) a.addEventListener("click", (e) => {
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return; // let "open in new tab" work
+            e.preventDefault();
+            openViewer(v);
+          });
+          p.append(t.slice(last, m.index), a);
           last = m.index + m[0].length;
         }
         p.append(t.slice(last));

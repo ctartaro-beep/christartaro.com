@@ -20,6 +20,12 @@ Add an entry to the right section in `data/videos.json`:
 
 Use `"vimeo": "123456789"` instead of `youtube` for Vimeo (add `"hash"` for unlisted Vimeo links). `"start": 34` starts a YouTube video at 0:34. `"description"` is optional. If `thumb` is empty or missing, the card shows the title on a dark panel.
 
+## Shuffle-only videos
+
+Videos listed in `site.shuffleExtras` in `data/videos.json` are in the Shuffle (and can be linked from the About text) without appearing on any page. `"roles": ["Edited"]` sets the credit the shuffle player shows.
+
+About paragraphs can link with `[text](url)`. A link to one of the site's own Vimeo or YouTube videos plays in the site's viewer.
+
 ## Preview locally
 
 ```sh
