@@ -7,7 +7,21 @@
         "label": "MicroDramas",
         "url": "microdramas/"
       }
-    ]
+    ],
+    "microdramas": {
+      "href": "microdramas/",
+      "title": "Who Billionaire? Me Billionaire.",
+      "seasons": [
+        {
+          "key": "s1",
+          "episodes": 10
+        },
+        {
+          "key": "s2",
+          "episodes": 12
+        }
+      ]
+    }
   },
   "pages": [
     {
@@ -151,6 +165,25 @@
               "thumb": "img/1579463012794.webp"
             }
           ]
+        }
+      ],
+      "layout": "wall",
+      "featured": {
+        "title": "You Can See Everything with Jamie Lee Curtis",
+        "youtube": "jLXghyVDXbg",
+        "thumb": "img/you-can-see-everything.webp",
+        "kicker": "Featured · Cold Open"
+      },
+      "jump": [
+        {
+          "label": "MicroDramas",
+          "note": "Who Billionaire? Me Billionaire.",
+          "href": "microdramas/"
+        },
+        {
+          "label": "Cover Room",
+          "note": "13 covers, 2 series",
+          "href": "#music"
         }
       ]
     },
