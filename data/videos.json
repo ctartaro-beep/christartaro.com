@@ -172,7 +172,7 @@
               "thumb": "img/v1056161999.webp"
             },
             {
-              "title": "Goodfellas Promo",
+              "title": "Jimmy's Crew",
               "vimeo": "1056171848",
               "thumb": "img/v1056171848.webp"
             },
@@ -758,10 +758,8 @@
             },
             {
               "title": "Jimmy's Crew",
-              "youtube": "pQLBndoSMW0",
-              "thumb": "img/1433601781484.webp",
-              "hidden": true,
-              "hiddenReason": "Private on YouTube (checked 2026-10-29)"
+              "thumb": "img/v1056171848.webp",
+              "vimeo": "1056171848"
             }
           ]
         }
