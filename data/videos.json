@@ -317,7 +317,7 @@
         {
           "label": "Cover Room",
           "note": "13 covers, 2 series",
-          "href": "#music"
+          "href": "#coverroom"
         },
         {
           "label": "photoframe",
@@ -504,9 +504,16 @@
               "thumb": "img/v792402135.webp"
             }
           ],
-          "shuffle": true
+          "layout": "wall"
         }
       ]
+    },
+    {
+      "id": "coverroom",
+      "label": "Cover Room",
+      "nav": false,
+      "layout": "coverroom",
+      "navAs": "music"
     },
     {
       "id": "other",

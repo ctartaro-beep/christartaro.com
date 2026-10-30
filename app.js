@@ -160,6 +160,45 @@
     wallCleanup = () => { ro.disconnect(); bg(); wallCleanup = null; };
   }
 
+  // A plain section laid out as a sketch wall: three sizes, new random order every visit,
+  // tile heights measured so titles never collide. Returns the section and a cleanup function.
+  function plainWall(s) {
+    const grid = el("ul", { class: "wall" });
+    const vids = shuffled(s.items);
+    const sizes = shuffled(vids.map((_, i) => ["s", "s", "m", "m", "l"][i % 5]));
+    const items = vids.map((v, i) => wallCard(v, sizes[i]));
+    grid.append(...items);
+    const n = s.items.length;
+    const sec = el("section", { class: "section wall-section" },
+      el("div", { class: "section-head" },
+        el("h2", { text: s.title }),
+        el("span", { class: "count", text: `${String(n).padStart(2, "0")} ${n === 1 ? "video" : "videos"}` })),
+      s.intro ? el("p", { class: "intro", text: s.intro }) : null,
+      grid);
+    const fit = () => {
+      const cs = getComputedStyle(grid);
+      const row = parseFloat(cs.gridAutoRows) || 8, gap = parseFloat(cs.rowGap) || 0;
+      const span = (h) => Math.max(1, Math.ceil((h + gap) / (row + gap)));
+      for (const li of items) li.style.gridRowEnd = "span " + span(li.firstElementChild.offsetHeight + 20);
+    };
+    const ro = new ResizeObserver(fit);
+    ro.observe(grid);
+    requestAnimationFrame(fit);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+    return [sec, () => ro.disconnect()];
+  }
+
+  // Cover Room on its own page: the title and intro once, then each series in its own cover flow.
+  function renderCoverRoom(main) {
+    let src = null;
+    for (const p of pages) for (const s of p.sections || []) if (s.layout === "coverflow") src = src || s;
+    if (!src) return;
+    main.append(el("section", { class: "section cr-head" },
+      el("div", { class: "section-head" }, el("h2", { text: src.title })),
+      src.intro ? el("p", { class: "intro", text: src.intro }) : null));
+    for (const ser of src.series) main.append(coverflow({ title: ser.title, series: [ser], bare: true }));
+  }
+
   // Background drawing behind the landing page: straight lines, right-angle elbows and arrowheads
   // on an 8px grid, like blocking marks on a studio floor plan. It drifts slightly slower than the scroll.
   function backdrop() {
@@ -220,9 +259,11 @@
     const next = el("button", { class: "flow-arrow next", type: "button", "aria-label": "Next video" });
     const now = el("div", { class: "flow-now", "aria-live": "polite" });
     sec.append(
-      el("div", { class: "section-head centered" }, el("h2", { text: s.title })),
-      s.intro ? el("p", { class: "intro centered", text: s.intro }) : null,
+      el("div", { class: "section-head centered" }, el("h2", { text: s.title }),
+        s.bare ? el("span", { class: "count", text: `${String(s.series[0].items.length).padStart(2, "0")} covers` }) : null),
+      ...(s.intro ? [el("p", { class: "intro centered", text: s.intro })] : []),
       pills, stage, now);
+    if (s.series.length < 2) pills.hidden = true;
     let covers = [];
 
     function items() { return s.series[st.series].items; }
@@ -315,7 +356,7 @@
   function render(id) {
     const page = pages.find((p) => p.id === id) || pages[0];
     for (const [k, a] of Object.entries(navLinks))
-      k === page.id ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current");
+      k === (page.navAs || page.id) ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current");
     document.title = page === pages[0] ? data.site.name : `${page.label} · ${data.site.name}`;
     const main = $("main");
     if (wallCleanup) wallCleanup();
@@ -365,8 +406,11 @@
         : el("section", { class: "about" }, text));
       return;
     }
+    if (page.layout === "coverroom") { renderCoverRoom(main); return; }
+    const cleanups = [];
     for (const s of page.sections) {
       if (s.layout === "coverflow") { main.append(coverflow(s)); continue; }
+      if (s.layout === "wall") { const [sec, done] = plainWall(s); main.append(sec); cleanups.push(done); continue; }
       const n = s.items.length;
       main.append(el("section", { class: "section" },
         el("div", { class: "section-head" },
@@ -374,6 +418,10 @@
           el("span", { class: "count", text: `${String(n).padStart(2, "0")} ${n === 1 ? "video" : "videos"}` })),
         s.intro ? el("p", { class: "intro", text: s.intro }) : null,
         el("ul", { class: "grid" }, ...(s.shuffle ? shuffled(s.items) : s.items).map((v) => card(v)))));
+    }
+    if (cleanups.length) {
+      cleanups.push(backdrop());
+      wallCleanup = () => { cleanups.forEach((f) => f()); wallCleanup = null; };
     }
   }
 

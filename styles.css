@@ -381,6 +381,13 @@ main { padding-block: 8px 80px; outline: none; }
   .shuffle:hover, .shuffle:hover .shuffle-icon, .wall .card:hover .thumb img { transform: none; }
 }
 
+/* Pages with a sketch wall get the line drawing behind them; keep it out from under the cover flow and headings */
+.flow { background: var(--bg); box-shadow: 0 0 0 24px var(--bg); }
+.wall-section .section-head, .wall-section .intro, .cr-head { background: var(--bg); box-shadow: 0 0 0 12px var(--bg); }
+.wall-section .section-head { width: fit-content; margin-inline: auto; }
+.cr-head + .flow { padding-top: 12px; }
+.flow + .flow { margin-top: clamp(32px, 5vw, 64px); }
+
 /* Cover flow (Cover Room) */
 .flow { display: flex; flex-direction: column; align-items: center; }
 .flow .section-head { margin-bottom: 10px; }
@@ -392,6 +399,7 @@ main { padding-block: 8px 80px; outline: none; }
   border: 1px solid var(--rule);
   border-radius: 999px;
 }
+.pills[hidden] { display: none; }
 .pill {
   display: inline-flex;
   align-items: center;
