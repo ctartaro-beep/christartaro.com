@@ -6,7 +6,7 @@
    ========================================================================== */
 
 :root {
-  --mat: 9.5vmin;          /* white mat border around the photo */
+  --mat: 7.6vmin;          /* white mat border around the photo */
   --bevel: 0.32vmin;       /* white bevelled edge of the mat cut */
   --mat-color: #f5f5f2;
 }
