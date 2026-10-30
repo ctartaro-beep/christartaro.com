@@ -125,8 +125,8 @@
     const jl = el("nav", { "aria-label": "More to watch" },
       ...(page.jump || []).map((j) => el("a", { href: j.href },
         el("span", { class: "j-label", text: j.label }), el("span", { class: "j-note", text: j.note + " →" }))));
-    const sh = el("button", { class: "shuffle", type: "button", "aria-label": "Shuffle: play a random video from the site" },
-      el("span", { class: "shuffle-icon", "aria-hidden": "true" }), "Shuffle");
+    const sh = el("button", { class: "shuffle", type: "button", "aria-label": "Surprise me: play a random video from the site" },
+      el("span", { class: "shuffle-icon", "aria-hidden": "true" }), el("span", { class: "shuffle-label" }, "Surprise", el("br"), "Me!"));
     sh.addEventListener("click", playRandom);
     const jumpInner = el("div", { class: "jump-inner" }, jl, sh, el("p", { class: "j-count", text: `Any of ${shufflePool().length} videos` }));
     nav.append(jumpInner);
