@@ -29,6 +29,9 @@
     <div id="status-line"></div>
   </div>
 
+  <!-- Shows while the mouse moves (or after a tap), then fades away. -->
+  <a id="home-link" href="/">&larr; christartaro.com</a>
+
   <script>
     // Hand each photo's proportions to mat.css so the mat opening is cut to fit.
     document.addEventListener("load", function (e) {
@@ -37,6 +40,33 @@
         img.style.setProperty("--r", img.naturalWidth / img.naturalHeight);
       }
     }, true);
+
+    // Back link and cursor: visible while you're moving the mouse, gone a
+    // moment after you stop, so the frame stays clean.
+    (function () {
+      var link = document.getElementById("home-link");
+      var timer = null, lastX = -1, lastY = -1;
+      function wake() {
+        document.body.classList.add("awake");
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          // Stay up while the pointer rests on the link itself.
+          var r = link.getBoundingClientRect();
+          var over = lastX >= r.left && lastX <= r.right && lastY >= r.top && lastY <= r.bottom;
+          if (over) wake(); else document.body.classList.remove("awake");
+        }, 2500);
+      }
+      document.addEventListener("mousemove", function (e) {
+        if (e.clientX === lastX && e.clientY === lastY) return; // not a real move
+        lastX = e.clientX; lastY = e.clientY;
+        wake();
+      });
+      document.addEventListener("pointerdown", wake);
+      // Keep a click on the link from also counting as a tap/hold on the photo.
+      ["pointerdown", "pointerup"].forEach(function (t) {
+        link.addEventListener(t, function (e) { e.stopPropagation(); });
+      });
+    })();
   </script>
   <script src="config.js"></script>
   <script src="https://ctartaro-beep.github.io/photoframe/app.js"></script>

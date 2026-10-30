@@ -53,3 +53,28 @@ html, body, #frame { background: var(--mat-color); }
 #clock { font-size: clamp(20px, 3.2vmin, 40px); }
 #date { font-size: clamp(11px, 1.4vmin, 17px); }
 #status-line { bottom: calc(var(--mat) * 0.3); left: calc(var(--mat) * 0.4); }
+
+/* Back to the main site — hidden until the mouse moves (body.awake). */
+@font-face {
+  font-family: "Blue Highway D";
+  src: url("../fonts/blue-highway-d.woff2") format("woff2");
+  font-display: swap;
+}
+#home-link {
+  position: fixed;
+  top: calc(var(--mat) * 0.32);
+  left: calc(var(--mat) * 0.4);
+  z-index: 5;
+  font: 400 clamp(12px, 1.5vmin, 16px)/1 "Blue Highway D", "Arial Narrow", sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #55554f;
+  text-decoration: none;
+  padding: 6px 2px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+#home-link:hover, #home-link:focus-visible { color: #111; }
+body.awake #home-link, #home-link:focus-visible { opacity: 1; pointer-events: auto; }
+body:not(.awake) { cursor: none; }
