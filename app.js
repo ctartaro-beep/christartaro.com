@@ -55,6 +55,89 @@
     return el("li", {}, b);
   }
 
+  // Cover flow (Cover Room): series switch, tilted 16:9 covers, now-playing details.
+  // Click a side cover, use the arrows, swipe, or press ←/→ to move; click the centre cover or Play to watch.
+  const flowState = {};
+  function coverflow(s) {
+    const st = flowState[s.title] || (flowState[s.title] = { series: 0, idx: null });
+    const sec = el("section", { class: "section flow" });
+    const pills = el("div", { class: "pills", role: "tablist", "aria-label": s.title + " series" });
+    const stage = el("div", { class: "flow-stage", tabindex: "0", "aria-roledescription": "carousel", "aria-label": s.title });
+    const prev = el("button", { class: "flow-arrow prev", type: "button", "aria-label": "Previous video" });
+    const next = el("button", { class: "flow-arrow next", type: "button", "aria-label": "Next video" });
+    const now = el("div", { class: "flow-now", "aria-live": "polite" });
+    sec.append(
+      el("div", { class: "section-head centered" }, el("h2", { text: s.title })),
+      s.intro ? el("p", { class: "intro centered", text: s.intro }) : null,
+      pills, stage, now);
+    let covers = [];
+
+    function items() { return s.series[st.series].items; }
+    function build() {
+      const list = items();
+      if (st.idx == null || st.idx >= list.length) st.idx = Math.floor((list.length - 1) / 2);
+      pills.replaceChildren(...s.series.map((ser, j) => {
+        const b = el("button", { class: "pill", type: "button", role: "tab", "aria-selected": String(j === st.series) },
+          ser.title, el("span", { class: "count", text: String(ser.items.length).padStart(2, "0") }));
+        b.addEventListener("click", () => { if (j !== st.series) { st.series = j; st.idx = null; build(); } });
+        return b;
+      }));
+      covers = list.map((v, i) => {
+        const b = el("button", { class: "cover", type: "button", "aria-label": `${v.artist}: ${v.song}` });
+        if (v.thumb) b.append(el("img", { src: thumbSrc(v.thumb), alt: "", decoding: "async", draggable: "false" }));
+        else b.append(poster(v.title));
+        b.addEventListener("click", () => { if (swiped) return; i === st.idx ? openViewer(v) : go(i); });
+        return b;
+      });
+      stage.replaceChildren(...covers, prev, next);
+      layout();
+    }
+    function go(i) { st.idx = Math.max(0, Math.min(i, items().length - 1)); layout(); }
+    function layout() {
+      const list = items(), w = stage.clientWidth || 1000;
+      const W = Math.min(480, w * 0.7), k = W / 480;
+      stage.style.setProperty("--cw", W + "px");
+      covers.forEach((c, i) => {
+        const d = i - st.idx, a = Math.abs(d), sg = Math.sign(d);
+        const x = d === 0 ? 0 : sg * (300 + (a - 1) * 104) * k;
+        c.style.transform = `translateX(${x}px) translateZ(${d === 0 ? 120 * k : -120 * k}px) rotateY(${d === 0 ? 0 : -sg * 58}deg)`;
+        c.style.zIndex = 40 - a;
+        c.classList.toggle("is-center", d === 0);
+        c.classList.toggle("is-left", d < 0);
+        c.classList.toggle("is-hidden", a > 4);
+        c.tabIndex = d === 0 ? 0 : -1;
+      });
+      prev.disabled = st.idx === 0;
+      next.disabled = st.idx === list.length - 1;
+      const v = list[st.idx];
+      const play = el("button", { class: "flow-play", type: "button" }, "Play");
+      play.addEventListener("click", () => openViewer(v));
+      now.replaceChildren(
+        el("p", { class: "flow-kicker", text: `${s.series[st.series].title} · Track ${String(st.idx + 1).padStart(2, "0")}` }),
+        el("p", { class: "flow-artist", text: v.artist }),
+        el("p", { class: "flow-song" }, v.song, v.coverOf ? el("span", { text: ` · ${v.coverOf} cover` }) : null),
+        play);
+    }
+    prev.addEventListener("click", () => go(st.idx - 1));
+    next.addEventListener("click", () => go(st.idx + 1));
+    stage.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") { go(st.idx - 1); e.preventDefault(); }
+      if (e.key === "ArrowRight") { go(st.idx + 1); e.preventDefault(); }
+    });
+    let x0 = null, swiped = false;
+    stage.addEventListener("pointerdown", (e) => { x0 = e.clientX; swiped = false; });
+    stage.addEventListener("pointercancel", () => { x0 = null; });
+    stage.addEventListener("dragstart", (e) => e.preventDefault());
+    stage.addEventListener("pointerup", (e) => {
+      if (x0 == null) return;
+      const dx = e.clientX - x0; x0 = null;
+      if (Math.abs(dx) > 40) { swiped = true; go(st.idx + (dx < 0 ? 1 : -1)); }
+    });
+    new ResizeObserver(() => layout()).observe(stage);
+    build();
+    return sec;
+  }
+
   // Tabbed layout (Other Videos): one tab per section, first video featured large
   const tabState = {};
   function renderTabs(page, main) {
@@ -92,13 +175,14 @@
       return;
     }
     for (const s of page.sections) {
+      if (s.layout === "coverflow") { main.append(coverflow(s)); continue; }
       const n = s.items.length;
       main.append(el("section", { class: "section" },
         el("div", { class: "section-head" },
           el("h2", { text: s.title }),
           el("span", { class: "count", text: `${String(n).padStart(2, "0")} ${n === 1 ? "video" : "videos"}` })),
         s.intro ? el("p", { class: "intro", text: s.intro }) : null,
-        el("ul", { class: "grid" }, ...s.items.map(card))));
+        el("ul", { class: "grid" }, ...s.items.map((v) => card(v)))));
     }
   }
 

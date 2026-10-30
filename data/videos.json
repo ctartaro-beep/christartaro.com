@@ -159,6 +159,116 @@
       "label": "Music Videos",
       "sections": [
         {
+          "title": "Cover Room",
+          "layout": "coverflow",
+          "intro": "Emmy-nominated web series from The Tonight Show. Musical guests pick a cover song, and we film it in our music room.",
+          "series": [
+            {
+              "title": "Series 1",
+              "items": [
+                {
+                  "title": "Kesha: House of the Rising Sun",
+                  "vimeo": "265234125",
+                  "thumb": "img/1674586214952.jpeg",
+                  "artist": "Kesha",
+                  "song": "House of the Rising Sun"
+                },
+                {
+                  "title": "Billy Corgan: Wrecking Ball",
+                  "vimeo": "275660436",
+                  "thumb": "img/1674586283314.webp",
+                  "artist": "Billy Corgan",
+                  "song": "Wrecking Ball"
+                },
+                {
+                  "title": "Billie Eilish: Call Me Back (The Strokes Cover)",
+                  "vimeo": "275660299",
+                  "thumb": "img/1674586318958.webp",
+                  "artist": "Billie Eilish",
+                  "song": "Call Me Back",
+                  "coverOf": "The Strokes"
+                },
+                {
+                  "title": "Nathaniel Rateliff & The Night Sweats: Atlantic City",
+                  "vimeo": "263967893",
+                  "thumb": "img/1579653600071.webp",
+                  "artist": "Nathaniel Rateliff & The Night Sweats",
+                  "song": "Atlantic City"
+                },
+                {
+                  "title": "Courtney Barnett: Everything Is Free",
+                  "vimeo": "385602896",
+                  "thumb": "img/1674586082928.webp",
+                  "artist": "Courtney Barnett",
+                  "song": "Everything Is Free"
+                },
+                {
+                  "title": "Jimmy Fallon & The Roots: At This Moment (Billy Vera Cover)",
+                  "vimeo": "386366216",
+                  "thumb": "img/1674598599949.webp",
+                  "artist": "Jimmy Fallon & The Roots",
+                  "song": "At This Moment",
+                  "coverOf": "Billy Vera"
+                }
+              ]
+            },
+            {
+              "title": "Series 2",
+              "items": [
+                {
+                  "title": "Leon Bridges: Helpless",
+                  "vimeo": "297113103",
+                  "thumb": "img/1674586554805.jpeg",
+                  "artist": "Leon Bridges",
+                  "song": "Helpless"
+                },
+                {
+                  "title": "August Greene: Livin' on a Prayer",
+                  "vimeo": "386365889",
+                  "thumb": "img/1674586600278.webp",
+                  "artist": "August Greene",
+                  "song": "Livin' on a Prayer"
+                },
+                {
+                  "title": "Jim James: Everyday People",
+                  "vimeo": "386367699",
+                  "thumb": "img/1674598915443.webp",
+                  "artist": "Jim James",
+                  "song": "Everyday People"
+                },
+                {
+                  "title": "Walk the Moon: Someone Like You",
+                  "vimeo": "386366909",
+                  "thumb": "img/1579654982612.jpeg",
+                  "artist": "Walk the Moon",
+                  "song": "Someone Like You"
+                },
+                {
+                  "title": "Luke Combs: Ramblin' Man",
+                  "vimeo": "386367023",
+                  "thumb": "img/1674586907954.webp",
+                  "artist": "Luke Combs",
+                  "song": "Ramblin' Man"
+                },
+                {
+                  "title": "Jimmy Fallon & The Roots: Hungry Like the Wolf",
+                  "vimeo": "386023209",
+                  "thumb": "img/1579654957574.webp",
+                  "artist": "Jimmy Fallon & The Roots",
+                  "song": "Hungry Like the Wolf"
+                },
+                {
+                  "title": "Mac DeMarco: One Evening",
+                  "vimeo": "386367575",
+                  "thumb": "img/1674586950570.webp",
+                  "artist": "Mac DeMarco",
+                  "song": "One Evening"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "title": "Music Videos",
           "items": [
             {
@@ -180,82 +290,6 @@
               "title": "Ariana Grande & Nintendo Labo",
               "vimeo": "385599314",
               "thumb": ""
-            }
-          ]
-        },
-        {
-          "title": "Cover Room · Series 1",
-          "intro": "Cover Room is the Emmy-nominated series of web-exclusive videos we made at The Tonight Show. Musical guests perform a cover song of their choosing, and we film it in our music room.",
-          "items": [
-            {
-              "title": "Kesha: House of the Rising Sun",
-              "vimeo": "265234125",
-              "thumb": "img/1674586214952.jpeg"
-            },
-            {
-              "title": "Billy Corgan: Wrecking Ball",
-              "vimeo": "275660436",
-              "thumb": "img/1674586283314.webp"
-            },
-            {
-              "title": "Billie Eilish: Call Me Back (The Strokes Cover)",
-              "vimeo": "275660299",
-              "thumb": "img/1674586318958.webp"
-            },
-            {
-              "title": "Nathaniel Rateliff & The Night Sweats: Atlantic City",
-              "vimeo": "263967893",
-              "thumb": "img/1579653600071.webp"
-            },
-            {
-              "title": "Courtney Barnett: Everything Is Free",
-              "vimeo": "385602896",
-              "thumb": "img/1674586082928.webp"
-            },
-            {
-              "title": "Jimmy Fallon & The Roots: At This Moment (Billy Vera Cover)",
-              "vimeo": "386366216",
-              "thumb": "img/1674598599949.webp"
-            }
-          ]
-        },
-        {
-          "title": "Cover Room · Series 2",
-          "items": [
-            {
-              "title": "Leon Bridges: Helpless",
-              "vimeo": "297113103",
-              "thumb": "img/1674586554805.jpeg"
-            },
-            {
-              "title": "August Greene: Livin' on a Prayer",
-              "vimeo": "386365889",
-              "thumb": "img/1674586600278.webp"
-            },
-            {
-              "title": "Jim James: Everyday People",
-              "vimeo": "386367699",
-              "thumb": "img/1674598915443.webp"
-            },
-            {
-              "title": "Walk the Moon: Someone Like You",
-              "vimeo": "386366909",
-              "thumb": "img/1579654982612.jpeg"
-            },
-            {
-              "title": "Luke Combs: Ramblin' Man",
-              "vimeo": "386367023",
-              "thumb": "img/1674586907954.webp"
-            },
-            {
-              "title": "Jimmy Fallon & The Roots: Hungry Like the Wolf",
-              "vimeo": "386023209",
-              "thumb": "img/1579654957574.webp"
-            },
-            {
-              "title": "Mac DeMarco: One Evening",
-              "vimeo": "386367575",
-              "thumb": "img/1674586950570.webp"
             }
           ]
         }
