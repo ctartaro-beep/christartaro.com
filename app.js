@@ -97,7 +97,7 @@
     const fresh = pool.filter((x) => !recent.includes(key(x)));
     const pick = (fresh.length ? fresh : pool)[Math.floor(Math.random() * (fresh.length || pool.length))];
     try { sessionStorage.setItem("recentShuffle", JSON.stringify([key(pick), ...recent].slice(0, 20))); } catch (e) {}
-    if (pick.href) location.href = pick.href; else openViewer(pick.v);
+    if (pick.href) location.href = pick.href; else openViewer(pick.v, { shuffle: true });
   }
 
   function wallCard(v, size) {
@@ -339,8 +339,22 @@
   // Viewer
   const dlg = $("viewer");
   let lastFocus = null;
-  function openViewer(v) {
+  // What Chris did on each video, for the Shuffle player: taken from the Other Videos sections
+  // (Directing / Editing / Color), or a video's own "roles" list in the data file; otherwise "Directed".
+  const ROLE = { Directing: "Directed", Editing: "Edited", Color: "Colored" };
+  const roleMap = new Map();
+  for (const p of pages) for (const s of p.sections || []) if (ROLE[s.title])
+    for (const v of s.items || []) {
+      const k = v.youtube || v.vimeo;
+      roleMap.set(k, [...new Set([...(roleMap.get(k) || []), ROLE[s.title]])]);
+    }
+  const rolesFor = (v) => v.roles || roleMap.get(v.youtube || v.vimeo) || ["Directed"];
+
+  function openViewer(v, opts = {}) {
     lastFocus = document.activeElement;
+    const roles = $("viewer-roles");
+    roles.hidden = !opts.shuffle;
+    roles.textContent = opts.shuffle ? ["Shuffle", ...["Directed", "Edited", "Colored"].filter((r) => rolesFor(v).includes(r))].join("  ·  ") : "";
     const frame = $("viewer-frame");
     if (EMBED) {
       frame.replaceChildren(el("iframe", {
