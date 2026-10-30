@@ -415,7 +415,7 @@ document.addEventListener("keydown", e => {
 
 /* deep link: #s1-3, #s2-12, #s2-promo */
 function fromHash() {
-  const m = location.hash.slice(1).match(/^([a-z]+)-(\d+|promo)$/);
+  const m = location.hash.slice(1).match(/^([a-z0-9]+)-(\d+|promo)$/);
   if (!m) return;
   let n = 0;
   const idx = slides.findIndex(s => {
