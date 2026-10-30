@@ -12,8 +12,8 @@
      at ctartaro-beep.github.io/photoframe, so a fix there lands here too.
      Only config.js, next to this file, is specific to this page. -->
 <link rel="stylesheet" href="https://ctartaro-beep.github.io/photoframe/style.css" />
-<!-- White mat around each photo; this page only, not the family frame. -->
-<link rel="stylesheet" href="mat.css" />
+<!-- Back-to-site link; this page only, not the family frame. -->
+<link rel="stylesheet" href="mat.css?v=202610301810" />
 </head>
 <body>
 
@@ -33,14 +33,6 @@
   <a id="home-link" href="/">&larr; christartaro.com</a>
 
   <script>
-    // Hand each photo's proportions to mat.css so the mat opening is cut to fit.
-    document.addEventListener("load", function (e) {
-      var img = e.target;
-      if (img.classList && img.classList.contains("photo") && img.naturalHeight) {
-        img.style.setProperty("--r", img.naturalWidth / img.naturalHeight);
-      }
-    }, true);
-
     // Back link and cursor: visible while you're moving the mouse, gone a
     // moment after you stop, so the frame stays clean.
     (function () {

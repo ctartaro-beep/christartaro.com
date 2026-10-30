@@ -1,91 +1,32 @@
 /* ==========================================================================
-   photoframe — white mat (no frame)
-   Layered over the shared style.css. The mat opening is cut to each photo's
-   own proportions (the photo's ratio arrives as --r from index.html), so a
-   photo is never cropped and never sits in letterbox bars.
+   photoframe — no mat. The photo, clock and caption use the shared
+   style.css as-is (full-screen photo on black). This file only adds the
+   back-to-site link, which the family frame doesn't have.
    ========================================================================== */
 
-:root {
-  --mat: 3.8vmin;          /* white mat border around the photo */
-  --bevel: 0.32vmin;       /* white bevelled edge of the mat cut */
-  --mat-color: #f5f5f2;
-}
-
-html, body, #frame { background: var(--mat-color); }
-
-/* A subtle paper texture so the mat doesn't read as flat screen white. */
-#frame::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse at 50% 40%, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.03) 75%);
-}
-
-/* The photo, centered in the mat (raised a touch, as mats are cut), sized to
-   the largest box of its own ratio that fits inside the mat border. */
-.photo {
-  inset: auto;
-  top: calc(50% - 0.6vmin);
-  left: 50%;
-  transform: translate(-50%, -50%);
-  --avail-h: calc(100% - 2 * var(--mat));
-  width: min(calc(100% - 2 * var(--mat)), calc((100dvh - 2 * var(--mat)) * var(--r, 1.5)));
-  height: auto;
-  aspect-ratio: var(--r, 1.5);
-  max-height: var(--avail-h);
-  object-fit: cover;
-  box-shadow:
-    0 0 0 var(--bevel) #ffffff,                                   /* bevel */
-    0 0 0 calc(var(--bevel) + 1px) rgba(0, 0, 0, 0.10),          /* cut line */
-    0 0 1.2vmin calc(var(--bevel) + 0.2vmin) rgba(0, 0, 0, 0.06); /* shadow into the opening */
-}
-
-/* Clock and caption sit on the mat now, so they need dark ink. */
-#overlay, #caption, #status-line {
-  color: #3a3a38;
-  text-shadow: none;
-}
-#date { color: #6b6b67; }
-/* The mat is thin, so time and date share one line, sized and centered to fit the bottom border. */
-#overlay {
-  bottom: 0; right: calc(var(--mat) * 0.6);
-  height: var(--mat);
-  display: flex; flex-direction: row-reverse; align-items: center; gap: 0.8em;
-  text-align: right;
-}
-#caption {
-  bottom: 0; left: calc(var(--mat) * 0.6);
-  height: var(--mat); display: flex; align-items: center;
-  font-size: clamp(11px, calc(var(--mat) * 0.36), 15px);
-}
-#clock { font-size: clamp(13px, calc(var(--mat) * 0.5), 22px); line-height: 1; }
-#date { font-size: clamp(10px, calc(var(--mat) * 0.32), 14px); line-height: 1; margin: 0; }
-#status-line { bottom: calc(var(--mat) * 0.25); left: calc(var(--mat) * 0.6); }
-
-/* Back to the main site — hidden until the mouse moves (body.awake). */
 @font-face {
   font-family: "Blue Highway D";
   src: url("../fonts/blue-highway-d.woff2") format("woff2");
   font-display: swap;
 }
+
+/* Back to the main site — hidden until the mouse moves (body.awake). */
 #home-link {
   position: fixed;
-  top: 0;
-  left: calc(var(--mat) * 0.6);
-  height: calc(var(--mat) - 0.8vmin); display: flex; align-items: center; box-sizing: border-box;
+  top: 2vmin;
+  left: 2.5vmin;
   z-index: 5;
   font: 400 clamp(12px, 1.5vmin, 16px)/1 "Blue Highway D", "Arial Narrow", sans-serif;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #55554f;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
   text-decoration: none;
   padding: 6px 2px;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.5s ease;
 }
-#home-link:hover, #home-link:focus-visible { color: #111; }
+#home-link:hover, #home-link:focus-visible { color: #fff; }
 body.awake #home-link, #home-link:focus-visible { opacity: 1; pointer-events: auto; }
 body:not(.awake) { cursor: none; }
