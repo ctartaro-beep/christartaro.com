@@ -308,6 +308,11 @@
           "label": "Cover Room",
           "note": "13 covers, 2 series",
           "href": "#music"
+        },
+        {
+          "label": "photoframe",
+          "note": "Random photos, fit to your screen",
+          "href": "photoframe/"
         }
       ]
     },

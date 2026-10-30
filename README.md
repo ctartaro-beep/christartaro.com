@@ -7,6 +7,7 @@ Static portfolio site for Chris Tartaro, hosted on GitHub Pages. No build step.
 - `data/videos.json` holds every page, section and video. This is the only file you need to touch for content changes.
 - `index.html`, `styles.css`, `app.js` hold the layout, look and behavior.
 - `img/` holds the video thumbnails, copied off Squarespace.
+- `photoframe/` is a full-screen random-photo slideshow fed by a public Google Drive folder. It shows portrait photos on portrait screens and landscape on landscape. Its look and behavior load from the family frame repo (`ctartaro-beep/photoframe`); only `photoframe/config.js` lives here.
 - `ctmdb/` (Music DB) and `ctmdb2/` (Musical Memoir) are standalone pages, unlisted in the menu. Their code was moved over from Squarespace as-is.
 
 ## Adding a video
