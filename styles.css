@@ -500,6 +500,8 @@ main { padding-block: 8px 80px; outline: none; }
   text-wrap: pretty;
 }
 .about p { margin: 0; }
+.about p:not(.about-links) a { text-decoration: underline; text-decoration-color: var(--tally); text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.about p:not(.about-links) a:hover { color: var(--tally); }
 .about-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 26px; margin-top: 10px; }
 .about-links a {
   font: 400 0.9rem/1 var(--display);

@@ -321,7 +321,18 @@
     if (page.about) {
       const links = el("p", { class: "about-links" },
         ...page.about.links.map((l) => el("a", { href: l.url, target: "_blank", rel: "noopener", text: l.label })));
-      main.append(el("section", { class: "about" }, ...page.about.paragraphs.map((t) => el("p", { text: t })), links));
+      // Paragraphs may hold [text](url) links; everything else stays plain text.
+      const para = (t) => {
+        const p = el("p");
+        let last = 0;
+        for (const m of t.matchAll(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g)) {
+          p.append(t.slice(last, m.index), el("a", { href: m[2], target: "_blank", rel: "noopener", text: m[1] }));
+          last = m.index + m[0].length;
+        }
+        p.append(t.slice(last));
+        return p;
+      };
+      main.append(el("section", { class: "about" }, ...page.about.paragraphs.map(para), links));
       return;
     }
     for (const s of page.sections) {
