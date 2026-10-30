@@ -3,6 +3,13 @@
   const EMBED = window.SITE_EMBED !== false; // the preview build turns inline playback off
   const data = window.SITE_DATA || (await fetch("data/videos.json").then((r) => r.json()));
   const pages = data.pages;
+  // Videos marked "hidden": true in the data file (e.g. ones that went private) are left out everywhere,
+  // including counts and Shuffle. Remove the flag to bring one back.
+  const visible = (list) => list.filter((v) => !v.hidden);
+  for (const p of pages) for (const s of p.sections || []) {
+    if (s.items) s.items = visible(s.items);
+    for (const ser of s.series || []) ser.items = visible(ser.items);
+  }
   const $ = (id) => document.getElementById(id);
   const el = (tag, attrs = {}, ...kids) => {
     const n = document.createElement(tag);

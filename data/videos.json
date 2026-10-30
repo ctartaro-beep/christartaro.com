@@ -92,7 +92,9 @@
             {
               "title": "\"Broadway's Back!\" with Lin-Manuel Miranda",
               "youtube": "Bx8RKOSLIyI",
-              "thumb": "img/1674515621030.webp"
+              "thumb": "img/1674515621030.webp",
+              "hidden": true,
+              "hiddenReason": "Private on YouTube (checked 2026-10-29)"
             },
             {
               "title": "fallonlore: the 30 rock sessions (Taylor Swift Parody)",
@@ -338,7 +340,9 @@
             {
               "title": "The Shining Bella Twins",
               "youtube": "csfG2X0_pOk",
-              "thumb": "img/1543339231353.webp"
+              "thumb": "img/1543339231353.webp",
+              "hidden": true,
+              "hiddenReason": "Private on YouTube (checked 2026-10-29)"
             },
             {
               "title": "Jimmy Takes Bob Dylan to the Circus",
@@ -384,7 +388,9 @@
             {
               "title": "Jimmy Fallon and Kevin Hart Go Back to High School",
               "youtube": "sH5z5DcxNus",
-              "thumb": "img/1540522576013.webp"
+              "thumb": "img/1540522576013.webp",
+              "hidden": true,
+              "hiddenReason": "Private on YouTube (checked 2026-10-29)"
             },
             {
               "title": "Avengers: Infinity War Cast Sings \"The Marvel Bunch\"",
@@ -399,7 +405,9 @@
             {
               "title": "Jimmy Fallon and Paul Rudd Recreate \"King of Wishful Thinking\"",
               "youtube": "af6L1jBZGYA",
-              "thumb": "img/1520103286543.webp"
+              "thumb": "img/1520103286543.webp",
+              "hidden": true,
+              "hiddenReason": "Private on YouTube (checked 2026-10-29)"
             },
             {
               "title": "Songversation with Justin Timberlake",
@@ -535,7 +543,9 @@
             {
               "title": "Kevin Bacon's Footloose Entrance",
               "youtube": "3T2FpCDlyNg",
-              "thumb": "img/1433635383625.webp"
+              "thumb": "img/1433635383625.webp",
+              "hidden": true,
+              "hiddenReason": "Private on YouTube (checked 2026-10-29)"
             }
           ]
         },
@@ -545,7 +555,9 @@
             {
               "title": "The Shining Bella Twins",
               "youtube": "csfG2X0_pOk",
-              "thumb": "img/1543340282038.jpeg"
+              "thumb": "img/1543340282038.jpeg",
+              "hidden": true,
+              "hiddenReason": "Private on YouTube (checked 2026-10-29)"
             },
             {
               "title": "Peanuts (Riverdale Parody)",
@@ -555,7 +567,9 @@
             {
               "title": "Tegan and Sara: Boyfriend (Acoustic)",
               "youtube": "FgOfPkM2BdI",
-              "thumb": "img/1463682650515.webp"
+              "thumb": "img/1463682650515.webp",
+              "hidden": true,
+              "hiddenReason": "Private on YouTube (checked 2026-10-29)"
             },
             {
               "title": "Sugarboy: Kung Fu Mom ft. Ilana Glazer",
@@ -565,7 +579,9 @@
             {
               "title": "Ed Sheeran: Trap Queen",
               "youtube": "06koEdJiwZg",
-              "thumb": "img/1433594555744.webp"
+              "thumb": "img/1433594555744.webp",
+              "hidden": true,
+              "hiddenReason": "Private on YouTube (checked 2026-10-29)"
             },
             {
               "title": "Game of Desks",
@@ -576,7 +592,9 @@
             {
               "title": "Jimmy's Crew",
               "youtube": "pQLBndoSMW0",
-              "thumb": "img/1433601781484.webp"
+              "thumb": "img/1433601781484.webp",
+              "hidden": true,
+              "hiddenReason": "Private on YouTube (checked 2026-10-29)"
             }
           ]
         }
