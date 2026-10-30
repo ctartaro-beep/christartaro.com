@@ -324,7 +324,7 @@ main { padding-block: 8px 80px; outline: none; }
   z-index: 2;
   width: clamp(56px, 7vw, 84px); aspect-ratio: 1;
   border-radius: 50%;
-  background: var(--tally) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 5l11 7-11 7z' fill='white'/%3E%3C/svg%3E") 54% center/34% no-repeat;
+  background: var(--tally) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8.5 5.5l10 6.5-10 6.5z' fill='white'/%3E%3C/svg%3E") center/36% no-repeat;
 }
 
 /* soft vignette on landing thumbnails that lifts on hover */
