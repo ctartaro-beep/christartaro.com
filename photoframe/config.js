@@ -13,7 +13,7 @@ window.CONFIG = {
   // The photoframe Drive folder (separate from the family frame's).
   // Shared "Anyone with the link — Viewer"; the ID is the end of its URL:
   // https://drive.google.com/drive/folders/<THIS_PART>
-  DRIVE_FOLDER_ID: "PASTE_FOLDER_ID_HERE",
+  DRIVE_FOLDER_ID: "1z7b1dBhe-0OQu9AvFV74iQPGjyCIcJuA",
 
   // Match photo orientation to the screen. ?o=portrait / ?o=landscape / ?o=any
   // in the address still override this.
