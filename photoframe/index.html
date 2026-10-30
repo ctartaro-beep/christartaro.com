@@ -12,6 +12,8 @@
      at ctartaro-beep.github.io/photoframe, so a fix there lands here too.
      Only config.js, next to this file, is specific to this page. -->
 <link rel="stylesheet" href="https://ctartaro-beep.github.io/photoframe/style.css" />
+<!-- Black frame and white mat; this page only, not the family frame. -->
+<link rel="stylesheet" href="mat.css" />
 </head>
 <body>
 
@@ -27,6 +29,15 @@
     <div id="status-line"></div>
   </div>
 
+  <script>
+    // Hand each photo's proportions to mat.css so the mat opening is cut to fit.
+    document.addEventListener("load", function (e) {
+      var img = e.target;
+      if (img.classList && img.classList.contains("photo") && img.naturalHeight) {
+        img.style.setProperty("--r", img.naturalWidth / img.naturalHeight);
+      }
+    }, true);
+  </script>
   <script src="config.js"></script>
   <script src="https://ctartaro-beep.github.io/photoframe/app.js"></script>
 </body>

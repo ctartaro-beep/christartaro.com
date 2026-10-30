@@ -1,0 +1,67 @@
+/* ==========================================================================
+   photoframe — black frame + white mat
+   Layered over the shared style.css. The mat opening is cut to each photo's
+   own proportions (the photo's ratio arrives as --r from index.html), so a
+   photo is never cropped and never sits in letterbox bars.
+   ========================================================================== */
+
+:root {
+  --moulding: 4vmin;       /* black frame width */
+  --mat: 9.5vmin;          /* white mat border around the photo */
+  --bevel: 0.32vmin;       /* white bevelled edge of the mat cut */
+  --mat-color: #f5f5f2;
+  --frame-color: #0e0e0e;
+}
+
+html, body { background: var(--frame-color); }
+
+/* The frame: black moulding, white mat inside it, with a soft shadow where
+   the moulding meets the mat. */
+#frame {
+  border: var(--moulding) solid var(--frame-color);
+  background: var(--mat-color);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),          /* moulding edge */
+    inset 0 0.35vmin 1.4vmin rgba(0, 0, 0, 0.32);       /* depth onto the mat */
+}
+
+/* A subtle paper texture so the mat doesn't read as flat screen white. */
+#frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.03) 75%);
+}
+
+/* The photo, centered in the mat (raised a touch, as mats are cut), sized to
+   the largest box of its own ratio that fits inside the mat border. */
+.photo {
+  inset: auto;
+  top: calc(50% - 0.6vmin);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  --avail-h: calc(100% - 2 * var(--mat));
+  width: min(calc(100% - 2 * var(--mat)), calc((100dvh - 2 * var(--moulding) - 2 * var(--mat)) * var(--r, 1.5)));
+  height: auto;
+  aspect-ratio: var(--r, 1.5);
+  max-height: var(--avail-h);
+  object-fit: cover;
+  box-shadow:
+    0 0 0 var(--bevel) #ffffff,                                   /* bevel */
+    0 0 0 calc(var(--bevel) + 1px) rgba(0, 0, 0, 0.10),          /* cut line */
+    0 0 1.2vmin calc(var(--bevel) + 0.2vmin) rgba(0, 0, 0, 0.06); /* shadow into the opening */
+}
+
+/* Clock and caption sit on the mat now, so they need dark ink. */
+#overlay, #caption, #status-line {
+  color: #3a3a38;
+  text-shadow: none;
+}
+#date { color: #6b6b67; }
+#overlay { bottom: calc(var(--mat) * 0.18); right: calc(var(--mat) * 0.4); }
+#caption { bottom: calc(var(--mat) * 0.22); left: calc(var(--mat) * 0.4); font-size: 15px; }
+#clock { font-size: clamp(20px, 3.2vmin, 40px); }
+#date { font-size: clamp(11px, 1.4vmin, 17px); }
+#status-line { bottom: calc(var(--mat) * 0.3); left: calc(var(--mat) * 0.4); }
