@@ -1,7 +1,10 @@
 // Renders the site from data/videos.json. To add or reorder videos, edit that file only.
 (async function () {
+  // index.html loads this as app.js?v=…; the data file gets the same version, so
+  // a cached old script never meets newer data (or the reverse).
+  const VER = (document.currentScript && new URL(document.currentScript.src).searchParams.get("v")) || "";
   const EMBED = window.SITE_EMBED !== false; // the preview build turns inline playback off
-  const data = window.SITE_DATA || (await fetch("data/videos.json").then((r) => r.json()));
+  const data = window.SITE_DATA || (await fetch("data/videos.json" + (VER ? "?v=" + VER : "")).then((r) => r.json()));
   const pages = data.pages;
   // Videos marked "hidden": true in the data file (e.g. ones that went private) are left out everywhere,
   // including counts and Shuffle. Remove the flag to bring one back.

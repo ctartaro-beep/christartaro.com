@@ -26,6 +26,10 @@ Videos listed in `site.shuffleExtras` in `data/videos.json` are in the Shuffle (
 
 About paragraphs can link with `[text](url)` and set show titles in bold italic with `***Title***`. A link to one of the site's own Vimeo or YouTube videos plays in the site's viewer.
 
+## After any change
+
+Bump the `?v=` number on `styles.css` and `app.js` in `index.html` (any new value, e.g. the date and time). Browsers cache each file for 10 minutes; the shared version makes them pick up the new script, styles and data together.
+
 ## Preview locally
 
 ```sh
