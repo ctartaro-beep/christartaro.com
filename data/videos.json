@@ -284,7 +284,9 @@
             {
               "title": "Sketch Cram: Shaking Head Woman",
               "vimeo": "234690399",
-              "thumb": "img/v234690399.webp"
+              "thumb": "img/v234690399.webp",
+              "hidden": true,
+              "hiddenReason": "Hidden at Chris's request"
             }
           ]
         }
