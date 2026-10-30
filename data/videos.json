@@ -306,7 +306,7 @@
         },
         {
           "label": "Cover Room",
-          "note": "14 covers, 2 series",
+          "note": "13 covers, 2 series",
           "href": "#music"
         }
       ]
@@ -366,14 +366,6 @@
                   "artist": "Jimmy Fallon & The Roots",
                   "song": "At This Moment",
                   "coverOf": "Billy Vera"
-                },
-                {
-                  "title": "Ed Sheeran: Trap Queen (Fetty Wap Cover)",
-                  "vimeo": "265234083",
-                  "thumb": "img/v265234083.webp",
-                  "artist": "Ed Sheeran",
-                  "song": "Trap Queen",
-                  "coverOf": "Fetty Wap"
                 }
               ]
             },
@@ -496,7 +488,8 @@
               "vimeo": "792402135",
               "thumb": "img/v792402135.webp"
             }
-          ]
+          ],
+          "shuffle": true
         }
       ]
     },

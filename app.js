@@ -332,7 +332,7 @@
           el("h2", { text: s.title }),
           el("span", { class: "count", text: `${String(n).padStart(2, "0")} ${n === 1 ? "video" : "videos"}` })),
         s.intro ? el("p", { class: "intro", text: s.intro }) : null,
-        el("ul", { class: "grid" }, ...s.items.map((v) => card(v)))));
+        el("ul", { class: "grid" }, ...(s.shuffle ? shuffled(s.items) : s.items).map((v) => card(v)))));
     }
   }
 
