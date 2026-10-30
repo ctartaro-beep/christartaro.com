@@ -784,7 +784,11 @@
             "label": "IMDb",
             "url": "https://www.imdb.com/name/nm1826841/"
           }
-        ]
+        ],
+        "photo": {
+          "src": "img/chris.webp",
+          "alt": "Chris Tartaro eating a sundae under the lights of an ice cream stand at dusk"
+        }
       }
     }
   ]

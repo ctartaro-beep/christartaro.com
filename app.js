@@ -332,7 +332,12 @@
         p.append(t.slice(last));
         return p;
       };
-      main.append(el("section", { class: "about" }, ...page.about.paragraphs.map(para), links));
+      const text = el("div", { class: "about-text" }, ...page.about.paragraphs.map(para), links);
+      const ph = page.about.photo;
+      main.append(ph
+        ? el("section", { class: "about about-split" }, text,
+            el("figure", { class: "about-photo" }, el("img", { src: ph.src, alt: ph.alt || "", decoding: "async" })))
+        : el("section", { class: "about" }, text));
       return;
     }
     for (const s of page.sections) {
