@@ -229,7 +229,8 @@
             {
               "title": "Jared Leto",
               "vimeo": "789090090",
-              "thumb": "img/v789090090.webp"
+              "thumb": "img/v789090090.webp",
+              "hidden": true
             },
             {
               "title": "You Spin Me Round (Music Video Recreation)",
@@ -270,11 +271,6 @@
               "title": "Cold Open with Matt LeBlanc",
               "vimeo": "385598774",
               "thumb": "img/v385598774-2.webp"
-            },
-            {
-              "title": "Game of Thrones Is Coming",
-              "vimeo": "385598518",
-              "thumb": "img/v385598518.webp"
             },
             {
               "title": "Avengers: Infinity War Cast Sings \"The Marvel Bunch\"",
