@@ -37,6 +37,11 @@
           "title": "Select Comedy Sketches",
           "items": [
             {
+              "title": "The Ballad of Super Mario",
+              "vimeo": "1179427878",
+              "thumb": "img/v1179427878-2.webp"
+            },
+            {
               "title": "Jamie Lee Curtis and Jimmy Recreate \"Perfect\" Aerobic Fitness Scene",
               "youtube": "PKDmcPqOl48",
               "thumb": "img/1752009509199.webp"
@@ -66,7 +71,7 @@
               "title": "Teenie Weenie Beanie",
               "vimeo": "799654652",
               "hash": "a2792839ab",
-              "thumb": "img/1676586503717.webp"
+              "thumb": "img/v799654652-2.webp"
             },
             {
               "title": "Cool Bartenders with Keegan-Michael Key",
@@ -174,7 +179,7 @@
             {
               "title": "Ugly Sweater",
               "vimeo": "1234184895",
-              "thumb": "img/v1234184895.webp"
+              "thumb": "img/v1234184895-2.webp"
             },
             {
               "title": "Let's Groove Promo",
@@ -239,7 +244,7 @@
             {
               "title": "80s Aerobic Dance Challenge with Kate Upton",
               "vimeo": "385599330",
-              "thumb": "img/v385599330.webp"
+              "thumb": "img/v385599330-2.webp"
             },
             {
               "title": "Jimmy Fallon and Paul Rudd Recreate \"King of Wishful Thinking\"",
@@ -259,12 +264,12 @@
             {
               "title": "Robert De Niro Has Never Seen a Dog",
               "vimeo": "385598793",
-              "thumb": "img/v385598793.webp"
+              "thumb": "img/v385598793-2.webp"
             },
             {
               "title": "Cold Open with Matt LeBlanc",
               "vimeo": "385598774",
-              "thumb": "img/v385598774.webp"
+              "thumb": "img/v385598774-2.webp"
             },
             {
               "title": "Game of Thrones Is Coming",
@@ -284,7 +289,7 @@
             {
               "title": "Hometown Bar (Music Video)",
               "vimeo": "385530928",
-              "thumb": "img/v385530928.webp"
+              "thumb": "img/v385530928-2.webp"
             },
             {
               "title": "#MeAlsoMe with Orlando Bloom",
@@ -541,7 +546,7 @@
             },
             {
               "title": "Robert De Niro Has Never Seen a Dog",
-              "thumb": "img/1525358793831.webp",
+              "thumb": "img/v385598793-2.webp",
               "vimeo": "385598793"
             },
             {
