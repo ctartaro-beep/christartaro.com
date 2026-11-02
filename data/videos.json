@@ -399,11 +399,6 @@
               "youtube": "TpUBJg9wdBk",
               "start": 12,
               "thumb": "img/1486923068943.webp"
-            },
-            {
-              "title": "Hozier: Backstage Acoustic",
-              "vimeo": "129967407",
-              "thumb": "img/1433601272748.jpeg"
             }
           ]
         }
@@ -609,6 +604,11 @@
               "title": "Dr. Dog: Backstage Acoustic",
               "vimeo": "792402135",
               "thumb": "img/v792402135.webp"
+            },
+            {
+              "title": "Hozier: Backstage Acoustic",
+              "vimeo": "129967407",
+              "thumb": "img/1433601272748.jpeg"
             }
           ],
           "layout": "wall"
