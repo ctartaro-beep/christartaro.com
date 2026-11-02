@@ -129,7 +129,15 @@
       ...(page.jump || []).map((j) => el("a", { href: j.href },
         el("span", { class: "j-label", text: j.label }), el("span", { class: "j-note", text: j.note + " →" }))));
     const sh = el("button", { class: "shuffle", type: "button", "aria-label": "Surprise me: play a random video from the site" },
-      el("span", { class: "shuffle-label" }, "Surprise", el("br"), "Me!"), el("span", { class: "shuffle-icon", "aria-hidden": "true" }));
+      el("span", { class: "shuffle-label" }, "Surprise Me!"), el("span", { class: "shuffle-icon", "aria-hidden": "true" }));
+    // Ribbon banner drawn behind the label: two folded tails, then the waving band on top.
+    sh.insertAdjacentHTML("afterbegin", `<svg class="ribbon" viewBox="0 0 240 92" aria-hidden="true">
+      <path class="rb-tail" d="M40 50 L4 56 L18 68 L6 84 L46 78 Z"/>
+      <path class="rb-fold" d="M24 64 L46 78 L44 60 Z"/>
+      <path class="rb-tail" d="M196 14 L234 6 L222 20 L236 34 L198 42 Z"/>
+      <path class="rb-fold" d="M216 26 L196 14 L198 32 Z"/>
+      <path class="rb-band" d="M22 26 C70 12 120 22 150 30 C176 37 196 34 218 24 L218 64 C196 74 176 77 150 70 C120 62 70 52 22 66 Z"/>
+    </svg>`);
     sh.addEventListener("click", playRandom);
     const jumpInner = el("div", { class: "jump-inner" }, jl, sh, el("p", { class: "j-count", text: `Any of ${shufflePool().length} videos` }));
     nav.append(jumpInner);
