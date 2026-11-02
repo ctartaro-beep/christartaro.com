@@ -211,7 +211,7 @@
 
   // Background drawing behind the landing page: straight lines, right-angle elbows and arrowheads
   // on an 8px grid, like blocking marks on a studio floor plan. It drifts slightly slower than the scroll.
-  const BACKDROP = "grid";
+  const BACKDROP = "contour";
   function backdrop() {
     const H = 8000, W = 1600;
     const NS = "http://www.w3.org/2000/svg";
@@ -260,7 +260,7 @@
         if (i % 13 === 3) tally += dot(x0, y0); else marks += dot(x0, y0, 1.8);
       }
     } else if (style === "contour") {
-      for (let i = 0; i < count * 0.35; i++) {
+      for (let i = 0; i < count * 0.5; i++) {
         const x0 = r() * W - 150, y0 = 200 + r() * (H - 300), len = 220 + r() * 420;
         const amp = 10 + r() * 30, wl = 120 + r() * 160, ph = r() * 6, tilt = (r() - 0.5) * 0.5;
         const lines = 2 + Math.floor(r() * 3), gap = 9 + r() * 6;
