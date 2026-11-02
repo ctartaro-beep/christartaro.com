@@ -211,6 +211,7 @@
 
   // Background drawing behind the landing page: straight lines, right-angle elbows and arrowheads
   // on an 8px grid, like blocking marks on a studio floor plan. It drifts slightly slower than the scroll.
+  const BACKDROP = "grid";
   function backdrop() {
     const H = 8000, W = 1600;
     const NS = "http://www.w3.org/2000/svg";
@@ -222,26 +223,79 @@
     const snap = (v) => Math.round(v / 8) * 8, r = Math.random;
     let solid = "", dashed = "", heads = "", marks = "", tally = "";
     const count = Math.round(H / 70);
-    for (let i = 0; i < count; i++) {
-      let x = snap(r() * W), y = snap(200 + r() * (H - 300)), d = `M${x} ${y}`;
-      const ox = x, oy = y;
-      let horiz = r() < 0.5, dx = 0, dy = 0;
-      for (let k = 0, n = 1 + Math.floor(r() * 3); k < n; k++) {
-        const len = snap(48 + r() * 220) * (r() < 0.5 ? -1 : 1);
-        dx = horiz ? len : 0; dy = horiz ? 0 : len;
-        x = Math.max(8, Math.min(W - 8, x + dx)); y = Math.max(8, Math.min(H - 8, y + dy));
-        d += ` L${x} ${y}`; horiz = !horiz;
+    // Backdrop style: "grid" (right angles), "flow" (S-curves), "arcs" (compass arcs), "contour" (wavy line bundles).
+    // Try one with ?bd=flow on any page.
+    const style = new URLSearchParams(location.search).get("bd") || BACKDROP;
+    const f = (n) => n.toFixed(1);
+    const dot = (x, y, rad = 2.2) => `M${f(x - rad)} ${f(y)} a${rad} ${rad} 0 1 0 ${2 * rad} 0 a${rad} ${rad} 0 1 0 ${-2 * rad} 0 `;
+    const head = (x, y, a) => { const hp = (t) => `${f(x - 8 * Math.cos(a + t))} ${f(y - 8 * Math.sin(a + t))}`; return `M${hp(0.55)} L${f(x)} ${f(y)} L${hp(-0.55)} `; };
+    if (style === "flow") {
+      for (let i = 0; i < count * 1.5; i++) {
+        let x = r() * W, y = 200 + r() * (H - 300), d = `M${f(x)} ${f(y)}`;
+        const ox = x, oy = y;
+        let ang = r() * Math.PI * 2, cx2 = 0, cy2 = 0;
+        for (let k = 0, n = 1 + Math.floor(r() * 3); k < n; k++) {
+          const len = 70 + r() * 170, bend = (r() - 0.5) * 2.4;
+          const c1x = x + Math.cos(ang) * len * 0.4, c1y = y + Math.sin(ang) * len * 0.4;
+          ang += bend;
+          const nx = x + Math.cos(ang - bend / 2) * len, ny = y + Math.sin(ang - bend / 2) * len;
+          cx2 = nx - Math.cos(ang) * len * 0.4; cy2 = ny - Math.sin(ang) * len * 0.4;
+          d += ` C${f(c1x)} ${f(c1y)} ${f(cx2)} ${f(cy2)} ${f(nx)} ${f(ny)}`; x = nx; y = ny;
+        }
+        if (r() < 0.3) dashed += d + " "; else solid += d + " ";
+        if (r() < 0.6) heads += head(x, y, Math.atan2(y - cy2, x - cx2));
+        if (i % 17 === 3) tally += dot(ox, oy); else marks += dot(ox, oy, 1.8);
       }
-      if (r() < 0.3) dashed += d + " "; else solid += d + " ";
-      const a = Math.atan2(Math.sign(dy), Math.sign(dx));
-      const hp = (t) => `${(x - 8 * Math.cos(a + t)).toFixed(1)} ${(y - 8 * Math.sin(a + t)).toFixed(1)}`;
-      if (r() < 0.75) heads += `M${hp(0.55)} L${x} ${y} L${hp(-0.55)} `;
-      const sq = `M${ox - 2} ${oy - 2} h4 v4 h-4 z `;
-      if (i % 17 === 3) tally += sq; else marks += sq;
-    }
-    for (let i = 0; i < count * 0.6; i++) {
-      const x = snap(r() * W), y = snap(r() * H);
-      solid += `M${x - 4} ${y} h8 M${x} ${y - 4} v8 `;
+    } else if (style === "arcs") {
+      for (let i = 0; i < count * 0.7; i++) {
+        const cx = r() * W, cy = 200 + r() * (H - 300), rad = 30 + r() * 220;
+        const a0 = r() * Math.PI * 2, sweep = (0.4 + r() * 2.4) * (r() < 0.5 ? -1 : 1), a1 = a0 + sweep;
+        const pt = (a, rr = rad) => [cx + rr * Math.cos(a), cy + rr * Math.sin(a)];
+        const [x0, y0] = pt(a0), [x1, y1] = pt(a1);
+        const arc = (rr) => { const [p, q] = pt(a0, rr), [u, v] = pt(a1, rr); return `M${f(p)} ${f(q)} A${f(rr)} ${f(rr)} 0 ${Math.abs(sweep) > Math.PI ? 1 : 0} ${sweep > 0 ? 1 : 0} ${f(u)} ${f(v)} `; };
+        if (r() < 0.3) dashed += arc(rad); else solid += arc(rad);
+        if (r() < 0.35) solid += arc(rad + 10);
+        if (r() < 0.55) heads += head(x1, y1, a1 + (sweep > 0 ? Math.PI / 2 : -Math.PI / 2));
+        if (r() < 0.25) marks += dot(cx, cy, 1.5);
+        if (i % 13 === 3) tally += dot(x0, y0); else marks += dot(x0, y0, 1.8);
+      }
+    } else if (style === "contour") {
+      for (let i = 0; i < count * 0.35; i++) {
+        const x0 = r() * W - 150, y0 = 200 + r() * (H - 300), len = 220 + r() * 420;
+        const amp = 10 + r() * 30, wl = 120 + r() * 160, ph = r() * 6, tilt = (r() - 0.5) * 0.5;
+        const lines = 2 + Math.floor(r() * 3), gap = 9 + r() * 6;
+        for (let l = 0; l < lines; l++) {
+          let d = "";
+          for (let t = 0; t <= len; t += 12) {
+            const x = x0 + t, y = y0 + l * gap + Math.sin(t / wl * Math.PI * 2 + ph + l * 0.15) * amp * (1 - l * 0.12) + t * tilt;
+            d += (t ? " L" : "M") + f(x) + " " + f(y);
+          }
+          if (l === lines - 1 && r() < 0.4) dashed += d + " "; else solid += d + " ";
+        }
+        if (i % 7 === 3) tally += dot(x0, y0 - 14); else marks += dot(x0 + len, y0 + len * tilt - 14, 1.8);
+      }
+    } else {
+      for (let i = 0; i < count; i++) {
+        let x = snap(r() * W), y = snap(200 + r() * (H - 300)), d = `M${x} ${y}`;
+        const ox = x, oy = y;
+        let horiz = r() < 0.5, dx = 0, dy = 0;
+        for (let k = 0, n = 1 + Math.floor(r() * 3); k < n; k++) {
+          const len = snap(48 + r() * 220) * (r() < 0.5 ? -1 : 1);
+          dx = horiz ? len : 0; dy = horiz ? 0 : len;
+          x = Math.max(8, Math.min(W - 8, x + dx)); y = Math.max(8, Math.min(H - 8, y + dy));
+          d += ` L${x} ${y}`; horiz = !horiz;
+        }
+        if (r() < 0.3) dashed += d + " "; else solid += d + " ";
+        const a = Math.atan2(Math.sign(dy), Math.sign(dx));
+        const hp = (t) => `${(x - 8 * Math.cos(a + t)).toFixed(1)} ${(y - 8 * Math.sin(a + t)).toFixed(1)}`;
+        if (r() < 0.75) heads += `M${hp(0.55)} L${x} ${y} L${hp(-0.55)} `;
+        const sq = `M${ox - 2} ${oy - 2} h4 v4 h-4 z `;
+        if (i % 17 === 3) tally += sq; else marks += sq;
+      }
+      for (let i = 0; i < count * 0.6; i++) {
+        const x = snap(r() * W), y = snap(r() * H);
+        solid += `M${x - 4} ${y} h8 M${x} ${y - 4} v8 `;
+      }
     }
     const path = (cls, d) => { const p = document.createElementNS(NS, "path"); p.setAttribute("class", cls); p.setAttribute("d", d); svg.append(p); };
     path("bd-solid", solid); path("bd-dashed", dashed); path("bd-heads", heads); path("bd-marks", marks); path("bd-tally", tally);
