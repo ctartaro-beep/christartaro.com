@@ -358,7 +358,7 @@ main { padding-block: 8px 80px; outline: none; }
   display: flex; align-items: center; justify-content: center; gap: 8px;
   width: 100%; max-width: 240px; aspect-ratio: 240 / 92;
   margin: 0 auto;
-  padding: 0 0 4px;
+  padding: 0 0 6px;
   border: 0;
   background: none;
   color: #fff;
@@ -371,7 +371,7 @@ main { padding-block: 8px 80px; outline: none; }
 .rb-band { fill: var(--tally); }
 .rb-tail { fill: var(--tally); filter: brightness(.72); }
 .rb-fold { fill: #000; opacity: .45; }
-.shuffle-label, .shuffle-icon { position: relative; transform: rotate(-1deg); }
+.shuffle-label, .shuffle-icon { position: relative; }
 .shuffle-label { text-align: center; line-height: 1; white-space: nowrap; padding-top: .1em; }
 .shuffle-icon {
   width: 14px; height: 14px;
