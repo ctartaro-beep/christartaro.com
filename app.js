@@ -156,9 +156,11 @@
       const span = (h) => Math.max(1, Math.ceil((h + gap) / (row + gap)));
       const wide = grid.classList.toggle("is-wide", parseInt(cs.getPropertyValue("--cols")) >= 8);
       const fCard = feat.firstElementChild, fThumb = fCard.querySelector(".thumb");
-      feat.style.gridRowEnd = "span " + span(fCard.offsetHeight + (wide ? 48 : 28));
-      // Wide: the sketches beside the featured video start at its picture's midpoint (or below the links if those run longer).
-      nav.style.gridRowEnd = "span " + span(wide ? Math.max(fThumb.offsetHeight / 2, jumpInner.offsetHeight + 16) : jumpInner.offsetHeight + 32);
+      const fSpan = span(fCard.offsetHeight + (wide ? 48 : 28));
+      feat.style.gridRowEnd = "span " + fSpan;
+      // Wide: the links column runs the full height of the featured video (contents centered on its picture), so the wall starts below both.
+      nav.style.gridRowEnd = "span " + (wide ? Math.max(fSpan, span(jumpInner.offsetHeight + 16)) : span(jumpInner.offsetHeight + 32));
+      nav.style.setProperty("--pic-h", fThumb.offsetHeight + "px");
       for (const li of items) li.style.gridRowEnd = "span " + span(li.firstElementChild.offsetHeight + 20);
     };
     const ro = new ResizeObserver(fit);
