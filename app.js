@@ -129,14 +129,16 @@
       ...(page.jump || []).map((j) => el("a", { href: j.href },
         el("span", { class: "j-label", text: j.label }), el("span", { class: "j-note", text: j.note + " →" }))));
     const sh = el("button", { class: "shuffle", type: "button", "aria-label": "Surprise me: play a random video from the site" },
-      el("span", { class: "shuffle-label" }, "Surprise Me!"));
-    // Ribbon banner drawn behind the label: two notched tails folded behind, then the arched band on top.
+      );
+    // Ribbon banner drawn behind the label: two notched tails folded behind, then the arched band on top, with the label set along the band's curve.
     sh.insertAdjacentHTML("afterbegin", `<svg class="ribbon" viewBox="0 0 240 92" aria-hidden="true">
       <path class="rb-tail" d="M40 38 L0 38 L13 57 L0 76 L40 76 Z"/>
       <path class="rb-fold" d="M22 64 L40 76 L40 64 Z"/>
       <path class="rb-tail" d="M200 38 L240 38 L227 57 L240 76 L200 76 Z"/>
       <path class="rb-fold" d="M218 64 L200 76 L200 64 Z"/>
       <path class="rb-band" d="M22 20 Q120 30 218 20 L218 64 Q120 74 22 64 Z"/>
+      <path id="rb-arc" d="M22 51 Q120 61 218 51" fill="none"/>
+      <text class="rb-text"><textPath href="#rb-arc" startOffset="50%" text-anchor="middle">Surprise Me!</textPath></text>
     </svg>`);
     sh.addEventListener("click", playRandom);
     const jumpInner = el("div", { class: "jump-inner" }, sh, el("p", { class: "j-count", text: `Any of ${shufflePool().length} videos` }), jl);
