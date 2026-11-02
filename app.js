@@ -139,7 +139,7 @@
       <path class="rb-band" d="M22 26 C70 12 120 22 150 30 C176 37 196 34 218 24 L218 64 C196 74 176 77 150 70 C120 62 70 52 22 66 Z"/>
     </svg>`);
     sh.addEventListener("click", playRandom);
-    const jumpInner = el("div", { class: "jump-inner" }, jl, sh, el("p", { class: "j-count", text: `Any of ${shufflePool().length} videos` }));
+    const jumpInner = el("div", { class: "jump-inner" }, sh, el("p", { class: "j-count", text: `Any of ${shufflePool().length} videos` }), jl);
     nav.append(jumpInner);
 
     const sizes = shuffled(page.sections[0].items.map((_, i) => ["s", "s", "m", "m", "l"][i % 5]));
