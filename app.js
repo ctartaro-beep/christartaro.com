@@ -129,7 +129,7 @@
       ...(page.jump || []).map((j) => el("a", { href: j.href },
         el("span", { class: "j-label", text: j.label }), el("span", { class: "j-note", text: j.note + " →" }))));
     const sh = el("button", { class: "shuffle", type: "button", "aria-label": "Surprise me: play a random video from the site" },
-      el("span", { class: "shuffle-label" }, "Surprise Me!"), el("span", { class: "shuffle-icon", "aria-hidden": "true" }));
+      el("span", { class: "shuffle-label" }, "Surprise Me!"));
     // Ribbon banner drawn behind the label: two notched tails folded behind, then the arched band on top.
     sh.insertAdjacentHTML("afterbegin", `<svg class="ribbon" viewBox="0 0 240 92" aria-hidden="true">
       <path class="rb-tail" d="M40 38 L0 38 L13 57 L0 76 L40 76 Z"/>

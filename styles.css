@@ -362,7 +362,7 @@ main { padding-block: 8px 80px; outline: none; }
   border: 0;
   background: none;
   color: #fff;
-  font: 400 1.5rem/1.05 var(--display); letter-spacing: .06em; text-transform: uppercase;
+  font: italic 500 1.65rem/1 "Bodoni Moda", "Didot", "Bodoni 72", serif; letter-spacing: -.01em;
   cursor: pointer;
   transition: filter .25s ease, transform .25s ease;
 }
@@ -371,20 +371,13 @@ main { padding-block: 8px 80px; outline: none; }
 .rb-band { fill: var(--tally); }
 .rb-tail { fill: var(--tally); filter: brightness(.72); }
 .rb-fold { fill: #000; opacity: .45; }
-.shuffle-label, .shuffle-icon { position: relative; }
-.shuffle-label { text-align: center; line-height: 1; white-space: nowrap; padding-top: .1em; }
-.shuffle-icon {
-  width: 14px; height: 14px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 18h3.5c2 0 3.2-.9 4.3-2.6l4.4-6.8C15.3 6.9 16.5 6 18.5 6H22'/%3E%3Cpath d='M19 3l3 3-3 3'/%3E%3Cpath d='M2 6h3.5c1.7 0 2.8.7 3.8 2'/%3E%3Cpath d='M22 18h-3.5c-2 0-3.2-.9-4.3-2.6'/%3E%3Cpath d='M19 21l3-3-3-3'/%3E%3C/svg%3E") center/contain no-repeat;
-  transition: transform .4s cubic-bezier(.2,.7,.2,1);
-}
+.shuffle-label { position: relative; text-align: center; line-height: 1; white-space: nowrap; padding-bottom: .08em; }
 .shuffle:hover { filter: brightness(1.12) drop-shadow(0 8px 14px rgba(255,68,54,.35)); transform: translateY(-2px); }
-.shuffle:hover .shuffle-icon { transform: rotate(179deg); }
 .shuffle:active { transform: translateY(0); filter: brightness(.95); }
 .j-count { margin: 6px 0 18px; text-align: center; font: 400 .7rem/1.3 var(--mono); letter-spacing: .04em; color: var(--muted); }
 @media (prefers-reduced-motion: reduce) {
-  .shuffle, .shuffle-icon, .wall .thumb::before { transition: none; }
-  .shuffle:hover, .shuffle:hover .shuffle-icon, .wall .card:hover .thumb img { transform: none; }
+  .shuffle, .wall .thumb::before { transition: none; }
+  .shuffle:hover, .wall .card:hover .thumb img { transform: none; }
 }
 
 /* Pages with a sketch wall get the line drawing behind them; keep it out from under the cover flow and headings */
