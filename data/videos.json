@@ -436,6 +436,9 @@
     {
       "id": "music",
       "label": "Music",
+      "featured": {
+        "vimeo": "263967893"
+      },
       "sections": [
         {
           "title": "Cover Room",
@@ -472,7 +475,8 @@
                   "vimeo": "263967893",
                   "thumb": "img/1579653600071.webp",
                   "artist": "Nathaniel Rateliff & The Night Sweats",
-                  "song": "Atlantic City"
+                  "song": "Atlantic City",
+                  "coverOf": "Bruce Springsteen"
                 },
                 {
                   "title": "Courtney Barnett: Everything Is Free",

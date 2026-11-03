@@ -13,6 +13,14 @@
     if (s.items) s.items = visible(s.items);
     for (const ser of s.series || []) ser.items = visible(ser.items);
   }
+  // A page's "featured" can be just { "vimeo": id } (or "youtube"): it then uses that video's entry from the page's sections.
+  for (const p of pages) if (p.featured && !p.featured.title) {
+    const id = p.featured.vimeo || p.featured.youtube;
+    let hit = null;
+    for (const s of p.sections || []) for (const list of [s.items || [], ...(s.series || []).map((x) => x.items)])
+      hit = hit || list.find((v) => (v.vimeo || v.youtube) === id);
+    p.featured = hit ? { ...hit, ...p.featured } : null;
+  }
   const $ = (id) => document.getElementById(id);
   const el = (tag, attrs = {}, ...kids) => {
     const n = document.createElement(tag);
@@ -198,6 +206,38 @@
     requestAnimationFrame(fit);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
     return [sec, () => ro.disconnect()];
+  }
+
+  // Featured video at the top of a regular page (Music). When it comes from a cover-flow series
+  // (Cover Room), the series, track and show intro are shown with it.
+  function seriesOf(v) {
+    const k = v.vimeo || v.youtube;
+    for (const p of pages) for (const s of p.sections || []) for (const ser of s.series || []) {
+      const i = ser.items.findIndex((x) => (x.vimeo || x.youtube) === k);
+      if (i >= 0) return { show: s, ser, i };
+    }
+    return null;
+  }
+  function pageFeature(page) {
+    const f = page.featured, where = seriesOf(f);
+    const play = () => openViewer(f);
+    const pic = el("button", { class: "card pf-card", type: "button", "aria-label": "Play " + f.title },
+      el("div", { class: "thumb" }, el("img", { src: thumbSrc(f.thumb), alt: "", decoding: "async" }),
+        where ? el("span", { class: "pf-badge", text: where.show.title }) : null,
+        el("span", { class: "big-play", "aria-hidden": "true" })));
+    pic.addEventListener("click", play);
+    const btn = el("button", { class: "flow-play", type: "button" }, "Play");
+    btn.addEventListener("click", play);
+    const text = el("div", { class: "pf-text" },
+      el("p", { class: "pf-kicker", text: where
+        ? [`Featured`, where.show.title, `${where.ser.title}, Track ${String(where.i + 1).padStart(2, "0")}`].map((t) => t.replace(/ /g, "\u00a0")).join(" · ")
+        : (f.kicker || "Featured") }),
+      el("h2", { class: "pf-artist", text: f.artist || f.title }),
+      f.song ? el("p", { class: "pf-song" }, f.song, f.coverOf ? el("span", { text: ` · ${f.coverOf} cover` }) : null) : null,
+      where && where.show.intro ? el("p", { class: "pf-intro", text: where.show.intro }) : null,
+      el("div", { class: "pf-actions" }, btn,
+        where ? el("a", { class: "pf-more", href: "#coverroom", text: `All ${where.show.title} videos →` }) : null));
+    return el("section", { class: "section pf" }, pic, text);
   }
 
   // Cover Room on its own page: the title and intro once, then each series in its own cover flow.
@@ -474,8 +514,11 @@
     }
     if (page.layout === "coverroom") { renderCoverRoom(main); return; }
     const cleanups = [];
+    if (page.featured) main.append(pageFeature(page));
+    const featShow = page.featured && seriesOf(page.featured);
     for (const s of page.sections) {
-      if (s.layout === "coverflow") { main.append(coverflow(s)); continue; }
+      // The featured block already carries the show's intro, so it isn't repeated right below it.
+      if (s.layout === "coverflow") { main.append(coverflow(featShow && featShow.show === s ? { ...s, intro: null } : s)); continue; }
       if (s.layout === "wall") { const [sec, done] = plainWall(s); main.append(sec); cleanups.push(done); continue; }
       const n = s.items.length;
       main.append(el("section", { class: "section" },
@@ -586,8 +629,10 @@
     if (!dlg.open) lastFocus = document.activeElement;
     current = { v, opts, next: nextAfter(v, opts), ended: false, timer: null };
     const roles = $("viewer-roles");
-    roles.hidden = !opts.shuffle;
-    roles.textContent = opts.shuffle ? ["Shuffle", ...["Directed", "Edited", "Colored"].filter((r) => rolesFor(v).includes(r))].join("  ·  ") : "";
+    const sr = seriesOf(v);
+    roles.hidden = !opts.shuffle && !sr;
+    roles.textContent = opts.shuffle ? ["Shuffle", ...["Directed", "Edited", "Colored"].filter((r) => rolesFor(v).includes(r))].join("  ·  ")
+      : sr ? `${sr.show.title}  ·  ${sr.ser.title}` : "";
     const frame = $("viewer-frame");
     if (EMBED) {
       const f = el("iframe", {

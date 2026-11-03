@@ -495,6 +495,31 @@ main { padding-block: 8px 80px; outline: none; }
   .flow-arrow { display: none; }
 }
 
+/* Featured video at the top of the Music page */
+.pf {
+  display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: clamp(20px, 4vw, 48px);
+  align-items: center;
+}
+.pf-card .thumb::after { display: none; }
+.pf-badge {
+  position: absolute; left: clamp(10px, 1.6vw, 18px); top: clamp(10px, 1.6vw, 18px); z-index: 2;
+  padding: 7px 11px 6px; background: rgba(17,17,16,.82); border: 1px solid var(--tally);
+  font: 400 .78rem/1 var(--display); letter-spacing: .14em; text-transform: uppercase; color: #fff;
+}
+.pf-text p { margin: 0; }
+.pf-kicker { font: 400 .75rem/1.5 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--tally); }
+.pf-artist { margin: 10px 0 8px; font: 400 clamp(1.8rem, 4vw, 3rem)/1.02 var(--display); letter-spacing: .03em; text-transform: uppercase; text-wrap: balance; }
+.pf-song { font-size: 1.15rem; color: #cfcec9; }
+.pf-song span { color: var(--muted); }
+.pf-intro { margin-top: 14px !important; max-width: 46ch; color: var(--muted); line-height: 1.5; }
+.pf-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; margin-top: 18px; }
+.pf-actions .flow-play { margin-top: 0; }
+.pf-more { font: 400 .8rem/1 var(--mono); letter-spacing: .06em; color: var(--fg); text-underline-offset: 4px; }
+.pf-more:hover { color: var(--tally); }
+@media (max-width: 760px) {
+  .pf { grid-template-columns: minmax(0, 1fr); }
+}
+
 /* About */
 .about {
   display: grid;
