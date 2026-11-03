@@ -47,7 +47,7 @@
     ? `https://www.youtube.com/watch?v=${v.youtube}${v.start ? "&t=" + v.start + "s" : ""}`
     : `https://vimeo.com/${v.vimeo}${v.hash ? "/" + v.hash : ""}`;
   const embedUrl = (v) => v.youtube
-    ? `https://www.youtube-nocookie.com/embed/${v.youtube}?autoplay=1&rel=0${v.start ? "&start=" + v.start : ""}`
+    ? `https://www.youtube-nocookie.com/embed/${v.youtube}?autoplay=1&rel=0&enablejsapi=1&origin=${encodeURIComponent(location.origin)}${v.start ? "&start=" + v.start : ""}`
     : `https://player.vimeo.com/video/${v.vimeo}?autoplay=1${v.hash ? "&h=" + v.hash : ""}`;
   const thumbSrc = (t) => (t && t.includes("squarespace-cdn.com") ? t + "?format=750w" : t);
 
@@ -505,17 +505,96 @@
     }
   const rolesFor = (v) => v.roles || roleMap.get(v.youtube || v.vimeo) || ["Directed"];
 
+  // Up next: when a video ends, the next one from the same section (or, in Shuffle, a random one)
+  // starts after a short countdown. Visitors can play it right away or cancel.
+  const vkey = (v) => v.youtube || v.vimeo;
+  const queues = new Map(); // video -> the list it sits in, in data order
+  for (const p of pages) {
+    for (const s of p.sections || [])
+      for (const list of [s.items, ...(s.series || []).map((x) => x.items)])
+        if (list && list.length > 1) for (const v of list) if (!queues.has(vkey(v))) queues.set(vkey(v), list);
+    const first = p.sections && p.sections[0] && p.sections[0].items;
+    if (p.featured && first && !queues.has(vkey(p.featured))) queues.set(vkey(p.featured), [p.featured, ...first]);
+  }
+  function nextAfter(v, opts) {
+    if (opts.shuffle) {
+      const pool = allVideos().filter((x) => !x.hidden && vkey(x) !== vkey(v));
+      return pool.length ? pool[Math.floor(Math.random() * pool.length)] : null;
+    }
+    const list = queues.get(vkey(v));
+    if (!list) return null;
+    const i = list.findIndex((x) => vkey(x) === vkey(v));
+    return list[(i + 1) % list.length];
+  }
+  const UPNEXT_SECONDS = 8;
+  let current = null; // { v, opts, next, ended, timer }
+  function cancelUpNext() {
+    if (current && current.timer) { clearInterval(current.timer); current.timer = null; }
+    const o = $("viewer-frame").querySelector(".upnext");
+    if (o) o.remove();
+  }
+  function showUpNext() {
+    if (!current || current.ended || !current.next) return;
+    current.ended = true;
+    const n = current.next, opts = current.opts;
+    let left = UPNEXT_SECONDS;
+    const count = el("span", { class: "un-count", text: String(left) });
+    const play = el("button", { class: "un-play", type: "button" }, "Play now");
+    const stop = el("button", { class: "un-cancel", type: "button" }, "Cancel");
+    const bar = el("span", { class: "un-bar" });
+    const o = el("div", { class: "upnext", role: "dialog", "aria-label": "Up next" },
+      el("div", { class: "un-card" },
+        n.thumb ? el("img", { class: "un-thumb", src: thumbSrc(n.thumb), alt: "" }) : null,
+        el("div", { class: "un-body" },
+          el("p", { class: "un-kicker" }, "Up next in ", count),
+          el("p", { class: "un-title", text: n.title }),
+          el("div", { class: "un-actions" }, play, stop))),
+      el("span", { class: "un-track" }, bar));
+    $("viewer-frame").append(o);
+    requestAnimationFrame(() => { bar.style.transitionDuration = UPNEXT_SECONDS + "s"; bar.classList.add("go"); });
+    play.addEventListener("click", () => openViewer(n, opts));
+    stop.addEventListener("click", cancelUpNext);
+    play.focus({ preventScroll: true });
+    current.timer = setInterval(() => {
+      left -= 1; count.textContent = String(left);
+      if (left <= 0) openViewer(n, opts);
+    }, 1000);
+  }
+  // The Vimeo and YouTube players post messages to the page; listen for "ended".
+  window.addEventListener("message", (e) => {
+    const f = $("viewer-frame").querySelector("iframe");
+    if (!f || e.source !== f.contentWindow) return;
+    let d = e.data;
+    if (typeof d === "string") { try { d = JSON.parse(d); } catch (_) { return; } }
+    if (!d || typeof d !== "object") return;
+    if (d.event === "ready" && /vimeo\.com$/.test(e.origin))
+      f.contentWindow.postMessage(JSON.stringify({ method: "addEventListener", value: "ended" }), e.origin);
+    if (d.event === "ended" || (d.event === "onStateChange" && d.info === 0) ||
+        (d.event === "infoDelivery" && d.info && d.info.playerState === 0)) showUpNext();
+  });
+  function listenYouTube(f) {
+    f.addEventListener("load", () => {
+      const t = f.contentWindow, o = "https://www.youtube-nocookie.com";
+      t.postMessage(JSON.stringify({ event: "listening", id: 1, channel: "widget" }), o);
+      t.postMessage(JSON.stringify({ event: "command", func: "addEventListener", args: ["onStateChange"], id: 1, channel: "widget" }), o);
+    });
+  }
+
   function openViewer(v, opts = {}) {
-    lastFocus = document.activeElement;
+    cancelUpNext();
+    if (!dlg.open) lastFocus = document.activeElement;
+    current = { v, opts, next: nextAfter(v, opts), ended: false, timer: null };
     const roles = $("viewer-roles");
     roles.hidden = !opts.shuffle;
     roles.textContent = opts.shuffle ? ["Shuffle", ...["Directed", "Edited", "Colored"].filter((r) => rolesFor(v).includes(r))].join("  ·  ") : "";
     const frame = $("viewer-frame");
     if (EMBED) {
-      frame.replaceChildren(el("iframe", {
+      const f = el("iframe", {
         src: embedUrl(v), title: v.title,
         allow: "autoplay; fullscreen; picture-in-picture; encrypted-media", allowfullscreen: "",
-      }));
+      });
+      if (v.youtube) listenYouTube(f);
+      frame.replaceChildren(f);
     } else {
       frame.replaceChildren(v.thumb ? el("img", { src: thumbSrc(v.thumb), alt: "" }) : poster(v.title));
     }
@@ -524,10 +603,15 @@
     const link = $("viewer-link");
     link.href = watchUrl(v);
     link.textContent = `Watch on ${v.youtube ? "YouTube" : "Vimeo"} ↗`;
-    dlg.showModal();
+    const nx = $("viewer-next");
+    nx.hidden = !current.next;
+    if (current.next) nx.replaceChildren(el("span", { class: "vn-label", text: opts.shuffle ? "Shuffle again" : "Next" }),
+      el("span", { class: "vn-title", text: opts.shuffle ? "" : current.next.title }), el("span", { "aria-hidden": "true", text: " →" }));
+    if (!dlg.open) dlg.showModal();
   }
+  $("viewer-next").addEventListener("click", () => { if (current && current.next) openViewer(current.next, current.opts); });
   function closeViewer() { if (dlg.open) dlg.close(); }
-  dlg.addEventListener("close", () => { $("viewer-frame").replaceChildren(); lastFocus && lastFocus.focus(); });
+  dlg.addEventListener("close", () => { cancelUpNext(); current = null; $("viewer-frame").replaceChildren(); lastFocus && lastFocus.focus(); });
   $("viewer-close").addEventListener("click", closeViewer);
   dlg.addEventListener("click", (e) => { if (e.target === dlg || e.target.classList.contains("viewer-inner")) closeViewer(); });
 
