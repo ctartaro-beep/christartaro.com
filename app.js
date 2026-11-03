@@ -569,7 +569,7 @@
     const i = list.findIndex((x) => vkey(x) === vkey(v));
     return list[(i + 1) % list.length];
   }
-  const UPNEXT_SECONDS = 8;
+  const UPNEXT_SECONDS = 5;
   let current = null; // { v, opts, next, ended, timer }
   function cancelUpNext() {
     if (current && current.timer) { clearInterval(current.timer); current.timer = null; }
