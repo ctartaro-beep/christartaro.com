@@ -569,7 +569,8 @@
     if (!d || typeof d !== "object") return;
     if (d.event === "ready" && /vimeo\.com$/.test(e.origin))
       f.contentWindow.postMessage(JSON.stringify({ method: "addEventListener", value: "ended" }), e.origin);
-    if (d.event === "ended" || (d.event === "onStateChange" && d.info === 0) ||
+    // Vimeo confirms the "ended" listener but reports the end itself as "finish".
+    if (d.event === "ended" || d.event === "finish" || (d.event === "onStateChange" && d.info === 0) ||
         (d.event === "infoDelivery" && d.info && d.info.playerState === 0)) showUpNext();
   });
   function listenYouTube(f) {
