@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,500&family=Jost:ital,wght@0,400;0,500;0,600;1,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="preload" href="fonts/blue-highway-d.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=202611041130">
+<link rel="stylesheet" href="styles.css?v=202611041140">
 <script data-goatcounter="https://christartaro.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
@@ -22,14 +22,29 @@
   <div class="wrap">
     <a class="name" href="#comedy" id="home-link">Chris Tartaro</a>
     <p class="role" id="role">Television Director</p>
-    <nav class="nav" id="nav" aria-label="Sections"></nav>
-    <nav class="other" aria-label="Other">
-      <span class="other-label">Other</span>
-      <a href="photoframe/">photoframe</a>
-      <a href="ctmdb2/">Musical Memoir</a>
+    <nav class="nav" id="nav" aria-label="Sections">
+      <!-- "Other" dropdown: sits at the right end of the menu (CSS order), opens on hover, or on tap/click. -->
+      <div class="nav-more" id="nav-more">
+        <button type="button" class="nav-more-btn" aria-expanded="false" aria-controls="nav-more-menu">Other</button>
+        <div class="nav-more-menu" id="nav-more-menu">
+          <a href="photoframe/">photoframe</a>
+          <a href="ctmdb2/">Musical Memoir</a>
+        </div>
+      </div>
     </nav>
   </div>
 </header>
+
+<script>
+  (function () {
+    var box = document.getElementById("nav-more"), btn = box.querySelector("button");
+    function set(open) { box.classList.toggle("open", open); btn.setAttribute("aria-expanded", open); }
+    btn.addEventListener("click", function (e) { e.stopPropagation(); set(!box.classList.contains("open")); });
+    document.addEventListener("click", function (e) { if (!box.contains(e.target)) set(false); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") { set(false); } });
+    box.addEventListener("mouseleave", function () { set(false); });
+  })();
+</script>
 
 <main class="wrap" id="main" tabindex="-1"></main>
 
