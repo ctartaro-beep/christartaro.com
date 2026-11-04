@@ -1916,6 +1916,17 @@
    "narrative": "Quality over quantity. Every album a deliberate choice, every discovery a treasure worth savoring.",
    "albums": [
     {
+     "year": "2021",
+     "date": "Fall 2021",
+     "artist": "blazrdog",
+     "album": "Why Not?",
+     "wikiLink": "",
+     "source": "John Haskell",
+     "format": "Spotify",
+     "image": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/2c/c0/c4/2cc0c47e-2141-0d3d-9e70-329cb6ffd5a9/artwork.jpg/600x600bb.jpg",
+     "age": 40
+    },
+    {
      "year": "2022",
      "date": "Spring 2022",
      "artist": "Laufey",
