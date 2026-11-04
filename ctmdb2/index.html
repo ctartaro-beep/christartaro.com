@@ -357,10 +357,31 @@
             html { scroll-behavior: auto; }
             .album-image img { transition: none; }
         }
+
+        /* Floating link back to christartaro.com (same pill as the MicroDramas page) */
+        .home {
+            position: fixed; z-index: 900;
+            left: calc(18px + env(safe-area-inset-left, 0px));
+            bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+            display: inline-flex; align-items: center; gap: 8px;
+            min-height: 40px; padding: 9px 16px 8px;
+            background: color-mix(in srgb, var(--bg) 72%, transparent);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(237, 237, 234, .16);
+            border-radius: 999px;
+            color: var(--fg); text-decoration: none;
+            font: 400 15px/1 var(--display); letter-spacing: .08em; text-transform: uppercase;
+            transition: border-color .2s, color .2s;
+        }
+        .home:hover { border-color: var(--tally); color: var(--tally); }
+        @media (max-width: 600px) {
+            .home { bottom: calc(14px + env(safe-area-inset-bottom, 0px)); left: max(12px, env(safe-area-inset-left, 0px)); padding: 8px 12px 7px; font-size: 13px; }
+        }
     </style>
 <script data-goatcounter="https://christartaro.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
+    <a class="home" href="/#comedy" aria-label="Back to christartaro.com"><span aria-hidden="true">←</span> Chris Tartaro</a>
     <!-- Filter Bar -->
     <div id="filter-bar" class="filter-bar">
         <span class="filter-bar-text">Filtering:</span>
