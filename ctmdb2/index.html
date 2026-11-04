@@ -377,11 +377,94 @@
         @media (max-width: 600px) {
             .home { bottom: calc(14px + env(safe-area-inset-bottom, 0px)); left: max(12px, env(safe-area-inset-left, 0px)); padding: 8px 12px 7px; font-size: 13px; }
         }
+
+        /* Splash — same as the photoframe page: white on black, explains the page on load,
+           fades after 5 seconds or on any tap, click or key. ?nosplash skips it. */
+        #splash {
+            position: fixed; inset: 0; z-index: 2000;
+            display: flex; align-items: center; justify-content: center;
+            padding: 6vmin;
+            background: #000; color: #fff;
+            cursor: pointer;
+            opacity: 1; transition: opacity 0.8s ease;
+            -webkit-user-select: none; user-select: none;
+        }
+        #splash.hide { opacity: 0; pointer-events: none; }
+        #splash-inner {
+            max-width: 34em;
+            font: 400 clamp(15px, 2.2vmin, 21px)/1.5 "Helvetica Neue", Arial, sans-serif;
+            animation: splash-in 1s ease both;
+        }
+        #splash h1 {
+            margin: 0 0 0.6em;
+            font: 400 clamp(34px, 7vmin, 72px)/1 var(--display);
+            letter-spacing: 0.06em; text-transform: uppercase;
+        }
+        #splash .lede { margin: 0 0 1.6em; color: rgba(255, 255, 255, 0.92); }
+        #splash dl {
+            display: grid; grid-template-columns: max-content 1fr;
+            gap: 0.45em 1.4em; margin: 0 0 2em; font-size: 0.9em;
+        }
+        #splash dt { font-family: var(--display); letter-spacing: 0.08em; text-transform: uppercase; color: #fff; }
+        #splash dd { margin: 0; color: rgba(255, 255, 255, 0.7); }
+        #splash .begin {
+            margin: 0;
+            font: 400 0.85em/1 var(--display);
+            letter-spacing: 0.14em; text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.6);
+            animation: splash-pulse 2.4s ease-in-out 1s infinite;
+        }
+        @keyframes splash-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+        @keyframes splash-pulse { 50% { opacity: 0.3; } }
+        @media (max-width: 420px) {
+            #splash dl { grid-template-columns: 1fr; gap: 0.1em; }
+            #splash dd { margin-bottom: 0.6em; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            #splash-inner, #splash .begin { animation: none; }
+        }
     </style>
 <script data-goatcounter="https://christartaro.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
     <a class="home" href="/#comedy" aria-label="Back to christartaro.com"><span aria-hidden="true">←</span> Chris Tartaro</a>
+
+    <!-- Splash: explains the page on load. Tap, click or any key dismisses it;
+         it fades on its own after 5 seconds. Add ?nosplash to the address to skip it. -->
+    <div id="splash" role="dialog" aria-label="About Musical Memoir">
+        <div id="splash-inner">
+            <h1>Musical Memoir</h1>
+            <p class="lede">179 albums that shaped Chris&nbsp;Tartaro, from 1986 to today &mdash; in the order they came into his life, told in five chapters from childhood to his forties. Each album shows the year and his age, how he owned it, and who or what brought it to him.</p>
+            <dl>
+                <dt>Scroll</dt><dd>Move through the years</dd>
+                <dt>Album cover</dt><dd>Read about the album</dd>
+                <dt>Format tag</dt><dd>Show only vinyl, tape, CD&hellip;</dd>
+                <dt>Name tag</dt><dd>Show only albums from that person or place</dd>
+                <dt>Clear &nbsp;/&nbsp; Esc</dt><dd>Show everything again</dd>
+            </dl>
+            <p class="begin">Tap anywhere to begin</p>
+        </div>
+    </div>
+    <script>
+        (function () {
+            var splash = document.getElementById("splash");
+            if (/[?&]nosplash\b/.test(location.search)) { splash.remove(); return; }
+            var gone = false;
+            document.documentElement.style.overflow = "hidden";
+            function dismiss() {
+                if (gone) return;
+                gone = true;
+                splash.classList.add("hide");
+                document.documentElement.style.overflow = "";
+                window.removeEventListener("keydown", onKey, true);
+                setTimeout(function () { splash.remove(); }, 900);
+            }
+            function onKey(e) { e.stopPropagation(); e.preventDefault(); dismiss(); }
+            splash.addEventListener("click", function (e) { e.stopPropagation(); dismiss(); });
+            window.addEventListener("keydown", onKey, true);
+            setTimeout(dismiss, 5000);
+        })();
+    </script>
     <!-- Filter Bar -->
     <div id="filter-bar" class="filter-bar">
         <span class="filter-bar-text">Filtering:</span>
