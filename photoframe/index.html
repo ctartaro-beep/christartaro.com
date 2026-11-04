@@ -13,7 +13,7 @@
      Only config.js, next to this file, is specific to this page. -->
 <link rel="stylesheet" href="https://ctartaro-beep.github.io/photoframe/style.css" />
 <!-- Back-to-site link; this page only, not the family frame. -->
-<link rel="stylesheet" href="mat.css?v=202610301810" />
+<link rel="stylesheet" href="mat.css?v=202611041100" />
 <script data-goatcounter="https://christartaro.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
@@ -32,6 +32,46 @@
 
   <!-- Shows while the mouse moves (or after a tap), then fades away. -->
   <a id="home-link" href="/">&larr; christartaro.com</a>
+
+  <!-- Splash: explains the frame on load. Tap, click or any key dismisses it
+       (without also advancing the photo); it fades on its own after a while.
+       Add ?nosplash to the address to skip it (e.g. on a wall tablet). -->
+  <div id="splash" role="dialog" aria-label="About photoframe">
+    <div id="splash-inner">
+      <h1>photoframe</h1>
+      <p class="lede">A slow, random slideshow of photographs by Chris&nbsp;Tartaro &mdash; a new picture every 10&nbsp;seconds, matched to the shape of your screen: portrait photos on a portrait screen, landscape on landscape.</p>
+      <dl>
+        <dt>Tap &nbsp;/&nbsp; &rarr;</dt><dd>Next photo</dd>
+        <dt>Swipe right &nbsp;/&nbsp; &larr;</dt><dd>Previous photo</dd>
+        <dt>Press &amp; hold &nbsp;/&nbsp; Space</dt><dd>Pause or resume</dd>
+        <dt>Double-tap left</dt><dd>Show the caption</dd>
+        <dt>Double-tap right</dt><dd>Show the clock</dd>
+      </dl>
+      <p class="begin">Tap anywhere to begin</p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var splash = document.getElementById("splash");
+      if (/[?&]nosplash\b/.test(location.search)) { splash.remove(); return; }
+      var gone = false;
+      function swallow(e) { e.stopPropagation(); e.stopImmediatePropagation(); }
+      function dismiss() {
+        if (gone) return;
+        gone = true;
+        splash.classList.add("hide");
+        window.removeEventListener("keydown", onKey, true);
+        setTimeout(function () { splash.remove(); }, 900);
+      }
+      function onKey(e) { swallow(e); e.preventDefault(); dismiss(); }
+      // Keep the dismissing tap/key from also counting as a frame gesture.
+      splash.addEventListener("pointerdown", swallow);
+      splash.addEventListener("pointerup", function (e) { swallow(e); dismiss(); });
+      window.addEventListener("keydown", onKey, true);
+      setTimeout(dismiss, 15000);
+    })();
+  </script>
 
   <script>
     // Back link and cursor: visible while you're moving the mouse, gone a
