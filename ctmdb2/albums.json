@@ -2002,6 +2002,17 @@
      "format": "Spotify",
      "image": "https://upload.wikimedia.org/wikipedia/en/thumb/3/31/Tame_Impala_-_Lonerism.png/500px-Tame_Impala_-_Lonerism.png",
      "age": 44
+    },
+    {
+     "year": "2026",
+     "date": "Fall 2026",
+     "artist": "Olivia Rodrigo",
+     "album": "you seem pretty sad for a girl so in love",
+     "wikiLink": "https://en.wikipedia.org/wiki/You_Seem_Pretty_Sad_for_a_Girl_So_in_Love",
+     "source": "The Kids",
+     "format": "Spotify, Vinyl",
+     "image": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b9/92/51/b9925128-dac6-2cef-5674-d5ebbe1a4e83/26UMGIM75556.rgb.jpg/600x600bb.jpg",
+     "age": 45
     }
    ]
   }
