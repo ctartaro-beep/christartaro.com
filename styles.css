@@ -102,6 +102,46 @@ a { color: inherit; }
 }
 .nav a.ext::before { display: none; }
 
+/* "Other" — side projects, top right of the masthead */
+.masthead .wrap { position: relative; }
+.other {
+  position: absolute;
+  top: clamp(32px, 6vw, 72px);
+  right: max(24px, env(safe-area-inset-right, 0px));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  text-align: right;
+}
+.other-label {
+  font: 400 0.8rem/1.4 var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.other a {
+  font: 400 1rem/1 var(--display);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--muted);
+  transition: color .15s;
+}
+.other a:hover, .other a:focus-visible { color: var(--fg); }
+/* Narrow screens: no room beside the name, so it sits on one line under the role. */
+@media (max-width: 760px) {
+  .other {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 18px;
+    margin-top: 18px;
+    text-align: left;
+  }
+}
+
 /* Sections */
 main { padding-block: 8px 80px; outline: none; }
 .section { padding-top: clamp(36px, 5vw, 56px); }
