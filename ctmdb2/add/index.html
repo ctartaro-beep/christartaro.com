@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#111110">
-<title>Add an Album · Musical Memoir</title>
+<title>Add or Edit Albums · Musical Memoir</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap">
@@ -110,6 +110,14 @@ details.settings[open] summary { color: var(--fg); margin-bottom: 18px; }
 .recent { margin-top: 48px; border-top: 1px solid var(--rule); padding-top: 18px; }
 .recent h2 { margin: 0 0 14px; font: 400 .9rem/1 var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 .recent ol { list-style: none; margin: 0; padding: 0; }
+.edit-banner { display: none; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 22px; padding: 12px 16px; border: 1px solid var(--tally); background: color-mix(in srgb, var(--tally) 10%, transparent); }
+.editing .edit-banner { display: flex; }
+.edit-banner p { margin: 0; font-size: .95rem; }
+.edit-banner b { font-weight: 500; }
+.recent .filter { margin-bottom: 12px; }
+.recent .count { font: 400 .7rem/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 10px 0 0; }
+.recent li .btns { display: flex; gap: 8px; }
+.recent li.current { background: color-mix(in srgb, var(--tally) 8%, transparent); }
 .recent li { display: grid; grid-template-columns: 48px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--rule); }
 .recent img, .recent .noimg { width: 48px; height: 48px; object-fit: cover; background: var(--surface); display: block; }
 .recent .ti { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -119,12 +127,13 @@ details.settings[open] summary { color: var(--fg); margin-bottom: 18px; }
 <body>
 <div class="wrap">
   <div class="top">
-    <h1>Add an Album</h1>
+    <h1>Add or Edit Albums</h1>
     <div class="top-links"><a href="../">View the memoir</a><a href="/">christartaro.com</a></div>
   </div>
 
   <div class="layout">
     <form id="form" autocomplete="off">
+      <div class="edit-banner"><p>Editing <b id="edit-name"></b></p><button class="btn small" type="button" id="cancel-edit">Cancel</button></div>
       <div class="field">
         <label for="q">Find the album</label>
         <div class="search-row">
@@ -144,7 +153,7 @@ details.settings[open] summary { color: var(--fg); margin-bottom: 18px; }
         <div class="field"><label for="year">Year you heard it</label><input type="number" id="year" min="1981" max="2100" required></div>
         <div class="field">
           <label for="season">Season</label>
-          <select id="season"><option>Winter</option><option>Spring</option><option>Summer</option><option>Fall</option></select>
+          <select id="season"><option value="">—</option><option>Winter</option><option>Spring</option><option>Summer</option><option>Fall</option></select>
         </div>
         <div class="field"><label for="age">Your age</label><input type="number" id="age" min="0" max="120" readonly></div>
       </div>
@@ -191,8 +200,10 @@ details.settings[open] summary { color: var(--fg); margin-bottom: 18px; }
   </div>
 
   <section class="recent">
-    <h2>Most recent albums</h2>
+    <h2>Edit an album</h2>
+    <div class="filter"><input type="text" id="filter" placeholder="Search by album, artist, year or name — or leave blank for the most recent"></div>
     <ol id="recent"></ol>
+    <p class="count" id="list-count"></p>
   </section>
 
   <details class="settings" id="settings">
@@ -217,6 +228,7 @@ details.settings[open] summary { color: var(--fg); margin-bottom: 18px; }
   var SEASON_RANK = { Winter: 0, Spring: 1, Summer: 2, Fall: 3 };
   var FORMATS = ["CD", "Mp3", "Spotify", "Vinyl", "Tape", "Radio", "Other"];
   var data = null;      // contents of albums.json
+  var editing = null;   // the album being edited (as it is in the file), or null when adding
   var $ = function (id) { return document.getElementById(id); };
 
   // ---------- token (this browser only) ----------
@@ -226,7 +238,7 @@ details.settings[open] summary { color: var(--fg); margin-bottom: 18px; }
     var on = !!getToken();
     $("conn").textContent = on ? "Connected" : "Not connected";
     $("conn").className = "conn " + (on ? "on" : "off");
-    $("save").textContent = on ? "Add to memoir" : "Add to memoir (connect first)";
+    $("save").textContent = editing ? "Save changes" : on ? "Add to memoir" : "Add to memoir (connect first)";
   }
   $("save-token").onclick = function () { var t = $("token").value.trim(); if (t) { setToken(t); $("token").value = ""; status("Token saved in this browser.", "ok"); $("settings").open = false; } };
   $("forget-token").onclick = function () { setToken(""); status("Token removed from this browser.", "ok"); };
@@ -263,7 +275,7 @@ details.settings[open] summary { color: var(--fg); margin-bottom: 18px; }
     var y = String(parseInt($("year").value, 10) || "");
     return {
       year: y,
-      date: $("season").value + " " + y,
+      date: $("season").value ? $("season").value + " " + y : y,
       artist: $("artist").value.trim(),
       album: $("album").value.trim(),
       wikiLink: $("wiki").value.trim(),
@@ -380,25 +392,79 @@ details.settings[open] summary { color: var(--fg); margin-bottom: 18px; }
     list.splice(i, 0, e);
   }
 
+  function same(a, b) { return a.album === b.album && a.artist === b.artist && a.year === b.year && a.date === b.date; }
+  function findIn(target) {
+    for (var c = 0; c < ORDER.length; c++) {
+      var list = data.chapters[ORDER[c]] && data.chapters[ORDER[c]].albums;
+      if (!list) continue;
+      var i = list.findIndex(function (x) { return same(x, target); });
+      if (i > -1) return { k: ORDER[c], list: list, i: i };
+    }
+    return null;
+  }
+
+  function startEdit(a) {
+    editing = a;
+    var f = document.getElementById("form");
+    f.reset(); $("covers").innerHTML = ""; $("q").value = "";
+    $("album").value = a.album.trim(); $("artist").value = a.artist.trim();
+    $("year").value = a.year;
+    var season = String(a.date || "").split(" ")[0];
+    $("season").value = SEASON_RANK.hasOwnProperty(season) ? season : "";
+    var fm = String(a.format || "").split(",").map(function (x) { return x.trim().toLowerCase(); });
+    document.querySelectorAll("#formats input").forEach(function (i) { i.checked = fm.indexOf(i.value.toLowerCase()) > -1; });
+    $("source").value = (a.source || "").trim();
+    $("image").value = a.image || ""; $("wiki").value = a.wikiLink || "";
+    updateAge();
+    $("edit-name").textContent = a.album.trim() + " · " + a.artist.trim();
+    document.body.classList.add("editing");
+    $("save").textContent = "Save changes";
+    status("");
+    renderList();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  function stopEdit() {
+    editing = null;
+    document.body.classList.remove("editing");
+    document.getElementById("form").reset(); $("covers").innerHTML = ""; setDefaults();
+    showConn(); renderList();
+  }
+  $("cancel-edit").onclick = function () { stopEdit(); status(""); };
+
   document.getElementById("form").addEventListener("submit", async function (ev) {
     ev.preventDefault();
     var e = entry();
     if (!e.album || !e.artist || !e.year) { status("Album, artist and year are required.", "err"); return; }
     if (!getToken()) { $("settings").open = true; status("Connect to GitHub below first, or use Copy entry.", "err"); $("settings").scrollIntoView({ behavior: "smooth" }); return; }
-    var dupe = allAlbums().find(function (a) { return a.album.trim().toLowerCase() === e.album.toLowerCase() && a.artist.trim().toLowerCase() === e.artist.toLowerCase(); });
-    if (dupe && !confirm(e.album + " is already in the memoir (" + dupe.year + "). Add it again?")) return;
+    if (!editing) {
+      var dupe = allAlbums().find(function (a) { return a.album.trim().toLowerCase() === e.album.toLowerCase() && a.artist.trim().toLowerCase() === e.artist.toLowerCase(); });
+      if (dupe && !confirm(e.album + " is already in the memoir (" + dupe.year + "). Add it again?")) return;
+    }
     $("save").disabled = true; status("Saving…");
     try {
-      var sha = await loadLive();
-      insert(e);
-      await commit(sha, "Musical Memoir: add " + e.artist + " – " + e.album);
-      status("Added " + e.album + ". It shows on the memoir in about a minute.", "ok");
+      var sha = await loadLive(), msg;
+      if (editing) {
+        var at = findIn(editing);
+        if (!at) throw new Error("that album changed or was removed since you opened it — reload the page");
+        var rankOf = function (a) { return parseInt(a.year, 10) * 10 + (SEASON_RANK[String(a.date).split(" ")[0]] ?? 0); };
+        // Same chapter and same year/season: keep its place. Otherwise move it.
+        if (at.k === chapterFor(e.age) && rankOf(at.list[at.i]) === rankOf(e)) at.list[at.i] = e;
+        else { at.list.splice(at.i, 1); insert(e); }
+        msg = "Musical Memoir: edit " + e.artist + " – " + e.album;
+      } else {
+        insert(e);
+        msg = "Musical Memoir: add " + e.artist + " – " + e.album;
+      }
+      await commit(sha, msg);
+      var done = (editing ? "Saved changes to " : "Added ") + e.album + ". It shows on the memoir in about a minute.";
+      editing = null; document.body.classList.remove("editing");
       afterLoad();
-      document.getElementById("form").reset(); $("covers").innerHTML = ""; setDefaults(); $("q").value = ""; $("q").focus();
-      setTimeout(function () { status("Added " + e.album + ". It shows on the memoir in about a minute.", "ok"); }, 0);
+      document.getElementById("form").reset(); $("covers").innerHTML = ""; setDefaults(); $("q").value = ""; showConn();
+      status(done, "ok");
     } catch (err) { status("Couldn't save: " + err.message + ".", "err"); }
     $("save").disabled = false;
   });
+  $("clear").addEventListener("click", function () { if (editing) setTimeout(stopEdit, 0); });
 
   $("copy").onclick = async function () {
     var e = entry();
@@ -411,19 +477,40 @@ details.settings[open] summary { color: var(--fg); margin-bottom: 18px; }
     var names = {};
     allAlbums().forEach(function (a) { (a.source || "").split(",").forEach(function (s) { s = s.trim(); if (s) names[s] = (names[s] || 0) + 1; }); });
     $("sources").innerHTML = Object.keys(names).sort(function (a, b) { return names[b] - names[a]; }).map(function (n) { return '<option value="' + esc(n) + '">'; }).join("");
-    var recent = [];
-    ORDER.slice().reverse().forEach(function (k) { if (!data.chapters[k]) return; data.chapters[k].albums.slice().reverse().forEach(function (a) { if (recent.length < 6) recent.push({ a: a, k: k }); }); });
-    $("recent").innerHTML = "";
-    recent.forEach(function (r) {
-      var li = document.createElement("li"), a = r.a;
-      li.innerHTML = (a.image ? '<img alt="" loading="lazy" src="' + esc(a.image) + '">' : '<span class="noimg"></span>') +
-        '<div><div class="ti">' + esc(a.album) + " · " + esc(a.artist) + '</div><div class="sub">' + esc(a.date || a.year) + " · " + esc(a.format || "—") + (a.source ? " · " + esc(a.source) : "") + "</div></div>" +
-        '<button class="btn small" type="button">Remove</button>';
-      li.querySelector("button").onclick = function () { remove(a); };
-      $("recent").appendChild(li);
-    });
+    renderList();
     preview();
   }
+  function listRow(a) {
+    var li = document.createElement("li");
+    if (editing && same(a, editing)) li.className = "current";
+    li.innerHTML = (a.image ? '<img alt="" loading="lazy" src="' + esc(a.image) + '">' : '<span class="noimg"></span>') +
+      '<div><div class="ti">' + esc(a.album) + " · " + esc(a.artist) + '</div><div class="sub">' + esc(a.date && a.date.length > 2 ? a.date : a.year) + " · Age " + esc(a.age) + " · " + esc(a.format || "—") + (a.source ? " · " + esc(a.source) : "") + "</div></div>" +
+      '<div class="btns"><button class="btn small" type="button">Edit</button><button class="btn small" type="button">Remove</button></div>';
+    var b = li.querySelectorAll("button");
+    b[0].onclick = function () { startEdit(a); };
+    b[1].onclick = function () { remove(a); };
+    return li;
+  }
+  function renderList() {
+    if (!data) return;
+    var q = $("filter").value.trim().toLowerCase(), all = allAlbums(), shown;
+    if (q) {
+      var words = q.split(/\s+/);
+      shown = all.filter(function (a) {
+        var hay = [a.album, a.artist, a.year, a.date, a.source, a.format].join(" ").toLowerCase();
+        return words.every(function (w) { return hay.indexOf(w) > -1; });
+      });
+      $("list-count").textContent = shown.length + " of " + all.length + " albums" + (shown.length > 40 ? " · showing the first 40" : "");
+      shown = shown.slice(0, 40);
+    } else {
+      shown = all.slice(-6).reverse();
+      $("list-count").textContent = "Most recent 6 of " + all.length + " albums";
+    }
+    $("recent").innerHTML = "";
+    shown.forEach(function (a) { $("recent").appendChild(listRow(a)); });
+  }
+  $("filter").addEventListener("input", renderList);
+
   async function remove(a) {
     if (!getToken()) { $("settings").open = true; status("Connect to GitHub below to remove albums.", "err"); return; }
     if (!confirm("Remove " + a.album + " by " + a.artist + " from the memoir?")) return;
@@ -432,10 +519,11 @@ details.settings[open] summary { color: var(--fg); margin-bottom: 18px; }
       var sha = await loadLive(), done = false;
       ORDER.forEach(function (k) {
         var list = data.chapters[k] && data.chapters[k].albums; if (!list || done) return;
-        var i = list.findIndex(function (x) { return x.album === a.album && x.artist === a.artist && x.year === a.year; });
+        var i = list.findIndex(function (x) { return same(x, a); });
         if (i > -1) { list.splice(i, 1); done = true; }
       });
       if (!done) throw new Error("that album is no longer in the file");
+      if (editing && same(editing, a)) { editing = null; document.body.classList.remove("editing"); document.getElementById("form").reset(); setDefaults(); showConn(); }
       await commit(sha, "Musical Memoir: remove " + a.artist + " – " + a.album);
       afterLoad();
       status("Removed " + a.album + ".", "ok");
