@@ -1971,17 +1971,6 @@
      "age": 42
     },
     {
-     "year": "2025",
-     "date": "Fall 2025",
-     "artist": "Jeff Buckley ",
-     "album": "Grace",
-     "wikiLink": "https://en.wikipedia.org/wiki/Grace_(Jeff_Buckley_album)",
-     "source": "",
-     "format": "Vinyl",
-     "image": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e4/Jeff_Buckley_grace.jpg/500px-Jeff_Buckley_grace.jpg",
-     "age": 44
-    },
-    {
      "year": "2024",
      "date": "Summer 2024",
      "artist": "Fountains Of Wayne",
@@ -1991,6 +1980,17 @@
      "format": "Spotify, Vinyl",
      "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/44/FOW-Welcome_Interstate_Managers.jpg/500px-FOW-Welcome_Interstate_Managers.jpg",
      "age": 43
+    },
+    {
+     "year": "2025",
+     "date": "Fall 2025",
+     "artist": "Jeff Buckley ",
+     "album": "Grace",
+     "wikiLink": "https://en.wikipedia.org/wiki/Grace_(Jeff_Buckley_album)",
+     "source": "",
+     "format": "Vinyl",
+     "image": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e4/Jeff_Buckley_grace.jpg/500px-Jeff_Buckley_grace.jpg",
+     "age": 44
     },
     {
      "year": "2025",
