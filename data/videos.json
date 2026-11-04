@@ -31,7 +31,7 @@
   "pages": [
     {
       "id": "comedy",
-      "label": "Comedy",
+      "label": "Comedy Videos",
       "sections": [
         {
           "title": "Select Comedy Sketches",
@@ -435,7 +435,7 @@
     },
     {
       "id": "music",
-      "label": "Music",
+      "label": "Music Videos",
       "featured": {
         "vimeo": "263967893"
       },
