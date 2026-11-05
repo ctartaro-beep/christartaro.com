@@ -79,7 +79,12 @@
             {
               "title": "The Ballad of Super Mario",
               "vimeo": "1179427878",
-              "thumb": "img/v1179427878-2.webp"
+              "thumb": "img/v1179427878-2.webp",
+              "frames": [
+                "img/frames/v1179427878-1.webp",
+                "img/frames/v1179427878-2.webp",
+                "img/frames/v1179427878-3.webp"
+              ]
             },
             {
               "title": "Jamie Lee Curtis and Jimmy Recreate \"Perfect\" Aerobic Fitness Scene",
@@ -114,45 +119,85 @@
             {
               "title": "Deadpool Wolverine",
               "vimeo": "1001723778",
-              "thumb": "img/1724355430256.webp"
+              "thumb": "img/1724355430256.webp",
+              "frames": [
+                "img/frames/v1001723778-1.webp",
+                "img/frames/v1001723778-2.webp",
+                "img/frames/v1001723778-3.webp"
+              ]
             },
             {
               "title": "JORTS",
               "vimeo": "1001719483",
               "thumb": "img/1724354132198.jpeg",
-              "description": "Will Ferrell, Nick Jonas and Jimmy sing a song all about jean shorts."
+              "description": "Will Ferrell, Nick Jonas and Jimmy sing a song all about jean shorts.",
+              "frames": [
+                "img/frames/v1001719483-1.webp",
+                "img/frames/v1001719483-2.webp",
+                "img/frames/v1001719483-3.webp"
+              ]
             },
             {
               "title": "Teenie Weenie Beanie",
               "vimeo": "799654652",
               "hash": "a2792839ab",
-              "thumb": "img/v799654652-2.webp"
+              "thumb": "img/v799654652-2.webp",
+              "frames": [
+                "img/frames/v799654652-1.webp",
+                "img/frames/v799654652-2.webp",
+                "img/frames/v799654652-3.webp"
+              ]
             },
             {
               "title": "Cool Bartenders with Keegan-Michael Key",
               "vimeo": "910522593",
-              "thumb": "img/1707246369036.jpeg"
+              "thumb": "img/1707246369036.jpeg",
+              "frames": [
+                "img/frames/v910522593-1.webp",
+                "img/frames/v910522593-2.webp",
+                "img/frames/v910522593-3.webp"
+              ]
             },
             {
               "title": "Lie Detector Test",
               "vimeo": "930821668",
-              "thumb": "img/1712263600446.webp"
+              "thumb": "img/1712263600446.webp",
+              "frames": [
+                "img/frames/v930821668-1.webp",
+                "img/frames/v930821668-2.webp",
+                "img/frames/v930821668-3.webp"
+              ]
             },
             {
               "title": "Candle Commercial with Ryan Reynolds",
               "vimeo": "385531262",
-              "thumb": "img/1579462998704.webp"
+              "thumb": "img/1579462998704.webp",
+              "frames": [
+                "img/frames/v385531262-1.webp",
+                "img/frames/v385531262-2.webp",
+                "img/frames/v385531262-3.webp"
+              ]
             },
             {
               "title": "\"Hot Hands\" Cold Open with Robert De Niro",
               "vimeo": "789085229",
               "hash": "243f8a5039",
-              "thumb": "img/1674677425756.webp"
+              "thumb": "img/1674677425756.webp",
+              "frames": [
+                "img/frames/v789085229-1.webp",
+                "img/frames/v789085229-2.webp",
+                "img/frames/v789085229-3.webp"
+              ]
             },
             {
               "title": "Courtesy of the Gentleman at the Bar with Brad Pitt",
               "vimeo": "385530793",
-              "thumb": "img/1579574324485.webp"
+              "thumb": "img/1579574324485.webp",
+              "frames": [
+                "img/frames/v385530793-1.webp",
+                "img/frames/v385530793-2.webp",
+                "img/frames/v385530793-3.webp"
+              ]
             },
             {
               "title": "\"Broadway's Back!\" with Lin-Manuel Miranda",
@@ -174,19 +219,34 @@
             {
               "title": "Jack White Chess Match",
               "vimeo": "387546789",
-              "thumb": "img/1580162001522.webp"
+              "thumb": "img/1580162001522.webp",
+              "frames": [
+                "img/frames/v387546789-1.webp",
+                "img/frames/v387546789-2.webp",
+                "img/frames/v387546789-3.webp"
+              ]
             },
             {
               "title": "Property Brothers Sing the Righteous Brothers",
               "vimeo": "789079027",
               "hash": "98ce3dbfff",
-              "thumb": "img/1674677157146.webp"
+              "thumb": "img/1674677157146.webp",
+              "frames": [
+                "img/frames/v789079027-1.webp",
+                "img/frames/v789079027-2.webp",
+                "img/frames/v789079027-3.webp"
+              ]
             },
             {
               "title": "Christmas Cold Open with James Corden",
               "vimeo": "789085180",
               "hash": "aebf53c545",
-              "thumb": "img/1674677868608.webp"
+              "thumb": "img/1674677868608.webp",
+              "frames": [
+                "img/frames/v789085180-1.webp",
+                "img/frames/v789085180-2.webp",
+                "img/frames/v789085180-3.webp"
+              ]
             },
             {
               "title": "FallonVision with Elizabeth Olsen (WandaVision Parody)",
@@ -202,13 +262,23 @@
               "title": "Classroom Instruments with Weird Al",
               "vimeo": "789086397",
               "hash": "05cb6889cb",
-              "thumb": "img/1674677603604.webp"
+              "thumb": "img/1674677603604.webp",
+              "frames": [
+                "img/frames/v789086397-1.webp",
+                "img/frames/v789086397-2.webp",
+                "img/frames/v789086397-3.webp"
+              ]
             },
             {
               "title": "Thanksgiving Parade Sponsor",
               "vimeo": "789088922",
               "hash": "c272fde1ec",
-              "thumb": "img/1673648731444.webp"
+              "thumb": "img/1673648731444.webp",
+              "frames": [
+                "img/frames/v789088922-1.webp",
+                "img/frames/v789088922-2.webp",
+                "img/frames/v789088922-3.webp"
+              ]
             },
             {
               "title": "\"Doubles Luge\"",
@@ -244,67 +314,131 @@
               "title": "Photobomb with Aaron Judge",
               "vimeo": "789088903",
               "hash": "e6f9177e89",
-              "thumb": "img/1674678269685.webp"
+              "thumb": "img/1674678269685.webp",
+              "frames": [
+                "img/frames/v789088903-1.webp",
+                "img/frames/v789088903-2.webp",
+                "img/frames/v789088903-3.webp"
+              ]
             },
             {
               "title": "Cast of CATS: Memory (Remix)",
               "vimeo": "385530695",
-              "thumb": "img/1579654246916.webp"
+              "thumb": "img/1579654246916.webp",
+              "frames": [
+                "img/frames/v385530695-1.webp",
+                "img/frames/v385530695-2.webp",
+                "img/frames/v385530695-3.webp"
+              ]
             },
             {
               "title": "Football Party Patrol",
               "vimeo": "385531264",
-              "thumb": "img/1579463012794.webp"
+              "thumb": "img/1579463012794.webp",
+              "frames": [
+                "img/frames/v385531264-1.webp",
+                "img/frames/v385531264-2.webp",
+                "img/frames/v385531264-3.webp"
+              ]
             },
             {
               "title": "Ugly Sweater",
               "vimeo": "1234184895",
-              "thumb": "img/v1234184895-3.webp"
+              "thumb": "img/v1234184895-3.webp",
+              "frames": [
+                "img/frames/v1234184895-1.webp",
+                "img/frames/v1234184895-2.webp",
+                "img/frames/v1234184895-3.webp"
+              ]
             },
             {
               "title": "Let's Groove Promo",
               "vimeo": "1056161999",
-              "thumb": "img/v1056161999-2.webp"
+              "thumb": "img/v1056161999-2.webp",
+              "frames": [
+                "img/frames/v1056161999-1.webp",
+                "img/frames/v1056161999-2.webp",
+                "img/frames/v1056161999-3.webp"
+              ]
             },
             {
               "title": "Jimmy's Crew",
               "vimeo": "1056171848",
-              "thumb": "img/v1056171848.webp"
+              "thumb": "img/v1056171848.webp",
+              "frames": [
+                "img/frames/v1056171848-1.webp",
+                "img/frames/v1056171848-2.webp",
+                "img/frames/v1056171848-3.webp"
+              ]
             },
             {
               "title": "Madonna Classroom",
               "vimeo": "789101560",
-              "thumb": "img/v789101560.webp"
+              "thumb": "img/v789101560.webp",
+              "frames": [
+                "img/frames/v789101560-1.webp",
+                "img/frames/v789101560-2.webp",
+                "img/frames/v789101560-3.webp"
+              ]
             },
             {
               "title": "Coastal Grandma",
               "vimeo": "789101545",
-              "thumb": "img/v789101545b.webp"
+              "thumb": "img/v789101545b.webp",
+              "frames": [
+                "img/frames/v789101545-1.webp",
+                "img/frames/v789101545-2.webp",
+                "img/frames/v789101545-3.webp"
+              ]
             },
             {
               "title": "Nestlé",
               "vimeo": "789101529",
-              "thumb": "img/v789101529.webp"
+              "thumb": "img/v789101529.webp",
+              "frames": [
+                "img/frames/v789101529-2.webp",
+                "img/frames/v789101529-3.webp"
+              ]
             },
             {
               "title": "Jim Kim",
               "vimeo": "789095456",
-              "thumb": "img/v789095456.webp"
+              "thumb": "img/v789095456.webp",
+              "frames": [
+                "img/frames/v789095456-1.webp",
+                "img/frames/v789095456-2.webp",
+                "img/frames/v789095456-3.webp"
+              ]
             },
             {
               "title": "Frunk",
               "vimeo": "789093427",
-              "thumb": "img/v789093427.webp"
+              "thumb": "img/v789093427.webp",
+              "frames": [
+                "img/frames/v789093427-1.webp",
+                "img/frames/v789093427-2.webp",
+                "img/frames/v789093427-3.webp"
+              ]
             },
             {
               "title": "Stranger Things Rap",
               "vimeo": "789092318",
-              "thumb": "img/v789092318.webp"
+              "thumb": "img/v789092318.webp",
+              "frames": [
+                "img/frames/v789092318-1.webp",
+                "img/frames/v789092318-2.webp",
+                "img/frames/v789092318-3.webp"
+              ]
             },
             {
               "title": "Brad Pitt BMX",
               "vimeo": "789092274",
-              "thumb": "img/v789092274.webp"
+              "thumb": "img/v789092274.webp",
+              "frames": [
+                "img/frames/v789092274-1.webp",
+                "img/frames/v789092274-2.webp",
+                "img/frames/v789092274-3.webp"
+              ]
             },
             {
               "title": "Jared Leto",
@@ -315,62 +449,122 @@
             {
               "title": "You Spin Me Round (Music Video Recreation)",
               "vimeo": "385599603",
-              "thumb": "img/v385599603.webp"
+              "thumb": "img/v385599603.webp",
+              "frames": [
+                "img/frames/v385599603-1.webp",
+                "img/frames/v385599603-2.webp",
+                "img/frames/v385599603-3.webp"
+              ]
             },
             {
               "title": "Oh, You're Thinking Of…",
               "vimeo": "385599492",
-              "thumb": "img/v385599492.webp"
+              "thumb": "img/v385599492.webp",
+              "frames": [
+                "img/frames/v385599492-1.webp",
+                "img/frames/v385599492-2.webp",
+                "img/frames/v385599492-3.webp"
+              ]
             },
             {
               "title": "80s Aerobic Dance Challenge with Kate Upton",
               "vimeo": "385599330",
-              "thumb": "img/v385599330-2.webp"
+              "thumb": "img/v385599330-2.webp",
+              "frames": [
+                "img/frames/v385599330-1.webp",
+                "img/frames/v385599330-2.webp",
+                "img/frames/v385599330-3.webp"
+              ]
             },
             {
               "title": "Jimmy Fallon and Paul Rudd Recreate \"King of Wishful Thinking\"",
               "vimeo": "385599048",
-              "thumb": "img/v385599048.webp"
+              "thumb": "img/v385599048.webp",
+              "frames": [
+                "img/frames/v385599048-1.webp",
+                "img/frames/v385599048-2.webp",
+                "img/frames/v385599048-3.webp"
+              ]
             },
             {
               "title": "Jimmy Takes Bob Dylan to the Circus",
               "vimeo": "385598986",
-              "thumb": "img/v385598986.webp"
+              "thumb": "img/v385598986.webp",
+              "frames": [
+                "img/frames/v385598986-1.webp",
+                "img/frames/v385598986-2.webp",
+                "img/frames/v385598986-3.webp"
+              ]
             },
             {
               "title": "Songversation with Justin Timberlake",
               "vimeo": "385598899",
-              "thumb": "img/v385598899.webp"
+              "thumb": "img/v385598899.webp",
+              "frames": [
+                "img/frames/v385598899-1.webp",
+                "img/frames/v385598899-2.webp",
+                "img/frames/v385598899-3.webp"
+              ]
             },
             {
               "title": "Robert De Niro Has Never Seen a Dog",
               "vimeo": "385598793",
-              "thumb": "img/v385598793-2.webp"
+              "thumb": "img/v385598793-2.webp",
+              "frames": [
+                "img/frames/v385598793-1.webp",
+                "img/frames/v385598793-2.webp",
+                "img/frames/v385598793-3.webp"
+              ]
             },
             {
               "title": "Cold Open with Matt LeBlanc",
               "vimeo": "385598774",
-              "thumb": "img/v385598774-2.webp"
+              "thumb": "img/v385598774-2.webp",
+              "frames": [
+                "img/frames/v385598774-1.webp",
+                "img/frames/v385598774-2.webp",
+                "img/frames/v385598774-3.webp"
+              ]
             },
             {
               "title": "Avengers: Infinity War Cast Sings \"The Marvel Bunch\"",
               "vimeo": "385598461",
-              "thumb": "img/v385598461.webp"
+              "thumb": "img/v385598461.webp",
+              "frames": [
+                "img/frames/v385598461-1.webp",
+                "img/frames/v385598461-2.webp",
+                "img/frames/v385598461-3.webp"
+              ]
             },
             {
               "title": "Cold Open with Jerry Seinfeld",
               "vimeo": "385598460",
-              "thumb": "img/v385598460.webp"
+              "thumb": "img/v385598460.webp",
+              "frames": [
+                "img/frames/v385598460-1.webp",
+                "img/frames/v385598460-2.webp",
+                "img/frames/v385598460-3.webp"
+              ]
             },
             {
               "title": "Hometown Bar (Music Video)",
               "vimeo": "385530928",
-              "thumb": "img/v385530928-2.webp"
+              "thumb": "img/v385530928-2.webp",
+              "frames": [
+                "img/frames/v385530928-1.webp",
+                "img/frames/v385530928-2.webp",
+                "img/frames/v385530928-3.webp"
+              ]
             },
             {
               "title": "#MeAlsoMe with Orlando Bloom",
               "vimeo": "385530204",
-              "thumb": "img/v385530204.webp"
+              "thumb": "img/v385530204.webp",
+              "frames": [
+                "img/frames/v385530204-1.webp",
+                "img/frames/v385530204-2.webp",
+                "img/frames/v385530204-3.webp"
+              ]
             },
             {
               "title": "Sketch Cram: Shaking Head Woman",
@@ -572,7 +766,12 @@
       "id": "music",
       "label": "Music Videos",
       "featured": {
-        "vimeo": "263967893"
+        "vimeo": "263967893",
+        "frames": [
+          "img/frames/v263967893-1.webp",
+          "img/frames/v263967893-2.webp",
+          "img/frames/v263967893-3.webp"
+        ]
       },
       "sections": [
         {
@@ -588,14 +787,24 @@
                   "vimeo": "265234125",
                   "thumb": "img/1674586214952.jpeg",
                   "artist": "Kesha",
-                  "song": "House of the Rising Sun"
+                  "song": "House of the Rising Sun",
+                  "frames": [
+                    "img/frames/v265234125-1.webp",
+                    "img/frames/v265234125-2.webp",
+                    "img/frames/v265234125-3.webp"
+                  ]
                 },
                 {
                   "title": "Billy Corgan: Wrecking Ball",
                   "vimeo": "275660436",
                   "thumb": "img/1674586283314.webp",
                   "artist": "Billy Corgan",
-                  "song": "Wrecking Ball"
+                  "song": "Wrecking Ball",
+                  "frames": [
+                    "img/frames/v275660436-1.webp",
+                    "img/frames/v275660436-2.webp",
+                    "img/frames/v275660436-3.webp"
+                  ]
                 },
                 {
                   "title": "Billie Eilish: Call Me Back (The Strokes Cover)",
@@ -603,7 +812,12 @@
                   "thumb": "img/1674586318958.webp",
                   "artist": "Billie Eilish",
                   "song": "Call Me Back",
-                  "coverOf": "The Strokes"
+                  "coverOf": "The Strokes",
+                  "frames": [
+                    "img/frames/v275660299-1.webp",
+                    "img/frames/v275660299-2.webp",
+                    "img/frames/v275660299-3.webp"
+                  ]
                 },
                 {
                   "title": "Nathaniel Rateliff & The Night Sweats: Atlantic City",
@@ -611,14 +825,24 @@
                   "thumb": "img/1579653600071.webp",
                   "artist": "Nathaniel Rateliff & The Night Sweats",
                   "song": "Atlantic City",
-                  "coverOf": "Bruce Springsteen"
+                  "coverOf": "Bruce Springsteen",
+                  "frames": [
+                    "img/frames/v263967893-1.webp",
+                    "img/frames/v263967893-2.webp",
+                    "img/frames/v263967893-3.webp"
+                  ]
                 },
                 {
                   "title": "Courtney Barnett: Everything Is Free",
                   "vimeo": "385602896",
                   "thumb": "img/1674586082928.webp",
                   "artist": "Courtney Barnett",
-                  "song": "Everything Is Free"
+                  "song": "Everything Is Free",
+                  "frames": [
+                    "img/frames/v385602896-1.webp",
+                    "img/frames/v385602896-2.webp",
+                    "img/frames/v385602896-3.webp"
+                  ]
                 },
                 {
                   "title": "Jimmy Fallon & The Roots: At This Moment (Billy Vera Cover)",
@@ -626,7 +850,12 @@
                   "thumb": "img/1674598599949.webp",
                   "artist": "Jimmy Fallon & The Roots",
                   "song": "At This Moment",
-                  "coverOf": "Billy Vera"
+                  "coverOf": "Billy Vera",
+                  "frames": [
+                    "img/frames/v386366216-1.webp",
+                    "img/frames/v386366216-2.webp",
+                    "img/frames/v386366216-3.webp"
+                  ]
                 }
               ]
             },
@@ -638,49 +867,84 @@
                   "vimeo": "297113103",
                   "thumb": "img/1674586554805.jpeg",
                   "artist": "Leon Bridges",
-                  "song": "Helpless"
+                  "song": "Helpless",
+                  "frames": [
+                    "img/frames/v297113103-1.webp",
+                    "img/frames/v297113103-2.webp",
+                    "img/frames/v297113103-3.webp"
+                  ]
                 },
                 {
                   "title": "August Greene: Livin' on a Prayer",
                   "vimeo": "386365889",
                   "thumb": "img/1674586600278.webp",
                   "artist": "August Greene",
-                  "song": "Livin' on a Prayer"
+                  "song": "Livin' on a Prayer",
+                  "frames": [
+                    "img/frames/v386365889-1.webp",
+                    "img/frames/v386365889-2.webp",
+                    "img/frames/v386365889-3.webp"
+                  ]
                 },
                 {
                   "title": "Jim James: Everyday People",
                   "vimeo": "386367699",
                   "thumb": "img/1674598915443.webp",
                   "artist": "Jim James",
-                  "song": "Everyday People"
+                  "song": "Everyday People",
+                  "frames": [
+                    "img/frames/v386367699-1.webp",
+                    "img/frames/v386367699-2.webp",
+                    "img/frames/v386367699-3.webp"
+                  ]
                 },
                 {
                   "title": "Walk the Moon: Someone Like You",
                   "vimeo": "386366909",
                   "thumb": "img/1579654982612.jpeg",
                   "artist": "Walk the Moon",
-                  "song": "Someone Like You"
+                  "song": "Someone Like You",
+                  "frames": [
+                    "img/frames/v386366909-1.webp",
+                    "img/frames/v386366909-2.webp",
+                    "img/frames/v386366909-3.webp"
+                  ]
                 },
                 {
                   "title": "Luke Combs: Ramblin' Man",
                   "vimeo": "386367023",
                   "thumb": "img/1674586907954.webp",
                   "artist": "Luke Combs",
-                  "song": "Ramblin' Man"
+                  "song": "Ramblin' Man",
+                  "frames": [
+                    "img/frames/v386367023-1.webp",
+                    "img/frames/v386367023-2.webp",
+                    "img/frames/v386367023-3.webp"
+                  ]
                 },
                 {
                   "title": "Jimmy Fallon & The Roots: Hungry Like the Wolf",
                   "vimeo": "386023209",
                   "thumb": "img/1579654957574.webp",
                   "artist": "Jimmy Fallon & The Roots",
-                  "song": "Hungry Like the Wolf"
+                  "song": "Hungry Like the Wolf",
+                  "frames": [
+                    "img/frames/v386023209-1.webp",
+                    "img/frames/v386023209-2.webp",
+                    "img/frames/v386023209-3.webp"
+                  ]
                 },
                 {
                   "title": "Mac DeMarco: One Evening",
                   "vimeo": "386367575",
                   "thumb": "img/1674586950570.webp",
                   "artist": "Mac DeMarco",
-                  "song": "One Evening"
+                  "song": "One Evening",
+                  "frames": [
+                    "img/frames/v386367575-1.webp",
+                    "img/frames/v386367575-2.webp",
+                    "img/frames/v386367575-3.webp"
+                  ]
                 }
               ]
             }
@@ -692,72 +956,142 @@
             {
               "title": "Wrap Me Up (Official Music Video)",
               "vimeo": "895128936",
-              "thumb": "img/1707246506269.webp"
+              "thumb": "img/1707246506269.webp",
+              "frames": [
+                "img/frames/v895128936-1.webp",
+                "img/frames/v895128936-2.webp",
+                "img/frames/v895128936-3.webp"
+              ]
             },
             {
               "title": "Highwomen: The Chain (Fleetwood Mac Cover)",
               "vimeo": "791960002",
-              "thumb": "img/1707429797847.webp"
+              "thumb": "img/1707429797847.webp",
+              "frames": [
+                "img/frames/v791960002-1.webp",
+                "img/frames/v791960002-2.webp",
+                "img/frames/v791960002-3.webp"
+              ]
             },
             {
               "title": "The Head and the Heart: Rivers and Roads",
               "vimeo": "561173949",
-              "thumb": "img/1707429901849.webp"
+              "thumb": "img/1707429901849.webp",
+              "frames": [
+                "img/frames/v561173949-1.webp",
+                "img/frames/v561173949-2.webp",
+                "img/frames/v561173949-3.webp"
+              ]
             },
             {
               "title": "Ariana Grande & Nintendo Labo",
               "vimeo": "385599314",
-              "thumb": "img/v385599314.webp"
+              "thumb": "img/v385599314.webp",
+              "frames": [
+                "img/frames/v385599314-1.webp",
+                "img/frames/v385599314-2.webp",
+                "img/frames/v385599314-3.webp"
+              ]
             },
             {
               "title": "Ed Sheeran: Trap Queen",
               "vimeo": "792403510",
-              "thumb": "img/v792403510.webp"
+              "thumb": "img/v792403510.webp",
+              "frames": [
+                "img/frames/v792403510-1.webp",
+                "img/frames/v792403510-2.webp",
+                "img/frames/v792403510-3.webp"
+              ]
             },
             {
               "title": "Tegan and Sara: Boyfriend",
               "vimeo": "792353469",
-              "thumb": "img/v792353469.webp"
+              "thumb": "img/v792353469.webp",
+              "frames": [
+                "img/frames/v792353469-1.webp",
+                "img/frames/v792353469-2.webp",
+                "img/frames/v792353469-3.webp"
+              ]
             },
             {
               "title": "Blur and Jimmy Fallon: Tender",
               "vimeo": "792349528",
-              "thumb": "img/v792349528-2.webp"
+              "thumb": "img/v792349528-2.webp",
+              "frames": [
+                "img/frames/v792349528-1.webp",
+                "img/frames/v792349528-2.webp",
+                "img/frames/v792349528-3.webp"
+              ]
             },
             {
               "title": "Hozier: Take Me to Church",
               "vimeo": "792367279",
-              "thumb": "img/v792367279.webp"
+              "thumb": "img/v792367279.webp",
+              "frames": [
+                "img/frames/v792367279-1.webp",
+                "img/frames/v792367279-2.webp",
+                "img/frames/v792367279-3.webp"
+              ]
             },
             {
               "title": "Courtney Barnett: Depreston",
               "vimeo": "792366205",
-              "thumb": "img/v792366205.webp"
+              "thumb": "img/v792366205.webp",
+              "frames": [
+                "img/frames/v792366205-1.webp",
+                "img/frames/v792366205-2.webp",
+                "img/frames/v792366205-3.webp"
+              ]
             },
             {
               "title": "Troye Sivan: Can't Keep My Hands to Myself / Sorry",
               "vimeo": "792367092",
-              "thumb": "img/v792367092.webp"
+              "thumb": "img/v792367092.webp",
+              "frames": [
+                "img/frames/v792367092-1.webp",
+                "img/frames/v792367092-2.webp",
+                "img/frames/v792367092-3.webp"
+              ]
             },
             {
               "title": "Ludacris: What's Your Fantasy",
               "vimeo": "792366470",
-              "thumb": "img/v792366470.webp"
+              "thumb": "img/v792366470.webp",
+              "frames": [
+                "img/frames/v792366470-1.webp",
+                "img/frames/v792366470-2.webp",
+                "img/frames/v792366470-3.webp"
+              ]
             },
             {
               "title": "Dr. Dog: Backstage Acoustic",
               "vimeo": "792402135",
-              "thumb": "img/v792402135.webp"
+              "thumb": "img/v792402135.webp",
+              "frames": [
+                "img/frames/v792402135-1.webp",
+                "img/frames/v792402135-2.webp",
+                "img/frames/v792402135-3.webp"
+              ]
             },
             {
               "title": "Hozier: Backstage Acoustic",
               "vimeo": "129967407",
-              "thumb": "img/1433601272748.jpeg"
+              "thumb": "img/1433601272748.jpeg",
+              "frames": [
+                "img/frames/v129967407-1.webp",
+                "img/frames/v129967407-2.webp",
+                "img/frames/v129967407-3.webp"
+              ]
             },
             {
               "title": "David Byrne: Mini Concert at Rough Trade NYC",
               "vimeo": "1243035122",
-              "thumb": "img/v1243035122-2.webp"
+              "thumb": "img/v1243035122-2.webp",
+              "frames": [
+                "img/frames/v1243035122-1.webp",
+                "img/frames/v1243035122-2.webp",
+                "img/frames/v1243035122-3.webp"
+              ]
             }
           ],
           "layout": "wall"
@@ -788,7 +1122,12 @@
             {
               "title": "Jimmy Takes Bob Dylan to the Circus",
               "thumb": "img/1543070937402.webp",
-              "vimeo": "385598986"
+              "vimeo": "385598986",
+              "frames": [
+                "img/frames/v385598986-1.webp",
+                "img/frames/v385598986-2.webp",
+                "img/frames/v385598986-3.webp"
+              ]
             },
             {
               "title": "Ariana Grande's Ponytail Has a Mind of Its Own",
@@ -803,7 +1142,12 @@
             {
               "title": "Robert De Niro Has Never Seen a Dog",
               "thumb": "img/v385598793-2.webp",
-              "vimeo": "385598793"
+              "vimeo": "385598793",
+              "frames": [
+                "img/frames/v385598793-1.webp",
+                "img/frames/v385598793-2.webp",
+                "img/frames/v385598793-3.webp"
+              ]
             },
             {
               "title": "Jimmy Runs Into an Unhappy Ben Stiller and Tina Fey Backstage",
@@ -866,7 +1210,12 @@
             {
               "title": "Avengers: Infinity War Cast Sings \"The Marvel Bunch\"",
               "thumb": "img/1525358712140.webp",
-              "vimeo": "385598461"
+              "vimeo": "385598461",
+              "frames": [
+                "img/frames/v385598461-1.webp",
+                "img/frames/v385598461-2.webp",
+                "img/frames/v385598461-3.webp"
+              ]
             },
             {
               "title": "\"This Is Us\" Sound Guy Can't Stop Crying",
@@ -881,12 +1230,22 @@
             {
               "title": "Jimmy Fallon and Paul Rudd Recreate \"King of Wishful Thinking\"",
               "thumb": "img/1520103286543.webp",
-              "vimeo": "385599048"
+              "vimeo": "385599048",
+              "frames": [
+                "img/frames/v385599048-1.webp",
+                "img/frames/v385599048-2.webp",
+                "img/frames/v385599048-3.webp"
+              ]
             },
             {
               "title": "Songversation with Justin Timberlake",
               "thumb": "img/1518402915264.webp",
-              "vimeo": "385598899"
+              "vimeo": "385598899",
+              "frames": [
+                "img/frames/v385598899-1.webp",
+                "img/frames/v385598899-2.webp",
+                "img/frames/v385598899-3.webp"
+              ]
             },
             {
               "title": "Miley Cyrus Busks in NYC Subway in Disguise",
@@ -962,17 +1321,32 @@
             {
               "title": "Hozier: Backstage Acoustic",
               "vimeo": "129967407",
-              "thumb": "img/1433601272748.jpeg"
+              "thumb": "img/1433601272748.jpeg",
+              "frames": [
+                "img/frames/v129967407-1.webp",
+                "img/frames/v129967407-2.webp",
+                "img/frames/v129967407-3.webp"
+              ]
             },
             {
               "title": "Guys with Kids: Show Open",
               "vimeo": "129973485",
-              "thumb": "img/1433607780591.webp"
+              "thumb": "img/1433607780591.webp",
+              "frames": [
+                "img/frames/v129973485-1.webp",
+                "img/frames/v129973485-2.webp",
+                "img/frames/v129973485-3.webp"
+              ]
             },
             {
               "title": "The Bells: A Student Film",
               "vimeo": "113651994",
-              "thumb": "img/1433597084829.webp"
+              "thumb": "img/1433597084829.webp",
+              "frames": [
+                "img/frames/v113651994-1.webp",
+                "img/frames/v113651994-2.webp",
+                "img/frames/v113651994-3.webp"
+              ]
             },
             {
               "title": "\"When I Heard the Learn'd Astronomer\" with Neil deGrasse Tyson",
@@ -986,7 +1360,12 @@
             {
               "title": "FINLAND: A Student Film",
               "vimeo": "1072521735",
-              "thumb": "img/v1072521735.webp"
+              "thumb": "img/v1072521735.webp",
+              "frames": [
+                "img/frames/v1072521735-1.webp",
+                "img/frames/v1072521735-2.webp",
+                "img/frames/v1072521735-3.webp"
+              ]
             }
           ]
         },
@@ -996,7 +1375,12 @@
             {
               "title": "Golden Globes Cold Open (2017)",
               "vimeo": "258800587",
-              "thumb": "img/1520349957163.webp"
+              "thumb": "img/1520349957163.webp",
+              "frames": [
+                "img/frames/v258800587-1.webp",
+                "img/frames/v258800587-2.webp",
+                "img/frames/v258800587-3.webp"
+              ]
             },
             {
               "title": "Barb Returns to \"Stranger Things\"",
@@ -1150,7 +1534,12 @@
             {
               "title": "Tegan and Sara: Boyfriend (Acoustic)",
               "thumb": "img/1463682650515.webp",
-              "vimeo": "792353469"
+              "vimeo": "792353469",
+              "frames": [
+                "img/frames/v792353469-1.webp",
+                "img/frames/v792353469-2.webp",
+                "img/frames/v792353469-3.webp"
+              ]
             },
             {
               "title": "Sugarboy: Kung Fu Mom ft. Ilana Glazer",
@@ -1165,7 +1554,12 @@
             {
               "title": "Ed Sheeran: Trap Queen",
               "thumb": "img/1433594555744.webp",
-              "vimeo": "792403510"
+              "vimeo": "792403510",
+              "frames": [
+                "img/frames/v792403510-1.webp",
+                "img/frames/v792403510-2.webp",
+                "img/frames/v792403510-3.webp"
+              ]
             },
             {
               "title": "Game of Desks",
@@ -1181,7 +1575,12 @@
             {
               "title": "Jimmy's Crew",
               "thumb": "img/v1056171848.webp",
-              "vimeo": "1056171848"
+              "vimeo": "1056171848",
+              "frames": [
+                "img/frames/v1056171848-1.webp",
+                "img/frames/v1056171848-2.webp",
+                "img/frames/v1056171848-3.webp"
+              ]
             }
           ]
         }
