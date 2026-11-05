@@ -71,7 +71,36 @@
     const b = el("button", { class: "card", type: "button", "aria-label": "Play " + v.title },
       thumb, kicker ? el("span", { class: "kicker", text: kicker }) : null, el("span", { class: "title", text: v.title }));
     b.addEventListener("click", () => openViewer(v));
+    if (v.frames && v.frames.length) hoverFrames(b, thumb, v.frames);
     return el("li", {}, b);
+  }
+
+  // Hover preview: while the mouse is over a card, flip through a few stills from the video, then
+  // settle back on the thumbnail. Stills load only on first hover. Mouse/trackpad only; touch keeps the thumbnail.
+  const canHover = matchMedia("(hover: hover) and (pointer: fine)");
+  const calm = matchMedia("(prefers-reduced-motion: reduce)");
+  function hoverFrames(btn, thumb, frames) {
+    let layer = null, timer = 0, i = -1;
+    const show = () => {
+      i = (i + 1) % frames.length;
+      const next = new Image();
+      next.onload = () => {
+        if (!timer) return;
+        layer.src = next.src;
+        layer.classList.add("on");
+      };
+      next.src = frames[i];
+    };
+    btn.addEventListener("pointerenter", () => {
+      if (!canHover.matches || calm.matches || timer) return;
+      if (!layer) { layer = el("img", { class: "thumb-frame", alt: "", decoding: "async" }); thumb.append(layer); }
+      i = -1;
+      timer = setTimeout(function tick() { show(); timer = setTimeout(tick, 900); }, 350);
+    });
+    btn.addEventListener("pointerleave", () => {
+      clearTimeout(timer); timer = 0;
+      if (layer) layer.classList.remove("on");
+    });
   }
 
   // ---------- Landing page: featured video + shuffled sketch wall ----------
