@@ -33,10 +33,21 @@ window.CONFIG = {
   // choice is remembered. ?music=off in the address forces it off.
   MUSIC_ON_BY_DEFAULT: true,
   MUSIC_VOLUME: 0.5,   // 0 to 1
-  MUSIC_KEY: "D",      // the drone's note: C, C#, D, Eb, E ... B
+  MUSIC_KEY: "D",      // drone note when MUSIC_BASS is "key": C, C#, D ... B
 
-  // The only chords the music uses. Each photo's main color picks one; the
-  // first is "home" (photos with little color). Names like Dm7(9), Fm6,
-  // Cmaj7, G7sus4, Bbmaj9, or exact notes: ["D3", "A3", "C4", "E4", "F4"].
-  MUSIC_CHORDS: ["Dm7(9)", "Dm7", "Dm7(b5)", "Fm6", "C maj 7"],
+  // The only chords the music uses. Names like Dm7(9), Fm6, Cmaj7, G7sus4,
+  // Bbmaj9, or exact notes: ["D3", "A3", "C4", "E4", "F4"].
+  // IV - vii - III - vi - ii - V - I in C, falling in fifths back home
+  // (F9 and E7 add a bluesy b7 and a G# that pulls toward Am7).
+  MUSIC_CHORDS: ["F9", "Bm7b5", "E7", "Am7", "Dm7", "G7", "Cmaj7"],
+  // "progression": play them in order, one chord per photo, then loop.
+  // "color": each photo's main color picks one (the first is home).
+  MUSIC_CHORD_ORDER: "progression",
+  // "chord": the low drone moves to each chord's root.
+  // "key": it holds MUSIC_KEY under every chord.
+  MUSIC_BASS: "chord",
+
+  // The last set, for going back:
+  // MUSIC_CHORDS: ["Dm7(9)", "Dm7", "Dm7(b5)", "Fm6", "C maj 7"],
+  // MUSIC_CHORD_ORDER: "color", MUSIC_BASS: "key", MUSIC_KEY: "D",
 };

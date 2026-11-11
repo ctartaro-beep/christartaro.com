@@ -5,14 +5,16 @@
 //
 // Two layers, both synthesized live in the browser (no audio files):
 //
-//   1. An Eno-style engine. A drone holds the key's root. A soft pad holds
-//      one of your chords (config.js, MUSIC_CHORDS). Six "bell" loops repeat at different, unrelated lengths
+//   1. An Eno-style engine. A low drone and a soft pad hold one of your
+//      chords (config.js, MUSIC_CHORDS), either stepping through them as a
+//      progression, one per photo, or letting each photo's color pick. Six "bell" loops repeat at different, unrelated lengths
 //      (13.1s, 16.7s, 19.9s...), so they drift in and out of phase and the
 //      piece never lines up the same way twice.
 //
 //   2. The photos steer it. Each time a photo appears, a tiny 24x24 copy is
 //      read and turned into a "mood":
-//        dominant hue              -> which of your chords (MUSIC_CHORDS)
+//        dominant hue              -> which chord, when MUSIC_CHORD_ORDER
+//                                     is "color" ("progression" ignores it)
 //        warmth (red vs blue)      -> the sound: cool = glassy saws and glass
 //                                     bells; warm = round sines and soft
 //                                     mallets
@@ -113,10 +115,11 @@
     return voice(root, iv);
   }
 
-  // Open voicing: the root in octave 3, every other tone at least a fifth
-  // above it, so the chord breathes instead of clustering.
+  // Open voicing: the root between G2 and F#3, every other tone at least a
+  // fifth above it, so the chord breathes instead of clustering.
   function voice(rootPc, intervals) {
-    const root = 48 + ((rootPc % 12) + 12) % 12;
+    const pc0 = ((rootPc % 12) + 12) % 12;
+    const root = (pc0 <= 6 ? 48 : 36) + pc0;
     const pcs = [...new Set(intervals.map((i) => ((rootPc + i) % 12 + 12) % 12))]
       .filter((pc) => pc !== ((rootPc % 12) + 12) % 12);
     const notes = pcs.map((pc) => {
@@ -153,6 +156,13 @@
     const volume = opts.volume !== undefined ? opts.volume : 0.5;
     const chordNames = opts.chords && opts.chords.length ? opts.chords : DEFAULT_CHORDS;
     const chords = chordNames.map(parseChord);
+    // "progression": chords play in order, one per photo, then loop.
+    // "color": each photo's main color picks the chord.
+    const order = opts.order === "progression" ? "progression" : "color";
+    // "chord": the low drone moves to each chord's root. "key": it holds the
+    // key's root (MUSIC_KEY) under everything.
+    const bassFollows = opts.bass === "chord";
+    let progIndex = -1;
 
     // Signal chain:  pad -> filter -+
     //                bells ---------+-> mix -> dry ------+-> compressor -> master -> out
@@ -189,7 +199,7 @@
     const hiss = ctx.createGain(); hiss.gain.value = 0;
     hissSrc.connect(hissFilter); hissFilter.connect(hiss); hiss.connect(comp);
 
-    // Drone on the key's root, two octaves down, the same for every photo.
+    // Low drone: the key's root, or each chord's root (see bassFollows).
     const droneGain = ctx.createGain(); droneGain.gain.value = 0;
     const droneFilter = ctx.createBiquadFilter();
     droneFilter.type = "lowpass"; droneFilter.frequency.value = 500;
@@ -331,7 +341,16 @@
 
       setMood(mood, t) {
         const w = clamp(mood.warmth, 0, 1);
-        const notes = chords[chordIndex(mood)];
+        let idx;
+        if (order === "progression") {
+          // The placeholder before the first photo holds chord 1 without
+          // using up a step; the first photo then lands on chord 1 too.
+          if (mood !== DEFAULT_MOOD) progIndex = (progIndex + 1) % chords.length;
+          idx = Math.max(0, progIndex);
+        } else {
+          idx = chordIndex(mood);
+        }
+        const notes = chords[idx];
         // A new photo crossfades the pad even on the same chord, since its
         // sound (warmth) can change.
         const key = notes.join(",") + "|" + w.toFixed(1);
@@ -341,6 +360,12 @@
           pad = next;
           chord = notes;
           padKey = key;
+          if (bassFollows) {
+            const pc = notes[0] % 12;
+            const low = 36 + pc - (pc > 6 ? 12 : 0); // roots between F#1 and F#2
+            droneOscs[0].frequency.setTargetAtTime(mtof(low), t, 0.15);
+            droneOscs[1].frequency.setTargetAtTime(mtof(low + 12), t, 0.15);
+          }
         }
         bellTone = toneFor(w);
         const ageDim = clamp(1 - mood.age / 120, 0.6, 1);
@@ -352,6 +377,7 @@
         hiss.gain.setTargetAtTime(mood.age > 10 ? Math.min(0.012, (mood.age - 10) * 0.0004) : 0, t, 3);
         bellLevel = 0.45 + mood.saturation * 0.55;
         density = 0.35 + mood.saturation * 0.6;
+        return idx;
       },
 
       setVolume(v, t) { master.gain.setTargetAtTime(v, t, 0.8); },
@@ -530,6 +556,8 @@
     engine = Engine(ctx, ctx.destination, {
       key: CFG.MUSIC_KEY || "D",
       chords: CFG.MUSIC_CHORDS,
+      order: CFG.MUSIC_CHORD_ORDER,
+      bass: CFG.MUSIC_BASS,
       volume: CFG.MUSIC_VOLUME !== undefined ? CFG.MUSIC_VOLUME : 0.5,
     });
     engine.start(ctx.currentTime + 0.1);
