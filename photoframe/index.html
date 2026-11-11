@@ -13,7 +13,11 @@
      Only config.js, next to this file, is specific to this page. -->
 <link rel="stylesheet" href="https://ctartaro-beep.github.io/photoframe/style.css" />
 <!-- Back-to-site link; this page only, not the family frame. -->
-<link rel="stylesheet" href="mat.css?v=202611041100" />
+<link rel="stylesheet" href="mat.css?v=202611111100" />
+<!-- Generative ambient music steered by each photo; this page only. Loaded
+     in <head> so the splash's "tap to begin" also starts the sound. -->
+<script src="config.js"></script>
+<script src="music.js?v=202611111100"></script>
 <script data-goatcounter="https://christartaro.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
@@ -39,13 +43,14 @@
   <div id="splash" role="dialog" aria-label="About photoframe">
     <div id="splash-inner">
       <h1>photoframe</h1>
-      <p class="lede">A slow, random slideshow of photographs by Chris&nbsp;Tartaro &mdash; a new picture every 10&nbsp;seconds, matched to the shape of your screen: portrait photos on a portrait screen, landscape on landscape.</p>
+      <p class="lede">A slow, random slideshow of photographs by Chris&nbsp;Tartaro &mdash; a new picture every 10&nbsp;seconds, matched to the shape of your screen: portrait photos on a portrait screen, landscape on landscape. The ambient music is generated live, and each photo&rsquo;s color and light steer it.</p>
       <dl>
         <dt>Tap &nbsp;/&nbsp; &rarr;</dt><dd>Next photo</dd>
         <dt>Swipe right &nbsp;/&nbsp; &larr;</dt><dd>Previous photo</dd>
         <dt>Press &amp; hold &nbsp;/&nbsp; Space</dt><dd>Pause or resume</dd>
         <dt>Double-tap left</dt><dd>Show the caption</dd>
         <dt>Double-tap right</dt><dd>Show the clock</dd>
+        <dt>Double-tap top &nbsp;/&nbsp; M</dt><dd>Music on or off</dd>
       </dl>
       <p class="begin">Tap anywhere to begin</p>
     </div>
@@ -101,7 +106,6 @@
       });
     })();
   </script>
-  <script src="config.js"></script>
   <script src="https://ctartaro-beep.github.io/photoframe/app.js"></script>
 </body>
 </html>

@@ -27,4 +27,11 @@ window.CONFIG = {
   CAPTION_ON_BY_DEFAULT: false,
   SHOW_FILENAME: false,
   SHOW_CAMERA: false,
+
+  // Generative ambient music steered by each photo (music.js, this page only).
+  // Double-tap the top of the screen, or press "m", to turn it on/off; that
+  // choice is remembered. ?music=off in the address forces it off.
+  MUSIC_ON_BY_DEFAULT: true,
+  MUSIC_VOLUME: 0.5,   // 0 to 1
+  MUSIC_KEY: "D",      // C, C#, D, Eb, E, F, F#, G, Ab, A, Bb, B
 };

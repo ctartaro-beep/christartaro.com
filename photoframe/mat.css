@@ -92,3 +92,20 @@ body:not(.awake) { cursor: none; }
 @media (prefers-reduced-motion: reduce) {
   #splash-inner, #splash .begin { animation: none; }
 }
+
+/* Music on/off notice and "Tap for sound" (music.js). */
+#music-pill {
+  position: absolute;
+  top: 2vmin;
+  right: 2.5vmin;
+  z-index: 5;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font: 400 clamp(12px, 1.5vmin, 16px)/1.2 "Helvetica Neue", Arial, sans-serif;
+  color: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+#music-pill.visible { opacity: 1; }
