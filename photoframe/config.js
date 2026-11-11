@@ -33,5 +33,10 @@ window.CONFIG = {
   // choice is remembered. ?music=off in the address forces it off.
   MUSIC_ON_BY_DEFAULT: true,
   MUSIC_VOLUME: 0.5,   // 0 to 1
-  MUSIC_KEY: "D",      // C, C#, D, Eb, E, F, F#, G, Ab, A, Bb, B
+  MUSIC_KEY: "D",      // the drone's note: C, C#, D, Eb, E ... B
+
+  // The only chords the music uses. Each photo's main color picks one; the
+  // first is "home" (photos with little color). Names like Dm7(9), Fm6,
+  // Cmaj7, G7sus4, Bbmaj9, or exact notes: ["D3", "A3", "C4", "E4", "F4"].
+  MUSIC_CHORDS: ["Dm7(9)", "Dm7", "Dm7(b5)", "Fm6", "C maj 7"],
 };

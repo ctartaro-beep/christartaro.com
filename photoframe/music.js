@@ -5,15 +5,17 @@
 //
 // Two layers, both synthesized live in the browser (no audio files):
 //
-//   1. An Eno-style engine. A drone holds the key's root. A soft pad holds a
-//      chord. Six "bell" loops repeat at different, unrelated lengths
+//   1. An Eno-style engine. A drone holds the key's root. A soft pad holds
+//      one of your chords (config.js, MUSIC_CHORDS). Six "bell" loops repeat at different, unrelated lengths
 //      (13.1s, 16.7s, 19.9s...), so they drift in and out of phase and the
 //      piece never lines up the same way twice.
 //
 //   2. The photos steer it. Each time a photo appears, a tiny 24x24 copy is
 //      read and turned into a "mood":
-//        warmth (red vs blue)      -> mode: aeolian ... dorian ... lydian
-//        dominant hue              -> which chord (I, IV, V, vi, ii, iii)
+//        dominant hue              -> which of your chords (MUSIC_CHORDS)
+//        warmth (red vs blue)      -> the sound: cool = glassy saws and glass
+//                                     bells; warm = round sines and soft
+//                                     mallets
 //        brightness                -> how open the pad's filter is
 //        saturation                -> how often the bells ring, and how loud
 //        haze (low contrast)       -> more reverb
@@ -35,14 +37,10 @@
 
   // ------------------------------------------------------------ the music
 
-  const MODES = {
-    aeolian:    [0, 2, 3, 5, 7, 8, 10],
-    dorian:     [0, 2, 3, 5, 7, 9, 10],
-    mixolydian: [0, 2, 4, 5, 7, 9, 10],
-    ionian:     [0, 2, 4, 5, 7, 9, 11],
-    lydian:     [0, 2, 4, 6, 7, 9, 11],
-  };
-  const MODE_ORDER = ["aeolian", "dorian", "mixolydian", "ionian", "lydian"]; // cool -> warm
+  // Your chords, in order. The first is "home": photos with little color
+  // land there. Change them in config.js (MUSIC_CHORDS).
+  const DEFAULT_CHORDS = ["Dm7(9)", "Dm7", "Dm7(b5)", "Fm6", "Cmaj7"];
+
   const KEYS = { C: 0, "C#": 1, Db: 1, D: 2, "D#": 3, Eb: 3, E: 4, F: 5, "F#": 6,
                  Gb: 6, G: 7, "G#": 8, Ab: 8, A: 9, "A#": 10, Bb: 10, B: 11 };
 
@@ -52,6 +50,82 @@
 
   function mtof(m) { return 440 * Math.pow(2, (m - 69) / 12); }
   function clamp(x, lo, hi) { return Math.max(lo, Math.min(hi, x)); }
+  function mix(a, b, t) { return a + (b - a) * t; }
+
+  // ---- chord names -> notes
+  //
+  // Understands names like Dm7, Dm7(9), Dm7(b5), Fm6, Cmaj7, "C maj 7",
+  // Bbmaj9, G7sus4, Esus2, Aadd9, F#m11, Bø7, Cdim7, and extensions in
+  // parentheses: (9), (b5), (#11), (13). Or give exact notes instead:
+  // ["D3", "A3", "C4", "E4", "F4"].
+
+  const LETTER = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
+  const QUALITIES = [
+    [/^(maj7|ma7|M7|Δ7?)$/, [0, 4, 7, 11]],
+    [/^(maj9|ma9|M9)$/, [0, 4, 7, 11, 14]],
+    [/^(m7b5|min7b5|ø7?)$/, [0, 3, 6, 10]],
+    [/^(m7|min7|-7)$/, [0, 3, 7, 10]],
+    [/^(m9|min9|-9)$/, [0, 3, 7, 10, 14]],
+    [/^(m11|min11)$/, [0, 3, 7, 10, 14, 17]],
+    [/^(m6|min6|-6)$/, [0, 3, 7, 9]],
+    [/^(m|min|-)$/, [0, 3, 7]],
+    [/^(dim7|°7)$/, [0, 3, 6, 9]],
+    [/^(dim|°)$/, [0, 3, 6]],
+    [/^(7sus4|7sus)$/, [0, 5, 7, 10]],
+    [/^(sus4|sus)$/, [0, 5, 7]],
+    [/^sus2$/, [0, 2, 7]],
+    [/^7$/, [0, 4, 7, 10]],
+    [/^9$/, [0, 4, 7, 10, 14]],
+    [/^6$/, [0, 4, 7, 9]],
+    [/^(maj|M)?$/, [0, 4, 7]],
+  ];
+  const DEGREE_SEMITONES = { 2: 2, 4: 5, 5: 7, 6: 9, 7: 10, 9: 14, 11: 17, 13: 21 };
+
+  function noteToMidi(s) {
+    const m = String(s).trim().match(/^([A-G])([#b]?)(-?\d)$/);
+    if (!m) throw new Error(`Can't read note "${s}" (use names like D3, F#4, Bb2)`);
+    return (+m[3] + 1) * 12 + LETTER[m[1]] + (m[2] === "#" ? 1 : m[2] === "b" ? -1 : 0);
+  }
+
+  function parseChord(name) {
+    if (Array.isArray(name)) return name.map(noteToMidi).sort((a, b) => a - b);
+
+    const s = String(name).replace(/\s+/g, "");
+    const m = s.match(/^([A-G])([#b]?)(.*)$/);
+    if (!m) throw new Error(`Can't read chord "${name}"`);
+    const root = LETTER[m[1]] + (m[2] === "#" ? 1 : m[2] === "b" ? -1 : 0);
+
+    // Pull out (9), (b5), add9 ... then match what's left as the quality.
+    const ext = [];
+    let q = m[3].replace(/\(([^)]*)\)/g, (_, x) => { ext.push(...x.split(/[,/]/)); return ""; });
+    q = q.replace(/add([b#]?\d+)/g, (_, x) => { ext.push(x); return ""; });
+    const found = QUALITIES.find(([re]) => re.test(q));
+    if (!found) throw new Error(`Can't read chord "${name}" (unknown "${q}")`);
+    let iv = found[1].slice();
+
+    for (const e of ext) {
+      const em = e.trim().match(/^([b#]?)(\d+)$/);
+      if (!em || DEGREE_SEMITONES[+em[2]] === undefined) throw new Error(`Can't read "${e}" in "${name}"`);
+      const off = DEGREE_SEMITONES[+em[2]] + (em[1] === "#" ? 1 : em[1] === "b" ? -1 : 0);
+      if (+em[2] === 5) iv = iv.filter((x) => x !== 7); // (b5) / (#5) replaces the fifth
+      iv.push(off);
+    }
+    return voice(root, iv);
+  }
+
+  // Open voicing: the root in octave 3, every other tone at least a fifth
+  // above it, so the chord breathes instead of clustering.
+  function voice(rootPc, intervals) {
+    const root = 48 + ((rootPc % 12) + 12) % 12;
+    const pcs = [...new Set(intervals.map((i) => ((rootPc + i) % 12 + 12) % 12))]
+      .filter((pc) => pc !== ((rootPc % 12) + 12) % 12);
+    const notes = pcs.map((pc) => {
+      let n = root + 7;
+      while ((n % 12) !== pc) n++;
+      return n;
+    });
+    return [root, ...notes.sort((a, b) => a - b)];
+  }
 
   function reverbImpulse(ctx, seconds) {
     const len = Math.floor(ctx.sampleRate * seconds);
@@ -77,6 +151,8 @@
   function Engine(ctx, out, opts) {
     const keyRoot = KEYS[opts.key] !== undefined ? KEYS[opts.key] : 2;
     const volume = opts.volume !== undefined ? opts.volume : 0.5;
+    const chordNames = opts.chords && opts.chords.length ? opts.chords : DEFAULT_CHORDS;
+    const chords = chordNames.map(parseChord);
 
     // Signal chain:  pad -> filter -+
     //                bells ---------+-> mix -> dry ------+-> compressor -> master -> out
@@ -93,12 +169,12 @@
     const verb = ctx.createConvolver(); verb.buffer = reverbImpulse(ctx, 3.8);
     const wet = ctx.createGain(); wet.gain.value = 0.55;
     verb.connect(wet); wet.connect(comp);
-    const mix = ctx.createGain(); mix.connect(dry); mix.connect(verb);
+    const mixBus = ctx.createGain(); mixBus.connect(dry); mixBus.connect(verb);
 
     const padFilter = ctx.createBiquadFilter();
     padFilter.type = "lowpass"; padFilter.frequency.value = 900; padFilter.Q.value = 0.6;
-    const padBus = ctx.createGain(); padBus.connect(padFilter); padFilter.connect(mix);
-    const bellBus = ctx.createGain(); bellBus.gain.value = 0.7; bellBus.connect(mix);
+    const padBus = ctx.createGain(); padBus.connect(padFilter); padFilter.connect(mixBus);
+    const bellBus = ctx.createGain(); bellBus.gain.value = 0.7; bellBus.connect(mixBus);
 
     // Tape wobble: one slow LFO bends the pitch of everything, in cents.
     const lfo = ctx.createOscillator(); lfo.frequency.value = 0.31;
@@ -113,11 +189,11 @@
     const hiss = ctx.createGain(); hiss.gain.value = 0;
     hissSrc.connect(hissFilter); hissFilter.connect(hiss); hiss.connect(comp);
 
-    // Drone on the root, two octaves down, the same for every photo.
+    // Drone on the key's root, two octaves down, the same for every photo.
     const droneGain = ctx.createGain(); droneGain.gain.value = 0;
     const droneFilter = ctx.createBiquadFilter();
     droneFilter.type = "lowpass"; droneFilter.frequency.value = 500;
-    droneGain.connect(droneFilter); droneFilter.connect(mix);
+    droneGain.connect(droneFilter); droneFilter.connect(mixBus);
     const droneOscs = [[36 + keyRoot, "sine", 0.55], [48 + keyRoot, "triangle", 0.16]].map(([m, type, lvl]) => {
       const o = ctx.createOscillator(); o.type = type; o.frequency.value = mtof(m);
       wobble.connect(o.detune);
@@ -128,28 +204,39 @@
 
     let pad = null;
     let chord = null;
-    let chordKey = "";
+    let padKey = "";
     let density = 0.6;
     let bellLevel = 0.7;
+    let bellTone = null;
     let loops = [];
     let running = false;
 
-    function startPad(notes, t, attack) {
+    // The pad's sound follows the photo's warmth (w: 0 cool ... 1 warm).
+    // Warm: round sine and triangle, like a soft organ or felt piano pad.
+    // Cool: detuned saws and an octave of glass on top, brighter and edgier.
+    function startPad(notes, t, attack, w) {
       const g = ctx.createGain();
       g.gain.setValueAtTime(0, t);
       g.gain.setTargetAtTime(1, t, attack / 3);
       g.connect(padBus);
+      const layers = [
+        ["triangle", 0, 4, 0.04],
+        ["sine", 0, 0, 0.04 * w],
+        ["sawtooth", 0, -9, 0.02 * (1 - w)],
+        ["sawtooth", 0, 9, 0.02 * (1 - w)],
+        ["sine", 12, 3, 0.013 * (1 - w)],
+      ].filter((l) => l[3] > 0.003);
       const oscs = [];
       notes.forEach((n, i) => {
         const pan = ctx.createStereoPanner();
-        pan.pan.value = [-0.45, 0.35, -0.2, 0.5][i % 4];
+        pan.pan.value = [-0.45, 0.35, -0.2, 0.5, -0.05, 0.25][i % 6];
         pan.connect(g);
-        [["sawtooth", -6, 0.02], ["triangle", 5, 0.05]].forEach(([type, det, lvl]) => {
+        layers.forEach(([type, oct, det, lvl]) => {
           const o = ctx.createOscillator();
-          o.type = type; o.frequency.value = mtof(n);
+          o.type = type; o.frequency.value = mtof(n + oct);
           o.detune.value = det + (Math.random() * 4 - 2);
           wobble.connect(o.detune);
-          const og = ctx.createGain(); og.gain.value = lvl;
+          const og = ctx.createGain(); og.gain.value = lvl * (n > 70 ? 0.7 : 1);
           o.connect(og); og.connect(pan);
           o.start(t);
           oscs.push(o);
@@ -164,35 +251,41 @@
       };
     }
 
+    // Bells change instrument with warmth too: glass for cool photos,
+    // chimes in between, soft mallets (an octave lower) for warm ones.
+    function toneFor(w) {
+      if (w < 0.34) return { ratio: 3.5, index: 1.4, decay: 2.4, shift: 0 };
+      if (w < 0.67) return { ratio: 2, index: 1.0, decay: 1.7, shift: 0 };
+      return { ratio: 1, index: 0.55, decay: 1.0, shift: -12 };
+    }
+
     function bell(n, t, vel) {
-      const f = mtof(n);
+      const tone = bellTone || toneFor(0.5);
+      const f = mtof(n + tone.shift);
       const car = ctx.createOscillator(); car.frequency.value = f;
-      const mod = ctx.createOscillator(); mod.frequency.value = f * (Math.random() < 0.7 ? 2 : 3.01);
+      const mod = ctx.createOscillator(); mod.frequency.value = f * tone.ratio;
       const modDepth = ctx.createGain();
-      modDepth.gain.setValueAtTime(f * 1.1 * vel, t);
-      modDepth.gain.setTargetAtTime(f * 0.04, t, 0.5);
+      modDepth.gain.setValueAtTime(f * tone.index * vel, t);
+      modDepth.gain.setTargetAtTime(f * 0.03, t, tone.decay * 0.3);
       mod.connect(modDepth); modDepth.connect(car.frequency);
       wobble.connect(car.detune);
 
       const env = ctx.createGain();
       env.gain.setValueAtTime(0, t);
-      env.gain.linearRampToValueAtTime(0.085 * vel, t + 0.04);
-      env.gain.setTargetAtTime(0, t + 0.04, 1.7);
+      env.gain.linearRampToValueAtTime(0.085 * vel * (tone.shift ? 1.3 : 1), t + 0.04);
+      env.gain.setTargetAtTime(0, t + 0.04, tone.decay);
       const pan = ctx.createStereoPanner(); pan.pan.value = Math.random() * 1.4 - 0.7;
       car.connect(env); env.connect(pan); pan.connect(bellBus);
       car.start(t); mod.start(t);
-      car.stop(t + 9); mod.stop(t + 9);
+      car.stop(t + tone.decay * 6); mod.stop(t + tone.decay * 6);
     }
 
-    function chordFor(mood) {
-      const scale = MODES[MODE_ORDER[mood.mode]] || MODES.ionian;
-      const base = 48 + keyRoot; // pad sits around octave 3
-      const note = (i) => base + 12 * Math.floor(i / 7) + scale[((i % 7) + 7) % 7];
-      const d = mood.degree;
-      // Open voicing: root, fifth, then the third and seventh an octave up.
-      let notes = [note(d), note(d + 4), note(d + 9), note(d + 13)];
-      if (d >= 4) notes = notes.map((n) => n - 12);
-      return notes;
+    // Main color -> one of your chords. Photos are ranked by hue (magenta,
+    // red, orange, yellow, green, cyan, blue) against the whole collection and
+    // split evenly across the list; photos with little color go to the first.
+    function chordIndex(mood) {
+      if (mood.hue < 0) return 0;
+      return Math.min(chords.length - 1, Math.floor(mood.hue * chords.length));
     }
 
     // The bells play "their" chord tone, an octave or two above the pad,
@@ -205,6 +298,9 @@
     }
 
     return {
+      chordNames,
+      chordIndex,
+
       start(t) {
         running = true;
         lfo.start(t);
@@ -234,17 +330,22 @@
       },
 
       setMood(mood, t) {
-        const notes = chordFor(mood);
-        const key = notes.join(",");
-        if (key !== chordKey) {
-          const next = startPad(notes, t, chord ? CROSSFADE_SECONDS : 4);
+        const w = clamp(mood.warmth, 0, 1);
+        const notes = chords[chordIndex(mood)];
+        // A new photo crossfades the pad even on the same chord, since its
+        // sound (warmth) can change.
+        const key = notes.join(",") + "|" + w.toFixed(1);
+        if (key !== padKey) {
+          const next = startPad(notes, t, chord ? CROSSFADE_SECONDS : 4, w);
           if (pad) pad.stop(t, CROSSFADE_SECONDS);
           pad = next;
           chord = notes;
-          chordKey = key;
+          padKey = key;
         }
+        bellTone = toneFor(w);
         const ageDim = clamp(1 - mood.age / 120, 0.6, 1);
         padFilter.frequency.setTargetAtTime((350 + Math.pow(mood.brightness, 1.5) * 2600) * ageDim, t, 2);
+        padFilter.Q.setTargetAtTime(mix(2.8, 0.5, w), t, 2);
         wet.gain.setTargetAtTime(0.35 + mood.haze * 0.45, t, 2);
         dry.gain.setTargetAtTime(0.85 - mood.haze * 0.25, t, 2);
         wobble.gain.setTargetAtTime(2 + Math.min(mood.age, 60) * 0.35, t, 3);
@@ -257,7 +358,7 @@
     };
   }
 
-  const DEFAULT_MOOD = { mode: 3, degree: 0, brightness: 0.5, saturation: 0.5, haze: 0.5, age: 5 };
+  const DEFAULT_MOOD = { hue: -1, warmth: 0.5, brightness: 0.5, saturation: 0.5, haze: 0.5, age: 5 };
 
   // ------------------------------------------------ reading each photo
 
@@ -270,9 +371,6 @@
     return (h + 6) % 6; // 0 red, 1 yellow, 2 green, 3 cyan, 4 blue, 5 magenta
   }
 
-  // Hue -> chord: red I, yellow IV, green V, cyan vi, blue ii, magenta iii.
-  const HUE_TO_DEGREE = [0, 3, 4, 5, 1, 2];
-
   function yearsOld(f) {
     const t = (f.imageMediaMetadata || {}).time;
     const m = t && t.match(/^(\d{4})/);
@@ -280,7 +378,8 @@
     return Math.max(0, new Date().getFullYear() - +m[1]);
   }
 
-  function moodFromPixels(img, f) {
+  // The raw numbers from a 24x24 copy of the photo.
+  function measurePixels(img) {
     const W = 24, H = 24;
     const c = document.createElement("canvas");
     c.width = W; c.height = H;
@@ -289,30 +388,64 @@
     const px = g.getImageData(0, 0, W, H).data; // throws if the image is cross-origin tainted
 
     const n = W * H;
-    const hueBins = [0, 0, 0, 0, 0, 0];
-    let L = 0, L2 = 0, S = 0, RB = 0;
+    let L = 0, L2 = 0, S = 0, RB = 0, hx = 0, hy = 0, hw = 0;
     for (let i = 0; i < px.length; i += 4) {
       const r = px[i] / 255, gr = px[i + 1] / 255, b = px[i + 2] / 255;
       const max = Math.max(r, gr, b), min = Math.min(r, gr, b);
       const l = 0.2126 * r + 0.7152 * gr + 0.0722 * b;
       const s = max > 0 ? (max - min) / max : 0;
       L += l; L2 += l * l; S += s; RB += r - b;
-      if (s > 0.25 && max > 0.15) hueBins[Math.floor(hue6(r, gr, b, max, min)) % 6] += s;
+      if (s > 0.25 && max > 0.15) {
+        const a = hue6(r, gr, b, max, min) * Math.PI / 3;
+        hx += Math.cos(a) * s; hy += Math.sin(a) * s; hw += s;
+      }
     }
     const brightness = L / n;
-    const contrast = Math.sqrt(Math.max(0, L2 / n - brightness * brightness));
-    const warmth = RB / n;
-
-    let degree = 0, best = 0;
-    hueBins.forEach((v, i) => { if (v > best) { best = v; degree = HUE_TO_DEGREE[i]; } });
-    if (best < n * 0.03) degree = 0; // basically colorless: stay home
-
+    let hue = null; // average hue in degrees; null if there's hardly any color
+    if (hw >= n * 0.03) {
+      hue = Math.atan2(hy, hx) * 180 / Math.PI;
+      if (hue < -90) hue += 360; // keep reds and magentas next to each other
+    }
     return {
-      mode: Math.min(4, Math.floor(clamp((warmth + 0.12) / 0.24, 0, 1) * 5)),
-      degree,
-      brightness: clamp(brightness, 0, 1),
-      saturation: clamp((S / n) / 0.45, 0, 1),
-      haze: clamp(1 - contrast / 0.28, 0, 1),
+      hue,
+      warmth: RB / n,
+      brightness,
+      saturation: S / n,
+      contrast: Math.sqrt(Math.max(0, L2 / n - brightness * brightness)),
+    };
+  }
+
+  // Calibration from 160 random photos in the photoframe Drive folder
+  // (Nov 2026). Each list is the 0th, 10th, 20th ... 100th percentile of that
+  // measure. Most of these photos are orange-ish and warm, so raw numbers
+  // would put nearly every photo on the same chord and the same sound.
+  // Ranking each photo against the collection spreads them evenly instead.
+  // (26 of the 160 had too little color for a hue; they go to the home chord.)
+  const CALIBRATION = {
+    hue:        [-82.0, 20.7, 24.7, 28.5, 32.4, 38.1, 49.7, 56.3, 69.6, 205.0, 268.2], // degrees
+    warmth:     [-0.301, -0.036, 0, 0.018, 0.049, 0.065, 0.075, 0.099, 0.119, 0.194, 0.515],
+    saturation: [0, 0.131, 0.205, 0.228, 0.279, 0.326, 0.343, 0.387, 0.439, 0.597, 0.873],
+    contrast:   [0.058, 0.113, 0.136, 0.156, 0.171, 0.182, 0.191, 0.217, 0.233, 0.258, 0.349],
+  };
+
+  // Where x falls in the collection, 0 (lowest) to 1 (highest).
+  function rank(x, q) {
+    if (x <= q[0]) return 0;
+    for (let i = 1; i < q.length; i++) {
+      if (x <= q[i]) return (i - 1 + (x - q[i - 1]) / Math.max(1e-9, q[i] - q[i - 1])) / (q.length - 1);
+    }
+    return 1;
+  }
+
+  function moodFromPixels(img, f) {
+    const m = measurePixels(img);
+    return {
+      // 0..1 position on the collection's hue range, or -1 for "no color"
+      hue: m.hue === null ? -1 : Math.min(0.999, rank(m.hue, CALIBRATION.hue)),
+      warmth: rank(m.warmth, CALIBRATION.warmth),
+      brightness: clamp(m.brightness, 0, 1), // kept absolute: night should sound like night
+      saturation: rank(m.saturation, CALIBRATION.saturation),
+      haze: 1 - rank(m.contrast, CALIBRATION.contrast),
       age: yearsOld(f),
     };
   }
@@ -325,8 +458,8 @@
     const t = (f.imageMediaMetadata || {}).time;
     const hour = t ? +(t.match(/ (\d{2}):/) || [0, 12])[1] : 12;
     return {
-      mode: h % 5,
-      degree: [0, 3, 4, 5][(h >>> 3) % 4],
+      hue: h % 6 === 0 ? -1 : (h % 97) / 97,
+      warmth: ((h >>> 3) % 11) / 10,
       brightness: hour >= 7 && hour <= 18 ? 0.6 : 0.25,
       saturation: 0.5,
       haze: 0.5,
@@ -362,7 +495,7 @@
   // ---------------------------------------------------- on the frame
 
   // Exposed so a preview can be rendered offline with the same engine.
-  window.PhotoMusicEngine = { Engine, MODE_ORDER, moodFor };
+  window.PhotoMusicEngine = { Engine, moodFor, parseChord, measurePixels };
 
   const CFG = window.CONFIG || {};
   const PREFIX = CFG.STORAGE_PREFIX || "";
@@ -396,6 +529,7 @@
     ctx = new AC({ latencyHint: "playback" });
     engine = Engine(ctx, ctx.destination, {
       key: CFG.MUSIC_KEY || "D",
+      chords: CFG.MUSIC_CHORDS,
       volume: CFG.MUSIC_VOLUME !== undefined ? CFG.MUSIC_VOLUME : 0.5,
     });
     engine.start(ctx.currentTime + 0.1);
