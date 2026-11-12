@@ -37,9 +37,9 @@ window.CONFIG = {
 
   // The only chords the music uses. Names like Dm7(9), Fm6, Cmaj7, G7sus4,
   // Bbmaj9, or exact notes: ["D3", "A3", "C4", "E4", "F4"].
-  // IV - vii - III - vi - ii - V - I in C, falling in fifths back home
-  // (F9 and E7 add a bluesy b7 and a G# that pulls toward Am7).
-  MUSIC_CHORDS: ["F9", "Bm7b5", "E7", "Am7", "Dm7", "G7", "Cmaj7"],
+  // IV - VII - III - vi - ii - V - I in C, falling in fifths back home.
+  // Fmaj7#11 floats; B7 and E7 each pull hard into the next chord.
+  MUSIC_CHORDS: ["Fmaj7#11", "B7", "E7", "Am7", "Dm7", "G7", "Cmaj7"],
   // "progression": play them in order, one chord per photo, then loop.
   // "color": each photo's main color picks one (the first is home).
   MUSIC_CHORD_ORDER: "progression",
@@ -47,7 +47,9 @@ window.CONFIG = {
   // "key": it holds MUSIC_KEY under every chord.
   MUSIC_BASS: "chord",
 
-  // The last set, for going back:
+  // Earlier: ["F9", "Bm7b5", "E7", "Am7", "Dm7", "G7", "Cmaj7"], and before
+  // that ["Fmaj9", "Bm7b5", "Em7", ...] (both progression, bass "chord").
+  // The first set, for going back:
   // MUSIC_CHORDS: ["Dm7(9)", "Dm7", "Dm7(b5)", "Fm6", "C maj 7"],
   // MUSIC_CHORD_ORDER: "color", MUSIC_BASS: "key", MUSIC_KEY: "D",
 };

@@ -101,6 +101,14 @@
     const ext = [];
     let q = m[3].replace(/\(([^)]*)\)/g, (_, x) => { ext.push(...x.split(/[,/]/)); return ""; });
     q = q.replace(/add([b#]?\d+)/g, (_, x) => { ext.push(x); return ""; });
+    // Alterations written without parentheses, like Fmaj7#11 or G7b9:
+    // peel them off the end until what's left is a known quality.
+    while (!QUALITIES.some(([re]) => re.test(q))) {
+      const tail = q.match(/([b#](?:5|9|11|13))$/);
+      if (!tail) break;
+      ext.unshift(tail[1]);
+      q = q.slice(0, -tail[1].length);
+    }
     const found = QUALITIES.find(([re]) => re.test(q));
     if (!found) throw new Error(`Can't read chord "${name}" (unknown "${q}")`);
     let iv = found[1].slice();
