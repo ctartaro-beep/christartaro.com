@@ -568,7 +568,7 @@
   let lastFocus = null;
   // What Chris did on each video, for the Shuffle player: taken from the Other Videos sections
   // (Directing / Editing / Color), or a video's own "roles" list in the data file; otherwise "Director".
-  const ROLE = { Directing: "Director", Editing: "Edited", Color: "Colored" };
+  const ROLE = { Directing: "Director", Editing: "Editor", Color: "Colorist" };
   const roleMap = new Map();
   for (const p of pages) for (const s of p.sections || []) if (ROLE[s.title])
     for (const v of s.items || []) {
@@ -660,7 +660,7 @@
     const roles = $("viewer-roles");
     const sr = seriesOf(v);
     roles.hidden = !opts.shuffle && !sr;
-    roles.textContent = opts.shuffle ? ["Shuffle", ...["Director", "Edited", "Colored"].filter((r) => rolesFor(v).includes(r))].join("  ·  ")
+    roles.textContent = opts.shuffle ? ["Shuffle", ...["Director", "Editor", "Colorist"].filter((r) => rolesFor(v).includes(r))].join("  ·  ")
       : sr ? `${sr.show.title}  ·  ${sr.ser.title}` : "";
     const frame = $("viewer-frame");
     if (EMBED) {
