@@ -37,6 +37,16 @@
           "title": "Select Comedy Sketches",
           "items": [
             {
+              "title": "You Can See Everything with Jamie Lee Curtis",
+              "youtube": "jLXghyVDXbg",
+              "thumb": "img/you-can-see-everything.webp",
+              "frames": [
+                "https://i.ytimg.com/vi/jLXghyVDXbg/maxres1.jpg",
+                "https://i.ytimg.com/vi/jLXghyVDXbg/maxres2.jpg",
+                "https://i.ytimg.com/vi/jLXghyVDXbg/maxres3.jpg"
+              ]
+            },
+            {
               "title": "Ray Parker Jr., Bill Murray, Ernie Hudson, Jimmy & The Roots: \"Ghostbusters\" (Classroom Instruments)",
               "youtube": "tXNOTEQaOa0",
               "thumb": "img/yt-tXNOTEQaOa0.webp",
@@ -734,14 +744,14 @@
       ],
       "layout": "wall",
       "featured": {
-        "title": "You Can See Everything with Jamie Lee Curtis",
-        "youtube": "jLXghyVDXbg",
-        "thumb": "img/you-can-see-everything.webp",
+        "title": "Elevator's Got The Hunger Games w/ Jennifer Lawrence, Josh Hutcherson & Woody Harrelson",
+        "youtube": "BRFNKmGiOz4",
+        "thumb": "img/yt-BRFNKmGiOz4.webp",
         "kicker": "Directed · Cold Open",
         "frames": [
-          "https://i.ytimg.com/vi/jLXghyVDXbg/maxres1.jpg",
-          "https://i.ytimg.com/vi/jLXghyVDXbg/maxres2.jpg",
-          "https://i.ytimg.com/vi/jLXghyVDXbg/maxres3.jpg"
+          "https://i.ytimg.com/vi/BRFNKmGiOz4/maxres1.jpg",
+          "https://i.ytimg.com/vi/BRFNKmGiOz4/maxres2.jpg",
+          "https://i.ytimg.com/vi/BRFNKmGiOz4/maxres3.jpg"
         ]
       },
       "jump": [
