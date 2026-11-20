@@ -690,8 +690,120 @@
   $("viewer-close").addEventListener("click", closeViewer);
   dlg.addEventListener("click", (e) => { if (e.target === dlg || e.target.classList.contains("viewer-inner")) closeViewer(); });
 
+
+  // ---------- Search: #search, with the query kept in the address (#search=ghostbusters) ----------
+  // Matches every word typed (any order, start of a word) against titles, descriptions, artists,
+  // songs, the page and section a video sits in, and Chris's role on it. Title hits rank first.
+  const fold = (t) => String(t || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+  let searchIndex = null;
+  function buildIndex() {
+    const byKey = new Map();
+    const add = (v, where) => {
+      const k = vkey(v);
+      if (!k || v.hidden) return;
+      let e = byKey.get(k);
+      if (!e) byKey.set(k, e = { v, where: [], extra: [] });
+      if (where && !e.where.includes(where)) e.where.push(where);
+    };
+    for (const p of pages) {
+      if (p.featured) add(p.featured, p.label);
+      for (const s of p.sections || []) {
+        const where = s.title && s.title !== p.label ? `${p.label} · ${s.title}` : p.label;
+        for (const v of s.items || []) add(v, where);
+        for (const ser of s.series || []) for (const v of ser.items) add(v, `${s.title} · ${ser.title}`);
+      }
+    }
+    for (const v of data.site.shuffleExtras || []) add(v, "");
+    return [...byKey.values()].map((e) => {
+      const v = e.v;
+      e.title = fold(v.title);
+      e.text = fold([v.title, v.description, v.artist, v.song, v.coverOf, ...e.where, ...rolesFor(v)].join(" "));
+      return e;
+    });
+  }
+  function runSearch(q) {
+    const words = fold(q).split(" ").filter(Boolean);
+    if (!words.length) return { list: [], md: null };
+    searchIndex = searchIndex || buildIndex();
+    const hit = (txt, w) => (" " + txt).includes(" " + w);
+    const out = [];
+    for (const e of searchIndex) {
+      if (!words.every((w) => hit(e.text, w))) continue;
+      const score = words.filter((w) => hit(e.title, w)).length * 2 + (e.title.startsWith(words[0]) ? 1 : 0);
+      out.push({ e, score });
+    }
+    // MicroDramas lives on its own page; a search for it links there.
+    const md = data.site.microdramas;
+    const mdHit = md && words.every((w) => hit(fold(md.title + " microdramas micro dramas vertical soap opera billionaire"), w));
+    return { list: out.sort((a, b) => b.score - a.score).map((x) => x.e), md: mdHit ? md : null };
+  }
+  const searchQuery = () => {
+    const m = location.hash.match(/^#search(?:=(.*))?$/);
+    return m ? decodeURIComponent((m[1] || "").replace(/\+/g, " ")) : null;
+  };
+  function renderSearch(main, q) {
+    document.title = `Search · ${data.site.name}`;
+    for (const a of Object.values(navLinks)) a.removeAttribute("aria-current");
+    const input = el("input", { class: "search-input", type: "search", placeholder: "Search videos, guests, songs…",
+      "aria-label": "Search the site", autocomplete: "off", spellcheck: "false", enterkeyhint: "search" });
+    input.value = q;
+    const status = el("p", { class: "search-status", role: "status" });
+    const results = el("div", { class: "search-results" });
+    const show = () => {
+      const val = input.value;
+      history.replaceState(null, "", "#search" + (val.trim() ? "=" + encodeURIComponent(val.trim()) : ""));
+      const r = runSearch(val);
+      results.replaceChildren();
+      if (!val.trim()) { status.textContent = ""; return; }
+      const n = r.list.length + (r.md ? 1 : 0);
+      status.textContent = n ? `${n} ${n === 1 ? "result" : "results"}` : "No videos match that. Try a guest, a song or a show.";
+      const items = r.list.map((e) => {
+        const li = card(e.v);
+        if (e.where.length) li.querySelector(".card").append(el("span", { class: "search-where", text: e.where.join("  /  ") }));
+        return li;
+      });
+      if (r.md) items.unshift(el("li", {}, el("a", { class: "card search-md", href: r.md.href },
+        el("div", { class: "thumb" }, poster(r.md.title)),
+        el("span", { class: "title", text: r.md.title }),
+        el("span", { class: "search-where", text: "MicroDramas · vertical series" }))));
+      if (items.length) results.append(el("ul", { class: "grid" }, ...items));
+    };
+    let t = 0;
+    input.addEventListener("input", () => { clearTimeout(t); t = setTimeout(show, 120); });
+    input.addEventListener("keydown", (e) => { if (e.key === "Escape" && input.value) { input.value = ""; show(); e.stopPropagation(); } });
+    main.append(el("section", { class: "search" },
+      el("div", { class: "search-bar" }, input), status, results));
+    show();
+    requestAnimationFrame(() => input.focus({ preventScroll: true }));
+  }
+  // Search link in the menu, and "/" anywhere on the page jumps to it.
+  const searchLink = el("a", { href: "#search", class: "nav-search", "aria-label": "Search" },
+    el("span", { class: "ns-label", text: "Search" }));
+  // Search and "Other" share a group at the right end of the menu, so on narrow screens they wrap together.
+  nav.append(el("div", { class: "nav-end" }, searchLink, $("nav-more")));
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "/" || e.metaKey || e.ctrlKey || e.altKey || dlg.open) return;
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName) || document.activeElement.isContentEditable) return;
+    e.preventDefault();
+    if (searchQuery() !== null) { const i = document.querySelector(".search-input"); if (i) i.focus(); }
+    else location.hash = "search";
+  });
+
   // Routing: #comedy, #music, #other, #about
-  const route = () => { closeViewer(); render(location.hash.slice(1)); };
+  const route = () => {
+    closeViewer();
+    const q = searchQuery();
+    if (q !== null) {
+      if (wallCleanup) wallCleanup();
+      const main = $("main");
+      main.replaceChildren();
+      renderSearch(main, q);
+      searchLink.setAttribute("aria-current", "page");
+      return;
+    }
+    searchLink.removeAttribute("aria-current");
+    render(location.hash.slice(1));
+  };
   window.addEventListener("hashchange", () => { route(); window.scrollTo(0, 0); });
   route();
 })();

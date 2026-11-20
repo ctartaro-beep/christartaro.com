@@ -30,6 +30,10 @@ About paragraphs can link with `[text](url)` and set show titles in bold italic 
 
 Bump the `?v=` number on `styles.css` and `app.js` in `index.html` (any new value, e.g. the date and time). Browsers cache each file for 10 minutes; the shared version makes them pick up the new script, styles and data together.
 
+## Search
+
+The Search link in the menu (or pressing `/`) opens `#search`. It matches every word typed against each video's title, description, artist, song, the page and section it sits on, and Chris's role (Director, Editor, Colorist). New videos in `data/videos.json` are searchable automatically. A search can be linked directly, e.g. `christartaro.com/#search=ghostbusters`.
+
 ## Preview locally
 
 ```sh
