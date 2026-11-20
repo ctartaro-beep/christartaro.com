@@ -178,7 +178,8 @@
       <text class="rb-text"><textPath href="#rb-arc" startOffset="50%" text-anchor="middle">Surprise Me!</textPath></text>
     </svg>`);
     sh.addEventListener("click", playRandom);
-    const jumpInner = el("div", { class: "jump-inner" }, sh, el("p", { class: "j-count", text: `Any of ${shufflePool().length} videos` }), jl);
+    const jumpInner = el("div", { class: "jump-inner" },
+      el("div", { class: "sh-wrap" }, sh, el("p", { class: "j-count", text: `Any of ${shufflePool().length} videos` })), jl);
     nav.append(jumpInner);
 
     const sizes = shuffled(page.sections[0].items.map((_, i) => ["s", "s", "m", "m", "l"][i % 5]));

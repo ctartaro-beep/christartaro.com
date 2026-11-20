@@ -413,6 +413,10 @@ main { padding-block: 8px 80px; outline: none; }
 /* jump links + shuffle, beside the featured video */
 .w-jump nav { display: flex; flex-direction: column; }
 .jump-inner { background: var(--bg); box-shadow: 0 0 0 10px var(--bg); }
+/* Wide: the links sit at the bottom of the column, and the Surprise Me! banner is centered in the space above them. */
+.wall.is-wide .jump-inner { flex: 1; display: flex; flex-direction: column; }
+.wall.is-wide .sh-wrap { flex: 1; display: flex; flex-direction: column; justify-content: center; padding-block: 12px; }
+.wall.is-wide .sh-wrap .j-count { margin-bottom: 0; }
 .w-jump a {
   display: flex; flex-direction: column; gap: 4px;
   padding: 10px 0;
@@ -426,7 +430,7 @@ main { padding-block: 8px 80px; outline: none; }
 .shuffle {
   position: relative;
   display: flex; align-items: center; justify-content: center; gap: 8px;
-  width: 100%; max-width: 240px; aspect-ratio: 240 / 92;
+  width: 100%; max-width: 340px; aspect-ratio: 240 / 92;
   margin: 0 auto;
   padding: 0 0 6px;
   border: 0;
@@ -444,7 +448,7 @@ main { padding-block: 8px 80px; outline: none; }
 .rb-text { fill: #fff; font: italic 500 26px "Bodoni Moda", "Didot", "Bodoni 72", serif; letter-spacing: -.01em; }
 .shuffle:hover { filter: brightness(1.12) drop-shadow(0 8px 14px rgba(255,68,54,.35)); transform: translateY(-2px); }
 .shuffle:active { transform: translateY(0); filter: brightness(.95); }
-.j-count { margin: 6px 0 18px; text-align: center; font: 400 .7rem/1.3 var(--mono); letter-spacing: .04em; color: var(--muted); }
+.j-count { margin: 10px 0 22px; text-align: center; font: 400 .7rem/1.3 var(--mono); letter-spacing: .04em; color: var(--muted); }
 @media (prefers-reduced-motion: reduce) {
   .shuffle, .wall .thumb::before { transition: none; }
   .shuffle:hover, .wall .card:hover .thumb img { transform: none; }
