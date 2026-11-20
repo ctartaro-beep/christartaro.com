@@ -771,7 +771,6 @@
     };
     let t = 0;
     input.addEventListener("input", () => { clearTimeout(t); t = setTimeout(show, 120); });
-    input.addEventListener("keydown", (e) => { if (e.key === "Escape" && input.value) { input.value = ""; show(); e.stopPropagation(); } });
     main.append(el("section", { class: "search" },
       el("div", { class: "search-bar" }, input), status, results));
     show();
@@ -782,6 +781,14 @@
     el("span", { class: "ns-label", text: "Search" }));
   // Search and "Other" share a group at the right end of the menu, so on narrow screens they wrap together.
   nav.append(el("div", { class: "nav-end" }, searchLink, $("nav-more")));
+  // Esc leaves search from anywhere on the results page (not while a video is open), back to the page you came from.
+  let lastPage = "";
+  const exitSearch = () => { location.hash = lastPage || (pages[0] && pages[0].id) || ""; };
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape" || searchQuery() === null || dlg.open) return;
+    e.preventDefault();
+    exitSearch();
+  });
   document.addEventListener("keydown", (e) => {
     if (e.key !== "/" || e.metaKey || e.ctrlKey || e.altKey || dlg.open) return;
     if (/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName) || document.activeElement.isContentEditable) return;
@@ -803,7 +810,8 @@
       return;
     }
     searchLink.removeAttribute("aria-current");
-    render(location.hash.slice(1));
+    lastPage = location.hash.slice(1);
+    render(lastPage);
   };
   window.addEventListener("hashchange", () => { route(); window.scrollTo(0, 0); });
   route();
